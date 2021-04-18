@@ -543,6 +543,9 @@ ALTER  TABLE  `表名` DROP `id`;
 ALTER TABLE 表名 add int(11) primary key not null auto_increment FIRST;
 //添加自增id达到重置id
 
+truncate table 表名
+//重置id会删除数据;
+
 【删除所有数据保留结构】
 Truncate 表名;
 &&
@@ -1105,7 +1108,7 @@ Inout
 
 
 【触发器】
-Create trigg 触发名字 触发时机 触发事件 on 绑定的表 for each row
+Create trigger 触发名字 触发时机 触发事件 on 绑定的表 for each row
 Begin
     //内容
 end;
@@ -1122,8 +1125,328 @@ update //更新操作
 dlete  //删除炒作
 
 
+【查看触发器】
+1、查看触发器
+show triggers;
+
+2、查看触发器的创建语句
+show create tigger 触发器名字;
+
+
+【删除触发器】
+drop trigger 触发器名字;
+
+【触发器关键字】
+new 
+//改变后的数据
+old
+//改变前的数据
+
+【触发器实例】
+//商品自动扣除库存
+delimiter $$
+Create trigger 触发名字 alter insert on 绑定的表 for each row
+Begin
+    update  商品出库表 set 字段名 = 字段名 - 出库数量字段  where id = new.商品字段
+    //更新商品   new代表新增的订单
+end
+$$
+delimiter ;
+
+//判断库存是否够扣
+delimiter $$
+Create trigger 触发名字 before insert on 绑定的表 for each row
+Begin
+        selecr 库存字段 from 数据表 where id = new.id into @inv;
+        //数据取出 并且赋值
+
+        if @inv < new.取出数量字段 then
+            insert into xxx values ('xxx');
+            //如果成立暴力中断
+        end if;
+end
+$$
+delimiter ;
 *****************************存储过程END***********************************
-
-
 /**************************MySQL数据库END******************************/
 
+/**************************PHP核心编程******************************/
+/* 设置PHP文件字符集 */
+    header('Content-type:text/html;charser=utf-8');
+
+/* 表单上传 */
+    Get 
+    1、获取传递数据
+    2、搭配a标签和js多样化使用
+    Post
+    1、上传表单
+
+    /* 上传复选框 */
+        1、checkox(多选框)
+        <input type="checkox" name="名字[]" value="xxxx">
+        <input type="checkox" name="名字[]" value="xxxx">
+        //保证完整一组数据，不会因为同名覆盖;
+
+        2、radio(单选框)
+        <input type="radio" name="gender" value="1" checked="checked"(默认选择)>男
+        <input type="radio" name="gender" value="2">女
+
+/* 表单接收 */
+    $_GET //接收GET方式提交的数据
+    $_POST //接收POST方式提交的数据
+    $_ERQUEST //接收以上两种格式的数据
+
+/* 数组分隔符 */
+    implode('分隔符',数组)
+    //数组转换字段并且加上分隔符
+    Explode('分隔符',数组)
+    //吧转换后的字符串变成数组 
+
+/* 文件上传 */
+    【from表单】
+    1、method='Post'  
+        上传文件只能用POST格式
+       
+    2、enctype="multipart/form-data"
+    //规范上传数据的编码
+
+    【input,file选择文件】
+        <input type="file" name="imge">
+
+    【$_FILES,获取用户上次文件】
+        $_FILES['name名字']['name']
+        //文件实际名字
+
+        $_FILES['name名字']['tmp_name']
+        //文件上传到服务器的临时路径
+
+        $_FILES['name名字']['type']
+        //文件格式
+
+        $_FILES['name名字']['size']
+        //文件大小(字节)
+
+        $_FILES['name名字']['error']
+        //文件上传的代号,告知文件上传出现了什么问题
+    
+    【临时文件移动到目标目录】
+        1、赋值
+        $file=$_FILES['name名字']
+        
+        2、判断否是上传文件/临时文件
+        is_uploaded_file($file['temp_name'])
+
+        3、将上传的文件移动到新位置
+            move_uploaded_file($file['tmp_name'],'路径'.$file['naem'])
+    
+    【】
+
+/* 多文件上传 */
+    1、同名
+    <input type="file" name="image[]">.....
+    //同名文件遍历获取文件
+    //判断文件和数组是否存在
+    if(isset($_FILES['image']['naem']) as is_array($_FILES['image']['naem'])){
+        //声明储存数据的数组
+        $images = array();
+        foreach($_FILES['image']['name] as $k(键) => $file(值)){
+            $images[]=array(
+                'name' => $file,
+                'type' =>$_FILES['image']['type'][$k],
+                'tmp_name' =>$_FILES['image']['tmp_name][$k],
+                'error' =>$_FILES['image']['error'][$k],
+                'size' =>$_FILES['image']['size'][$k],
+            )
+        }
+    }
+    
+    2、不同名,形成独立的五个数据
+    <input type="file" name="image1">.....
+    //遍历下标上传每一个选择的数据
+    foreach($_FILES as %file){
+        //$file相当$_FILES于下标,判断是否存在文件
+        if(is_uploaded_file($file['tem_name'])){
+            //是,把临时文件放到指定根目录
+            move_uploaded_file($file['tmp_name'],'目录地址'.$file['name']);
+        }
+    }
+
+/* MySQL连接*/
+    1、
+    maysql_connect(服务器地址,用户名,密码) or die("'数据库连接失败：' . mysqli_connect_error()")
+
+    2、
+    $link = @maysql_connect(服务器地址,用户名,密码)
+    //赋值
+    if(!$link){
+    exit('数据库连接失败：' . mysqli_connect_error());
+    }
+    //判断是否连接成功，否者返回原因
+    mysqli_set_charset($link, 'utf8');
+    //以utf-8字符集连接数据库
+
+/* MySQL&PHP指令 */
+    【PHP执行sql指令】
+    mysqli_query();
+
+    【选择数据库】
+    mysqki_select db('数据库')
+
+    【断开与数据库的连接】
+    mysqli_colse($link)
+
+    【获取结果集数据条数：多少行记录】
+    mysql_num_rows()
+
+   /* MySQL资源集 */
+        [把MySQL资源集转换成PHP的数组,并且每次运行下标往后移动一位]
+        mysql_fetch_assoc();
+        //获取关联数组并且以表单名字作为下标，返回数组
+
+        mysql_fetch_row();
+        //获取关联s并且以索引数组[0~9]作为下标，返回数组
+
+        (推荐使用)
+        mysql_fetch_array('$sql',[MYSQL_BOTH])
+        //默认MYSQL_BOTH获取表单名和索引值下标的数组
+        MYSQL_ASSOC:只获取表单名下标
+        MYSQL_NUM:只获取索引值下标
+
+    /* MySQL扩展 */
+        【字段信息相关】
+        mysql_num_fields('$sql');
+        //获取一个指定结果集中所有的字段数
+
+        mysql_field_name('$sql',1);
+        //获取一个指定结果集中指定字段的名字
+
+        【错误信息相关】
+        mysql_error()
+        //获取mysql出错相应的提示信息
+
+        mysql_errno()
+        //获取mysql出错相应的代码
+
+        exit()
+        //终止代码执行
+
+        【其他函数】
+        mysql_insert_id();
+        //获取上次插入所产生的自增长id，如果没有自增长id者返回0
+
+    /* 增加数据 */
+        【获取POST上传的数据】
+        $name = isser($_FILES['name'])? trim($_FILES['name']):'';
+        //判断数据是否为空， trim清除前面空格;
+
+        header('refresh:3;url=news_add.html');
+        //三秒后跳转到指定的页面，header前面不能有输出(置顶)
+
+        CURRENT_TIMESTAMP  //sql语句
+        //如果数据库的tiem设置是插入数据时写入时间,php的sql要写这个
+
+    /* 查询数据库数据 */
+        <?php foreach【遍历】(执行语句): ?>
+            html代码
+        <?php endforeach; ?>
+        //PHP包含html执行
+
+/* HTTP协议 */
+    【浏览器接收】
+    Request Headers
+    //请求
+    Response Headers 
+    //服务器返回体
+
+    【HTTP请求】
+    [请求行]
+    1)形式：请求方式 资源路径 协议版本号
+    2）GET /index.php HTTP/1.1
+
+    [请求头]
+    1)host                请求的主机地址(必须)   
+    Connection:keep-alive 保持连接    
+    2)Accept              当前请求能狗接收服务器返回的类型(MIME类型)
+    3)Accept-Language     接收的语言
+    Accept-Encoding       数据压缩格式
+    4)user-Agent          用户浏览器的各种信息
+
+
+    [请求体]
+    1)只有POST会产生的请求体
+    2)基本格式:资源名字=资源值&资源名字=资源值
+
+
+    【HTTP响应】
+    [响应行]
+    1)形式：协议版本号 状态码 状态消息
+    2)200 ok  成功
+    3)403     没有权限访问
+    4)404     找不到页面
+    5)500     服务器出错
+
+    [响应头]
+    1)时间:wod
+    2)服务器:Server
+    3)内容长度:Content-Length
+    4)内容类型:Content-type
+    5)keep-Ailce:timeout=5(最多连续连接5秒) max=100(最多请求100次)
+
+    【HTTP响应设置及使用】
+    1)Location:重新定向,立即跳转(响应体不用解析)
+    //判定响应行;响应头;响应体;遇到locahost后不再解析后面的代码
+
+    2)Refresh:重新定向,定时转跳(响应会解析)
+
+    3)Content-type:内容类型，mime
+    //设置浏览器字符集
+
+    4)Content-disposition:内容类型,MIME类型扩展,激活浏览器文件下载对话框
+    //激活下载
+
+    [php通过header来实现设置HTTP]
+    1)Content-type
+    header('Content-type:text/html;charset=utf-8');
+    //设置打开方式为html，字符集为utf-8
+
+    2)Location:重新定向,立即跳转(响应体不用解析)
+    header('Location:xxx.php')
+    //立即跳转不执行后面的
+
+    3)Refresh:重新定向,定时转跳
+    header('Refresh:3;url=xxx.php')
+    //3秒后跳转,并解析后面的代码
+
+    4)Content-disposition,内容下载
+    header('Content-disposition:attachment;filename=girl.jpg');
+    //激活下载后面解析体         //附件       //名字
+
+/* PHP模拟HTTP请求 */
+    【CURL扩展模拟HTTP请求】(模仿用户操作,防止服务器url暴露)
+    //1)开启curl会话
+         $ch=curl_init();
+        var_dump($ch);
+    //2)设置curl传输设置
+        // CURLOPT_URL:连接对象
+            curl_setopt($ch,CURLOPT_URL,'newmal.xyz/setopt.php');//连接选项
+
+        // CURLOPT_RETURNTRANSFER:将服务器(响应)执行结果以文件流的格式返回(php脚本)
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);//文件流返回(数据)不直接显示
+
+        // CURLOPT_PORT:是否发起POST方式请求(默认GET)
+            curl_setopt($ch,CURLOPT_POST,TRUE);//使用post传输
+
+        // CURLOPT_POSTFIELDS:用来传递数据[字符串/数组];
+            curl_setopt($ch,CURLOPT_POSTFIELDS,'传输的内容');//要传输的字符串/数组
+     
+        // CURLOPT_HEADER:是否响应header信息(响应头)
+            curl_setopt($ch,CURLOPT_HEADER,0);//是否响应文件头信息(不要)
+
+    // 3)执行请求:curl_exec():执行选项(与服务器发起请求)得到返回的数据
+        $content=curl_exec($ch);
+        echo $content;
+    // 4)关闭连接:curl_close():关闭资源
+        curl_close($ch);
+    
+    
+/**************************PHP核心编程END******************************/

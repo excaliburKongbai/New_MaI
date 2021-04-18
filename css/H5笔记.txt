@@ -8,8 +8,11 @@
     //设置css编码格式
     @charset "UTF-8";
     //设置rem
-    html{
+    html{      //大小
         font-size: 16px;  //1rem = 16px 可以改变
+    }
+    body{      //字体
+        font-size: 16px;
     }
 
     outline: none;                     //清除input边框
@@ -33,13 +36,41 @@
 
 *********************************默认样式END**********************************
 
+/* H5新标签 */
+    header　　代表头部标签
+　　footer　　代表脚部标签
+　　nav　　代表导航标签
+　　Hgroup　　标题组合标签
+　　section　　区域标签
+　　article　　文章标签（也可以代表单独的一部分）
+　　aside　　侧边栏标签
+
+　　不常见的
+　　progress　　进度条  
+　　figure　　对元素的组合 （图片加文字的组合）
+　　time　　时间标签
+　　datalist　　下拉列表 （与select标签功能一样）
+　　detail　　细节　　是否允许用户可见/不可见的内容
+　　address　　地址
+　　mark　　突出的部分　　具有高亮效果
+　　keygen（仅作为了解）　　表单的公钥　　在新的web标准中废弃了
+
+
+
 opacity   //透明度
 border-radius   //圆角
 transform: scale(1.5);            //放大1.5倍
 transform-origin: bottom center;  //放大方向
 background-color: transparent;    //颜色全透明
 box-shadow: 10px 10px 5px wheat;  //阴影
-overflow: hidden;                 //超出盒子不显示
+overflow: hidden;                 //超出盒子不显示,margin塌陷使用
+
+/* 伪类 */
+    :hover      //鼠标悬浮
+    :focus      //焦点
+    a:lin，     //定义正常链接的样式；    
+    a:visited   //定义已访问过链接的样式； 
+    a:active    //定义鼠标点击链接时的样式。 
 
 
 **********************************清除浮动/元素选择器************************************
