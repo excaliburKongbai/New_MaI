@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <title>亿匠</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            /* 往里挤 */
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+        /* 直接后代选择器 */
+        
+        section>h1 {
+            color: darksalmon;
+            display: inline;
+        }
+        /* 属性选择器 */
+        
+        section h3[name="kuan"] {
+            color: yellow;
+            display: inline;
+        }
+        
+        section h3[name="gao"] {
+            color: rgb(255, 91, 126);
+            display: inline;
+        }
+        
+        a:link {
+            color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 页头 -->
+    <header>
+
+    </header>
+
+    <!-- 页中 -->
+    <article>
+        <div id="app">
+            <!-- 章节 -->
+            <section>
+                <!-- 网页基本信息 -->
+                <h1>hello World</h1>
+                <h3 name="kuan">宽度：{{w}}</h3>
+                <h3 name="gao">高度：{{h}}</h3>
+            </section>
+            <section>
+                <div class="href">
+                    <a href="#">请输入你要观看的视频连接</a>
+                    <input type="text" v-model="lj">
+                </div>
+            </section>
+            <section>
+                <video :src="lj" controls="controls" :style="Box">
+                    您的浏览器不支持HTML5播放器。
+                    </video>
+
+                <!-- 可变化盒子 /没写完 -->
+                <!-- <span :style="Box"></span>
+                <span v-bind:style="{ width:w /4+'px',
+                    height:h /4+'px',backgroundColor: 'yellow', display: 'block',}"></span> -->
+                <!-- <h3>{{name}}</h3> -->
+
+            </section>
+        </div>
+    </article>
+
+    <!-- 页尾 -->
+    <footer>
+
+    </footer>
+
+</body>
+<script type="text/javascript ">
+    let app = new Vue({
+        el: "#app ",
+        data() {
+            return {
+                //视频播放器连接
+                lj: "",
+                w: "",
+                h: " ",
+                windowWidth: document.documentElement.clientWidth, //获取页面宽度
+                windowHeight: document.documentElement.clientHeight, //获取页面高度
+            }
+        },
+        //在watch中监听宽高并且输出
+        watch: {
+            windowWidth(val) {
+                let that = this;
+                //console.log("浏览器宽度 ", that.windowWidth);
+                this.w = that.windowWidth;
+            },
+            windowHeight(val) {
+                let that = this;
+                // console.log("浏览器高度 ", that.windowHeight);
+                this.h = that.windowHeight;
+            },
+        },
+        methods: {
+
+        },
+        // 监控属性，实现双向绑定
+        computed: {
+            Box: function() {
+                return {
+                    width: this.w / 2 + "px",
+                    height: this.h / 1.5 + "px",
+                    backgroundColor: "dimgray",
+                    display: "block",
+                    margin: "0px auto",
+                }
+            }
+        },
+        mounted() {
+            var that = this;
+            //把window.onresize挂载到mounted循环里
+            window.onresize = () => {
+                return (() => {
+                    window.fullHeight = document.documentElement.clientHeight;
+                    window.fullWidth = document.documentElement.clientWidth;
+                    that.windowHeight = window.fullHeight;
+                    that.windowWidth = window.fullWidth;
+                })()
+            };
+        },
+    })
+</script>
+
+</html>

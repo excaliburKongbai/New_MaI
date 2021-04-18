@@ -1,0 +1,183 @@
+/**************************基础***************************/
+document.querySelector('video').defaultPlaybackRate=3;
+//更改浏览器播放速度
+/* 弹窗 */
+    prompt('请输入您的年龄');
+    //进入浏览器弹窗给用户的输入框
+
+    document.write()
+    //方法将内容写到html文档中
+
+/* 字符段 */
+    console.log(app.length);
+    //获取字符段长度 
+
+     console.log(typeof app);
+    //判断数据类型
+    let add = app.toString();
+    //转换字符型
+    String(app)
+    //String 直接转换字符型
+    console.log(app+'');
+    //拼接转换字符型
+
+     console.log(parseInt(app));
+     //转换数值 整除
+     console.log(parseFloat(app));
+    //转换数值 浮点数
+    console.log(Number(app));
+    //转换转换数值
+     console.log('123' - 0));
+     //拼接隐式转换
+
+     console.log(Boolean(app));
+     //转换布尔型
+
+
+/* 判断 */
+    isNaN(app);
+    //判断是否是数字
+
+/* js跳转 */
+    window.location.href = 'http://www.baidu.com';
+    //跳转超链接 本页面打开
+
+/* switch判断 */
+     switch (a) {
+        case 100:   //全等 不能是判断
+            alert("等于100");
+            break;
+
+        default:
+            执行全非语句;
+    }
+
+/* 循环 */
+    continue;
+    //跳过当次循环
+    break;
+    //退出循环
+
+/* 数组 */
+    app.length
+    //获取数组长度
+    （1）if(arr instanceof Array)
+    （2）Array.isArray(arr)  //H5新增 ie9以上才支持
+    //判断释放是数组
+
+    push(3,4)
+    //在数组末尾添加新元素
+    unshif();
+    //在数组开头添加新元素
+    pop();
+    //删除最后一个元素
+    shift();
+    //删除第一个一个元素
+
+    arr.reverse();
+    //翻转数组
+    arr.sort(function(a,b){
+        return a - b; //升序
+        return b - a; //降落序
+    });
+    //冒泡排序
+
+    arr.indexOf('数组内容');
+    //获取输入内容的数组索引值; 找不到就是-1
+
+    str.charAt(1);
+    //用变量的字符的key返回指定文字
+
+    str.caharCodeAt(2);
+    //用变量的字符的key返回文字的字符编码(区分大小写)
+
+    arr.join('-');
+    //数组转换成字符串并且用 '-' 分隔
+
+    str.substr(2,3);
+    //抓捕指定字符从2号开始取，取3个字符
+
+    str.replace('o','*');
+    //替换字符 o 替换成*
+
+    str.split(',');
+    //把用,隔开的字符转换成数组
+
+/* 函数 */
+     return:app;
+     //函数返回值 并且中断函数运行
+      arguments
+      //存储所有传过来的实参
+
+      //构造函数的 名字首字母大写
+      function 函数名(形参1,形参2,形参3){
+            this.属性1=形参1;
+            this.属性2=形参2;
+            this.属性3=形参3;
+            this. 方法1: function(){
+                方法体
+            }
+      }
+        let app = new 构造函数名(实参1,实参2,实参3)
+        console.log(对象名.属性名);
+        //调用对象属性
+        对象名.方法1();
+        //调用对象方法
+
+    //for in 遍历对象
+    for (var key in app) {
+            console.log(app[key]);
+        }
+
+/* 内置对象 */
+     /* 求值 */
+        Math.max   Math.min
+        //求最大值 /最小
+        Math.parseInt
+        //圆周率
+        Math.abs
+        //绝对值
+        Math.round
+        //四舍五入 -3.5  还是-3 因为0大
+        Math.floor     Math.ceil
+        //向下取整      向上取整  
+        Math.random
+        //随机数 
+         function gt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        console.log(gt(1, 10));
+        //随机整数
+
+/* 获取时间 */
+        let data = Data();
+        //获取当前系统时间
+        console.log(data.getFullYear());
+        //获取当前日期的年份;
+        console.log(data.getMonth() + 1);
+        //获取月份 因为少一个月所以要加1
+         console.log(data.getDate());
+        //获取号数
+        console.log(data.getDay());
+        //获取今天星期几
+        console.log(data.getHours());
+        //获取当前小时数
+        console.log(data.getMinutes());
+        //当前分钟数
+        console.log(data.getSeconds());
+        //当前秒数
+
+        var dateS = +new Date();
+        console.log(dateS);
+        //获取距离1970-1-1到今天的毫秒
+        console.log(Date.now());
+        //H5 新增 效果同上
+
+/* 元素和对象的赋值 */
+    //元素是直接在栈里声明的属性
+    //对象是声明地址在栈里，然后指向堆
+
+
+
+
+/**************************基础NED***************************/

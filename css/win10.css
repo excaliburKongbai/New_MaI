@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none !important;
+    color: azure;
+}
+
+body {
+    /* width: 100%;
+    height: 100%; */
+    background: url(../img/win10.jpg) no-repeat center center fixed;
+}
+
+
+/* 头部 */
+
+#head {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: rgb(61, 61, 61);
+    opacity: .8;
+    position: fixed;
+    font-size: 20px;
+}
+
+#head img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#head .head-left {
+    float: left;
+}
+
+#head .head-left a {
+    display: inline-block;
+}
+
+#head .head-left img,
+#head .head-left a {
+    margin: 0 10px;
+    color: cornsilk;
+    vertical-align: middle;
+}
+
+#head .head-right {
+    float: right;
+}
+
+#head .head-right img {
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+
+/* 图标内容  */
+
+#Icon {
+    position: relative;
+}
+
+#Icon .Icon-img {
+    position: absolute;
+}
+
+#Icon .Icon-img img {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+#Icon .Icon-img span {
+    display: block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+}
+
+#Icon .Icon-img:nth-child(1) {
+    left: 50px;
+    top: 80px;
+}
+
+#Icon .Icon-img:nth-child(2) {
+    left: 50px;
+    top: 220px;
+}
+
+#Icon .Icon-img:nth-child(3) {
+    left: 50px;
+    top: 370px;
+}
+
+
+/* 尾部 */
+
+#Navigation {
+    width: 100%;
+    height: 80px;
+    display: block;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+#Navigation .Navigation-butt {
+    width: 800px;
+    height: 80px;
+    background-color: rgb(224, 224, 224);
+    margin: 0 auto;
+    /* border-top-left-radius: 4%;
+    border-top-right-radius: 4%; */
+    border-radius: 10px;
+}
+
+#Navigation .Navigation-butt .Navigation-butt-box {
+    width: 650px;
+    margin: 0 auto;
+}
+
+#Navigation .Navigation-butt .Navigation-butt-box img {
+    width: 80px;
+    height: 80px;
+    float: left;
+    margin-left: 50px;
+    transition: all 0.25s linear;
+}
+
+#Navigation .Navigation-butt .Navigation-butt-box img:hover {
+    transform: scale(1.5);
+    transform-origin: bottom center;
+}

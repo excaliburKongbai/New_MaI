@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+@media screen and ( min-width:900px) and (max-width:1200px) {
+    html {
+        font-size: 10px;
+    }
+    body {
+        font-size: 16px;
+    }
+}
+
+@media screen and ( min-width:600px) and (max-width:900px) {
+    html {
+        font-size: 6px;
+    }
+    body {
+        font-size: 10px;
+    }
+}
+
+@media screen and ( min-width:400px) and (max-width:600px) {
+    html {
+        font-size: 4px;
+    }
+    body {
+        font-size: 6px;
+    }
+}
+
+#app {
+    width: 100rem;
+    height: 50rem;
+    margin: 5rem auto;
+    background-color: cyan;
+}
+
+#app dl {
+    width: 80rem;
+    height: 40rem;
+    margin: auto;
+    background-color: coral;
+}
+
+#app dl dt img {
+    width: 80rem;
+    height: 35rem;
+    margin-top: auto;
+}

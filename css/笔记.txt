@@ -1,0 +1,197 @@
+*********************************默认样式*************************************
+/*页头属性*/
+    <meta name="keywords" content="工口,R18">
+    <!-- 网站标签 -->
+    <meta name="deseription" content="这是一个R18网站">
+    <!-- 网站描述 -->
+/*默认样式*/
+    //设置css编码格式
+    @charset "UTF-8";
+    //设置rem
+    html{
+        font-size: 16px;  //1rem = 16px 可以改变
+    }
+
+    outline: none;                     //清除input边框
+    box-sizing: border-box;            //只能往里缩
+    list-style: none;                  //清除列表的点
+    margin：none;                      //初始化宽高
+    padding: 0;                        //初始化宽高
+    text-decoration: none !important;  //清除a标签的下划线
+    vertical-align: middle;            //让图片和文字在中间基线居中
+    cursor: pointer;                  //鼠标放上去变成点击
+
+
+/*清除浮动*/
+    .clearfix::before,    //前
+    .clearfix::after {    //后
+    content: '';
+    display: table;
+    clear: both;
+    /* 左右不允许浮动 */
+    }
+
+*********************************默认样式END**********************************
+
+opacity   //透明度
+border-radius   //圆角
+transform: scale(1.5);            //放大1.5倍
+transform-origin: bottom center;  //放大方向
+background-color: transparent;    //颜色全透明
+box-shadow: 10px 10px 5px wheat;  //阴影
+overflow: hidden;                 //超出盒子不显示
+
+
+**********************************清除浮动/元素选择器************************************
+/* 高度塌陷*/
+    //伪类清除浮动影响
+    a::after {
+        content: "";
+        /* 不放内容 */
+        display: table;
+        /* 转换元素 */
+        clear: both;
+        /* 禁止两边浮动 */
+    }
+
+/* 元素选择器 */
+    //在这标签之前插入before
+    //在标签之后插入after
+    //选择:的第一个元素first-child
+    //选择:的最后一个元素last-child
+    //正者选择器：nth-chid()
+    //选择倒数2个元素:nth-last-child(-n+2)
+
+    
+**********************************清除浮动/元素选择器END**********************************
+
+
+**********************************伸缩布局*************************************
+
+/* 伸缩布局 */
+    display: flex;
+    /* 主轴方向 默认row 左到右 */
+    flex-direction: row;
+    /* 主轴方向 翻转row-reverse 右边为起点从左到右 */
+    flex-direction: row-reverse;
+    /* 主轴方向 上到下 */
+    flex-direction: column;
+    /* 主轴方向 翻转column-reverse 底部为起点从上到下 */
+    flex-direction: column-reverse;
+
+/* 主轴对齐 */
+    justify-content;
+    /* 左对齐 */
+    justify-content: flex-start;
+    /* 右对齐 */
+    justify-content: flex-end;
+    /* 居中对齐 */
+    justify-content: center;
+    /* 两端对齐 */
+    justify-content: space-between;
+    /* 两端对齐的二分之一 */
+    justify-content: space-around;
+
+/* 侧轴对齐 */
+    /* align-items */
+    /* 默认值 */
+    align-items: stretch;
+    /* 侧轴开始位置对齐 */
+    align-items: flex-start;
+    /* 侧轴结束对齐 */
+    align-items: flex-end;
+    /* 侧轴中心对齐 */
+    align-items: center;
+    /* 侧轴机械对齐 */
+    align-items: baseline;
+
+/* 主轴换行 */
+    /* 默认值不换行 */
+    flex-wrap: nowrap;
+    /* 换行 */
+    flex-wrap: wrap;
+    /* 反转换行 */
+    flex-wrap: wrap-reverse;
+
+
+/* 主轴单独操作 */
+    /* 顶部居中*/
+    align-self: flex-start;
+    /* 底部 */
+    align-self: flex-end;
+    /* 居中 */
+    align-self: center;
+
+/* 多行属性控制 */
+    /* 居中 */
+    align-content: center;
+    /* 顶部对齐 */
+    align-content: flex-start;
+    /* 底部对齐 */
+    align-content: flex-end;
+
+/* 盒子内部百分比设置宽高 */
+    flex: 1;
+    //一的一份之一，占满
+
+**********************************伸缩布局END**********************************
+
+
+**********************************背景/3D旋转/动画*************************************
+/* 背景 */
+    /* background */
+        background-size: cover;
+        //等比缩放不变形
+
+        background-repeat: no-repeat;
+        //不平铺
+
+    /* img 缩放 */
+        object-fit: cover;
+        //等比缩放不变形 多出裁剪
+
+        object-fit:  contain;
+        //宽度缩放不变形 会留白
+       
+        object-position: left;
+        //缩放后的位置控制
+/* 3D效果 */
+    perspective: 600px;    //透视 数值越少3D效果越强
+    transform-style: preserve-3d; //3D效果 preserve-3d表示所有子元素在3D空间中呈现
+    transform: rotateX(270deg);  //3D翻转 X轴 270度 deg=°
+    backface-visibility: hidden;   //`hidden`隐藏或`visible`显示旋转图的背面
+
+/* 动画效果 */
+        //@keyframes声明动画 mov名字 
+        @keyframes mov {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-600px);
+        }
+    }
+    // animation 调用动画
+    animation: mov 5s linear infinite;
+    // animation: 名字 时间 曲线 次数;
+    transition: all 2s linear;
+    //过渡效果
+
+**********************************背景/3D旋转/动画END**********************************
+
+
+**********************************页面大小兼容(媒体查询)*************************************
+/*页面兼容*/
+    @media screen and ( min-width:600px) and (max-width:900px) {
+        html {
+            font-size: 6px;
+        }
+        body {
+            font-size: 10px;
+        }
+    }
+    //screen 媒体表达式或all全局
+    // and   类似if判断
+    //min    <= 大于或等于
+    //max    >= 小于或等于
+**********************************页面大小兼容(媒体查询)END*************************************

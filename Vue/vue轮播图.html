@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 网络引入Vue -->
+    <style>
+        * {
+            list-style: none;
+            margin: 0;
+            border: 0;
+            padding: 0;
+            outline: none;
+        }
+        /* 盒子位置 */
+        
+        .img {
+            width: 400px;
+            height: 400px;
+            margin: auto;
+        }
+        /* 按钮盒子 */
+        
+        .butt {
+            width: 100%;
+            height: 25px;
+            margin: auto;
+            display: flex;
+        }
+        
+        .butt>li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 25%;
+        }
+        /* 空白按钮样式 */
+        
+        .button1 {
+            width: 25px;
+            height: 25px;
+            background-color: #a0a0a0;
+            border: solid 2px rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
+            text-align: center;
+            font-size: 16px;
+            margin-left: 10px;
+            float: left;
+            border-radius: 50px;
+        }
+        /* 选着按钮样式 */
+        
+        .button2 {
+            width: 25px;
+            height: 25px;
+            background-color: #000000;
+            border: solid 2px black;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-size: 16px;
+            margin-left: 10px;
+            float: left;
+            border-radius: 50px;
+        }
+    </style>
+    <!-- Vue组件引用 -->
+    <title>Vue轮播图</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul class="img">
+            <!-- 图片 -->
+            <img v-for="(images,id) in img " :key="id" :src="images" v-show="id==n" />
+            <!-- 按钮 -->
+            <div class="butt">
+                <li v-for="(v,i) in img" :key="i">
+                    <button @click="Start(i)" :class="i==n ?'button2':'button1'"></button>
+                </li>
+            </div>
+        </ul>
+    </div>
+</body>
+<script type='text/javascript' charset='utf-8'>
+    let app = new Vue({
+        el: "#app",
+        data: {
+            // 轮播默认值
+            n: "0",
+            // 图片地址数组
+            img: [
+                "../img/common/1.png",
+                "../img/common/2.png",
+                "../img/common/3.png",
+                "../img/common/4.png",
+                "../img/common/5.png",
+                "../img/common/6.png",
+                "../img/common/8.png",
+                "../img/common/9.png",
+            ],
+        },
+        methods: {
+            //鼠标点击
+            Start: function(i) {
+                this.n = i;
+            },
+            //时间函数的调用
+            fun: function() {
+                //setInterval(函数体,时间,毫秒)
+                setInterval(this.play, 3000)
+            },
+            play: function() {
+                this.n++;
+                if (this.n == this.img.length) {
+                    this.n = 0;
+                }
+            }
+        },
+        mounted: function() { //生命周期  钩子函数   挂载完成
+            this.fun()
+        },
+    })
+</script>
+
+</html>

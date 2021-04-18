@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 字面量创建对象
+        // var obj = {
+        //     name: "米格21bis",
+        //     age: "70年",
+        //     sex: "女",
+        //     add: function(z) {
+        //         console.log(z + "hi~");
+        //     }
+        // }
+        // obj.add("z");
+
+        //new创建MAGM
+        let MAGM = new Object();
+        MAGM.name = 'F4e鬼怪';
+        MAGM.ordnance = 'AIM-9-j';
+        MAGM.install = function(c) {
+            console.log('在' + c + '机场里的' + this.name + '挂载了' + this.ordnance + '导弹');
+        }
+        MAGM.install("大兴安岭");
+
+        //构造函数创建对象
+        function sex(num1, num2, num3) {
+            this.name = num1;
+            this.age = num2;
+            this.sex1 = num3;
+
+            this.play = function() {
+                console.log('我叫' + this.name + '今年' + this.age + '岁了,性别' + this.sex1);
+            }
+        }
+        let eva = new sex('小明', '18', '男');
+        console.log(eva.name);
+        eva.play();
+
+
+        //for in 遍历对象
+        for (var key in eva) {
+            console.log(eva[key]);
+        }
+    </script>
+
+</body>
+
+</html>

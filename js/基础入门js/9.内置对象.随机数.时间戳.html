@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+    //随机数
+    console.log(Math.random());
+
+    function gt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    console.log(gt(1, 10));
+
+    //日期
+    //Data没有值 会返回当前时间
+    var data = new Date();
+    console.log(data);
+    var data1 = new Date(2019, 3, 25);
+    console.log(data1);
+    var data2 = new Date('2021- 3-25 8:8:8');
+    console.log(data2);
+
+
+    // 年
+    console.log(data.getFullYear());
+    //月
+    console.log(data.getMonth() + 1);
+    //获取月份 因为少一个月所以要加1
+    console.log(data.getDate());
+    //获取号数
+    console.log(data.getDay());
+    //获取今天星期几
+
+
+    console.log(data.getHours());
+    //获取当前小时数
+    console.log(data.getMinutes());
+    //当前分钟数
+    console.log(data.getSeconds());
+    //当前秒数
+
+    var dateS = +new Date();
+    console.log(dateS);
+    //获取距离1970-1-1到今天的毫秒
+    console.log(Date.now());
+    //H5 新增
+</script>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <imgcn v-for="(item, index) in id" :son="fh_name" :arr=item :key="index"></imgcn>
+        <h1>你选择的是：{{img_name}}</h1>
+    </div>
+
+</body>
+<script type="text/javascript">
+    Vue.component('imgcn', {
+        props: ['arr', 'son'],
+        template: `
+        <li>
+            <h2>姓名：{{arr.name}}</h2>
+            <h4>年龄：{{arr.age}}</h4>
+            <p>电子邮箱：{{arr.Em}}</p>
+            <button @click="choice1(arr.name)">点击选择</button></button>
+            <button @click="choice2(arr.name)">点击选择1</button></button>
+        </li>
+        `,
+        methods: {
+            choice1: function(data) {
+                this.son(data)
+            },
+            //传入方法组件进行判断
+            choice2: function(data) {
+                this.$parent.img_name = data;
+            },
+            //直接修改参数 $root是最外层根，$parent为上一级根。
+            //不推荐使用，耦合性太高
+        }
+    })
+    let app = new Vue({
+        el: '#app',
+        data: {
+            img_name: "",
+            id: [{
+                name: "万枢轩",
+                age: "21",
+                Em: "1508894594@qq.com",
+            }, {
+                name: "张三",
+                age: "13",
+                Em: "2781650877@qq.com",
+            }, {
+                name: "芳奈",
+                age: "16",
+                Em: "1********4@qq.com",
+            }]
+        },
+        methods: {
+            fh_name: function(data) {
+                this.img_name = data
+            }
+        },
+    })
+</script>
+
+</html>

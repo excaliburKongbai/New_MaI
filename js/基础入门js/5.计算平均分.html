@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+    var a = parseFloat(prompt('输入班级人数'));
+    var score = 0;
+    for (var i = 1; i <= a; i++) {
+        var name1 = parseFloat(prompt('第' + i + '同学的成绩'));
+        score += name1;
+    };
+    score /= a;
+    alert('平均成绩' + score);
+</script>
+
+</html>

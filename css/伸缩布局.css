@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+}
+
+#app {
+    width: 50rem;
+    height: 50rem;
+    background-color: yellowgreen;
+    /* 伸缩布局 */
+    display: flex;
+    /* 主轴方向 默认row 左到右 */
+    flex-direction: row;
+    /* 主轴对齐 */
+    justify-content: flex-start;
+    /* 侧轴中心对齐 */
+    align-items: stretch;
+    /* 主轴换行 */
+    flex-wrap: wrap;
+    /* 多行属性控制 */
+    /* 居中 */
+    align-content: center;
+    /* 顶部对齐 */
+    align-content: flex-start;
+    /* 底部对齐 */
+    align-content: flex-end;
+}
+
+#app .box {
+    width: 10rem;
+    /* height: 10rem; */
+    background-color: wheat;
+    margin: 0.5rem;
+}

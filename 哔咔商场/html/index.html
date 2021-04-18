@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="keywords" content="">
+    <!-- 网站标签 -->
+    <meta name="deseription" content="">
+    <!-- 网站描述 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css" type="text/css">
+    <script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <title>哔咔商城</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 页头 -->
+        <header id="header">
+            <!-- 导航广告 -->
+            <div class="top-banner">
+                <img class="yz" src="../images/top-banner.jpg" alt="">
+                <a href="#"></a>
+            </div>
+            <!-- 导航栏 -->
+            <nav class="nav-top">
+                <div class="nav-box yz">
+                    <!-- 左边 -->
+                    <div class="nav-top-left">
+                        <div class="ngb">
+                            <a href="javascript:;">网站导航</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a href="javascript:;">商家入驻</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a href="javascript:;">客户服务</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a class="position" href="#"></a>
+                            <a href="javascript:;">上海</a>
+                            <s><i>▼</i></s>
+                        </div>
+                    </div>
+                    <!-- 右边 -->
+                    <div class="nav-top-right">
+                        <div class="ngb">
+                            <a href="javascript:;">请登录</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a class=" ff0" href="javascript:;">注册有礼</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a href="javascript:;">我的订单</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a href="javascript:;">我的易购</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a href="javascript:;">苏宁会员</a>
+                            <img src="../images//cart.png" alt="">
+                            <a class="ff0" href="javascript:;">购物车</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a href="javascript:;">企业采购</a>
+                            <s><i>◇</i></s>
+                        </div>
+                        <div class="ngb">
+                            <a href="javascript:;">手机苏宁</a>
+                            <s><i>◇</i></s>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- 导航广告/搜索栏 -->
+            <div class="search yz">
+                <!-- 左边 -->
+                <div class="search-letf">
+                    <img src="../images/sn-logo.png" alt="">
+                    <img src="../images/sn-sub-logo.gif" alt="">
+                </div>
+                <!-- 右边 -->
+                <div class="search-right">
+                    <!--搜索栏 -->
+                    <form class="search-right-lookup" action="javascript:;">
+                        <input type="text" placeholder="周年庆赢好礼">
+                        <input type="submit" value="搜 索">
+                    </form>
+                    <!--导航 -->
+                    <div class="search-right-nav">
+                        <a href="javascript:;">烤箱</a>
+                        <a class="ff0" href="javascript:;">老板林内CP趴</a>
+                        <a href="javascript:;">iPhone XS</a>
+                        <a class="ff0" href="javascript:;">空气感拉拉裤</a>
+                        <a class="ff0" href="javascript:;">空调立减500</a>
+                        <a href="javascript:;">浪琴</a>
+                        <a href="javascript:;">手机</a>
+                        <a href="javascript:;">冰箱</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- 内容 -->
+        <article id="art" class="yz">
+            <!-- 标签栏 -->
+            <div class="art-nav">
+                <!-- 左 -->
+                <div class="art-nav-left">
+                    <a href="#"></a>
+                    <p>全部商品分类</p>
+                </div>
+                <!-- 右 -->
+                <div class="art-nav-right">
+                    <a href="javascript:;">大聚会</a>
+                    <a href="javascript:;">红孩子</a>
+                    <a href="javascript:;">苏宁超市</a>
+                    <a href="javascript:;">电器城</a>
+                    <a href="javascript:;">生活家电</a>
+                    <a href="javascript:;">时尚服装</a>
+                    <a href="javascript:;">苏宁国际</a>
+                    <a href="javascript:;">苏宁Outllets</a>
+                    <a href="javascript:;">苏宁金融</a>
+                </div>
+            </div>
+            <!-- 圣杯布局 -->
+            <div class="art-grail">
+                <!-- 中间 -->
+                <div class="art-grail-center">
+                    <div class="img">
+                        <!-- 图片 -->
+                        <img v-for="(images,id) in img" :key="id" :src="images" v-show="id==n" />
+                        <!-- 左右跳转按钮 -->
+                        <div class="LR-bott">
+                            <button @click="Startsub" class="left"></button>
+                            <button @click="Startadd" class="right"></button>
+                        </div>
+                        <!-- 按钮 -->
+                        <div class="Bott">
+                            <ul>
+                                <li v-for="(v,i) in img" :key="i">
+                                    <button @click="Start(i)" :class="i==n ?'Bott-hor':'Bott-none'"></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 左边 -->
+                <div class="art-grail-left">
+                    <!-- 导航标签 -->
+                    <div class="art-grail-left-nav">
+                        <ul>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">手机</a>
+                                <a href="#">运营商</a>
+                                <a href="#">智能设备</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">动漫</a>
+                                <a href="#">手办</a>
+                                <a href="#">壁纸</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">电脑</a>
+                                <a href="#">游戏电脑</a>
+                                <a href="#">办公笔记本</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">女装</a>
+                                <a href="#">古风</a>
+                                <a href="#">洛丽塔</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">幼儿</a></a>
+                                <a href="#">儿童玩具</a>
+                                <a href="#">奶粉</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">护具</a></a>
+                                <a href="#">篮球</a>
+                                <a href="#">足球</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">语文书</a></a>
+                                <a href="#">历史读物</a>
+                                <a href="#">小说</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">世界地图</a></a>
+                                <a href="#">旅游</a>
+                                <a href="#">水上乐园</a></a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">室内家具</a>
+                                <a href="#">家电</a>
+                                <a href="#">屋内壁纸</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">盖世太保</a></a>
+                                <a href="#">FBI</a>
+                                <a href="#">国安</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">steam</a>
+                                <a href="#">EA</a>
+                                <a href="#">origin</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">手机</a>
+                                <a href="#">运营商</a>
+                                <a href="#">智能设备</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">动漫</a>
+                                <a href="#">手办</a>
+                                <a href="#">壁纸</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">电脑</a>
+                                <a href="#">游戏电脑</a>
+                                <a href="#">办公笔记本</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">女装</a>
+                                <a href="#">古风</a>
+                                <a href="#">洛丽塔</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">幼儿</a></a>
+                                <a href="#">儿童玩具</a>
+                                <a href="#">奶粉</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">护具</a></a>
+                                <a href="#">篮球</a>
+                                <a href="#">足球</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">语文书</a></a>
+                                <a href="#">历史读物</a>
+                                <a href="#">小说</a>
+                            </li>
+                            <li>
+                                <img src="../images/vip_1.png" alt="">
+                                <a href="#">世界地图</a></a>
+                                <a href="#">旅游</a>
+                                <a href="#">水上乐园</a></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- 右边 -->
+                <div class="art-grail-right"></div>
+            </div>
+            <!-- 商品 -->
+            <div class="goods yz">
+
+            </div>
+        </article>
+
+    </div>
+
+</body>
+<script type='text/javascript' charset='utf-8'>
+    let app = new Vue({
+        el: "#app",
+        data: {
+            n: "0",
+            img: [
+                "../images/1.jpg",
+                "../images/2.jpg",
+                "../images/3.jpg",
+                "../images/4.jpg",
+                "../images/5.jpg",
+            ],
+        },
+        methods: {
+            //导航页点击事件
+            Start: function(i) {
+                this.n = i;
+            },
+            Startadd: function() {
+                if (this.n >= 4) {
+                    this.n = 0;
+                } else {
+                    this.n = this.n + 1;
+                }
+            },
+            Startsub: function() {
+                if (this.n == 0) {
+                    this.n = 4;
+                } else {
+                    this.n = this.n - 1;
+                }
+            },
+            //时间函数的调用
+            fun: function() {
+                //setInterval(函数体,时间,毫秒)
+                setInterval(this.play, 4000)
+            },
+            play: function() {
+                this.n++;
+                if (this.n == this.img.length) {
+                    this.n = 0;
+                }
+            },
+        },
+        mounted: function() { //生命周期  钩子函数   挂载完成
+            this.fun()
+        },
+    })
+</script>
+
+</html>

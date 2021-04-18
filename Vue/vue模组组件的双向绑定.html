@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <inp :user_text="user_text" @input="add"></inp>
+        <inp :user_text="user_text" @input="user_text=$event"></inp>
+        <inp v-model="user_text"></inp>
+        <h3>{{user_text}}</h3>
+    </div>
+
+</body>
+<script type="text/javascript">
+    Vue.component('inp', {
+        props: ['user_text'],
+        template: `
+        <input type="text" @input="$emit('input', $event.target.value)" :value='user_text'>
+        `
+            //$emit  $emit子组件调用父组件的方法并传递数据
+            //$event.target.value 获取点击的对象等等属性
+    })
+    let app = new Vue({
+        el: '#app',
+        data: {
+            user_text: "233",
+        },
+        methods: {
+            add: function(data) {
+                this.user_text = data;
+            }
+        },
+    })
+</script>
+
+</html>

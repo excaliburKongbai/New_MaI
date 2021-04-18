@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+img {
+    vertical-align: middle;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-size: 16px;
+}
+
+
+/************************前置END************************/
+
+#Box {
+    height: 20rem;
+    background-color: chocolate;
+    padding: 0 20rem 0 20rem;
+    min-width: 600px;
+}
+
+#Box .center {
+    width: 100%;
+    height: 20rem;
+    background-color: seagreen;
+    float: left;
+}
+
+#Box .left,
+#Box .right {
+    width: 20rem;
+    height: 20rem;
+    float: left;
+    background-color: red;
+}
+
+#Box .left {
+    margin-left: -100%;
+    position: relative;
+    top: 0;
+    left: -20rem;
+}
+
+#Box .right {
+    margin-right: -20rem;
+    position: relative;
+    top: 0;
+    right: 0;
+}

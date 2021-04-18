@@ -1,0 +1,1129 @@
+/* 常量的定义 */
+    //使用函数定义常量
+    define('PI',3.14);
+
+    //使用const定义关键字
+    const El = 114514;
+
+/* 变量 */
+    Gettype(变量名);
+    //获取该类型对应的字符串
+    settype(值,类型);
+    //设置类型 会改变原来类型
+
+    (变量类型)值;
+    //强制转换数据类型  不会改变原来类型
+
+    is_变量类型(值);
+    //判断变量
+
+/* 循环 */
+
+    continue;
+    //重新循环 +'2'可以覆盖到外一层循环
+    break;
+    //跳出循环+'2'可以覆盖到外一层循环
+    return;
+    //返回值;
+
+    ********HTML&&PHP*********
+        混搭的{ === : ;
+        混搭的} === endfor;
+
+/* 字符串 */
+    /* 结构化定义字符串 */
+    heredoc结构
+    $app = <<<EOD  或者'EOD' //边界符不允许有任何东西
+        hello
+            world
+    EOD;                     //下边界符要顶格,只能跟;
+    //对比双引号,结构化会保持相对格式 内容全部当成字符串,变量需要加单引号
+    
+    strlen($app);
+    //计算字符段长度
+    mb_strlen($app,'utf-8');
+    //指定字符集，可以获得字数
+
+    /* 转换 */
+    lmplode(连接方式,目标数组);
+    //将目标数组按规则转换成字符串
+    Explode(分割字符,目标字符串);
+    //按规则将字符串转换成数组
+    Str_split(字符串,字符长度);
+    //按照指定长度拆分,成数组
+
+    /* 截取 */
+    Trim(字符串[,指定字符]);
+    //默认去除两边空格,也可以去除指定目标
+    ltrim();
+    //去除左边
+    Rtrim();
+    //去除右边
+    Substr(字符串,起始位置[,长度]);
+    //指定位置截取,不设定长度截取到末尾
+    Strstr(字符串,匹配字符);
+    //从匹配字符开始，截取到最后
+     
+    /* 转换大小写 */
+    Strtolower();
+    //全部小写
+    strtoupper();
+    //全部大写
+    Ucfirst();
+    //首字母大写
+
+    /* 查找 */
+    Strpos(字符串,'条件');
+    //查找字符串首次出现的位置
+    Srrrpos(字符串,'条件');
+    //查找字符串最后一次次出现的位置
+
+    /* 替换 */
+    Str_replace(匹配目标,替换内容,字符串);
+    //对匹配过的字符串替换
+
+    /* 格式化输出 */
+        sprintf("今年%d岁,我叫%s",$age,$name);
+        //格式化输出内容
+
+    /* 其他 */
+        str_repea();
+        //重复某个字符串N次
+        str_shuffle();
+        //随机打乱字符串
+
+/* 转义 */
+    \' 在字符串中识别单引号
+    \" 同上
+    \r 回到当前行的首位置
+    \n 新一行
+    \t 输出4个空格
+    \$ 在php中使用$来声明变量
+
+    单引号 不可以识别变量
+    双引号 可以识别变量 {$app}
+
+/* 数组 */
+    /* 数组遍历 */
+    //数组遍历
+        arr=[1,2,3,4,5,'s','f','y','u'];
+        oreach($arr as $key => $v){
+           echo 'key=',$key,'value=',$v ,'<br/>';
+        }
+     
+    echo count($arr);
+    //获取数组长度
+
+    in_arra y($arr);
+    //判断数组是否存在
+
+    array_reverse($arr);
+    //翻转数组
+
+    each($arr);
+    //获取当前下标的函数,并且指针往后移动
+    //如果无法获取,指针移动到最后,并且返回false
+
+    List(变量1,,变量2.....)=$arr
+    //数组按顺序赋值到变量
+
+
+    /* 数组排序 */
+        //排序
+        // $a =sort($arr1);
+        //需要赋值
+        // print_r($arr1);
+        //排序改变key
+
+        // asort($arr1);
+        // print_r($arr1);
+        //排序不改变key
+
+        // shuffle($arr1);
+        // print_r($arr1);
+        //打乱数组,改变key
+
+
+
+/**************************系统函数******************************/
+/* 输出函数 */
+    print_r();
+    //类似于var_dump();但是不会输出数据类型
+
+/* 时间 */
+    date();
+    //格式化时间,如果无输入者输出输出当前时间的时间戳;
+    time();
+    //输出当前时间的时间戳;
+    microtime();
+    //输出微秒
+     strtotime();
+     //输入的中英转换成时间戳
+
+/* 时间 */
+    require;
+    //载入文件,出错阻止运行;
+
+    require_once;
+    //只载入一次文件,出错不阻止;
+
+    include;
+    //载入文件,出错不阻止;
+
+    include_once;
+    //只载入一次文件,出错不阻止;
+
+/* 数学 */
+
+    max();
+    //比较一个最大值;
+    min();
+    //比较一个最小值;
+    rand();
+    //在定义区间获取一个随机整数
+    mt_rand();
+    //在定义区间获取一个随机整数,效率更高(建议)
+    round();
+    //四舍五入;
+    cell();
+    //小数向上取整例 1.1 === 2
+    floor();
+    //小数向下取整例 1.9 === 1
+    pow(1,2);
+    //1的2次方1^2;
+    abs();
+    //绝对值
+    sqrt();
+    //平方根
+
+/* 有关函数的函数 */
+    function_exists();
+    //判断函数是否存在
+
+    func_num_args
+    //获取形参个数
+
+     func_get_arg();
+     //获取形参相对参数
+
+     func_get_args();
+    //获取所有参数以数组返回
+    
+/* 错误 */
+    trigger_error('警告内容',警告级别)
+    //设置自定义错误警告,没办法阻止系统报错
+
+    Error_reporting();
+    //设置错误显示级别
+
+    lni_set('配置文件中的配置',配置值);
+    //页面开关错误级别显示
+
+    set_error_handler('回调函数名字');
+    //修改错误报告
+    errno
+    第一个参数 errno，包含了错误的级别，是一个 integer。
+    errstr
+    第二个参数 errstr，包含了错误的信息，是一个 string。
+    errfile
+    第三个参数是可选的，errfile， 包含了发生错误的文件名，是一个 string。
+    errline
+    第四个参数是一个可选项， errline， 包含了错误发生的行号，是一个 integer。
+    errcontext
+    第五个可选参数， errcontext， 是一个指向错误发生时活动符号表的 array。 
+    也就是说，errcontext 会包含错误触发处作用域内所有变量的数组。 用户的错误处理程序不应该修改错误上下文（context）。
+
+/* 错误日志 */
+    在lni.php设置
+
+    log_errors = on;
+    //开启日志
+
+    error_log = '日志保存路径';
+    //设置日志路径
+
+/* 魔术变量 */
+
+/**************************系统函数END******************************/
+
+
+/**************************函数******************************/
+/* 函数 */
+    &形参;
+    //引用外部参数,这个形参必须是变量,而且运算的值会改变外部的变量
+
+    return;
+    //返回值,并且结束函数;
+
+    //回调过程,被传入的函数成为回调函数
+    sys_function('usre_function',10);
+    //动态函数,把其他函数名定义到当前函数,
+    return $arg1($arg2);
+    //例,$arg1定义为函数名,返回输出;
+
+    use($要调用上一级的变量);
+    //闭包匿名函数/函数调用上一级函数的变量(不会销毁)
+
+/* 作用域/跨域 */
+    全局作用域的变量，局部作用域无法调用;
+    常量无视作用域
+
+    $GLOBALS['变量名'];
+    //可以再函数内部调用,全局变量
+
+    global  $app;//声明
+    $app=3;      //修改
+    //global 声明变量 全局和局部作用域都可以用
+    //如果是全局有这个变量名，那么局部变量指向全局变量的地址,如果没有则新开辟一个
+    //声明变量不能直接赋值
+
+    static $app = 1;
+    //静态变量声明,用于跨函数,共享数据
+    (在本函数不会随着函数运行结束销毁的变量);
+
+
+
+/**************************函数END******************************/
+<pre>
+</pre>
+//格式更好看
+
+
+/**************************MySQL数据库******************************/
+【改中文表名】
+SET NAMES GBK
+
+【创建数据库】
+CREATE DATABASE 数据库名字;
+
+【查看已有数据库】
+SHOW DATABASES;
+
+【查看匹配的数据库】
+SHOW DATABASES LIKE '数据库名%'; 
+
+【查看指定数据库】
+SHOW CREATE DATABASE 数据库名字;
+
+【修改数据库编码方式】
+ALTER DATABASE 数据库名字 DEFAULT CHARACTER SET 编码方式 COLLATE 编码方式_bin;
+alter database 库名 charset 字符集
+
+【删除数据库】
+DROP DATABASE 数据库名字;
+
+【选择数据库】
+USE 数据表名字;
+
+*********************************建库**********************************
+【创建数据表】
+还可以在表名字前加上数据库名字用‘.’连接；
+
+CREATE TABLE 表名
+（
+字段名1，数据类型[完整性约束条件]，
+字段名2，数据类型[完整性约束条件]，
+id INT（11），
+name VARCHAR（11），
+grade FLOAT
+）charset 字符集;
+//设置字符集
+
+【主键】
+PRIMARY KEY;
+//不允许为空,不允许重复 
+
+【唯一键】
+unique key
+//保证数据的唯一性,可以存在多个,允许NULL
+//如名字
+
+【复合主键】
+PRIMARY KEY(当前字段1,当前字段2);
+
+【自动加1】
+AUTO_INCREMENT;
+
+【列描述】
+comment '';
+//给开发人员的注释说明
+
+【插入无负数数据】
+mysql默认数据大小有正负  例范围255 者-128 正127
+ 数据类型 unsigned
+
+【不足显示长度填充0】
+自动unsigned，负值无法使用
+ 数据类型 Zerofill
+
+
+
+**************************建库END*****************************************
+【查看表的创建结构】
+SHOW CREATE TABLE 表名;
+
+【复制已经有的数据表】
+create 新表名 like 被复制表名；
+
+【查看当前数据库所有表】
+show tables;
+
+【查看数据表】
+SHOW CREATE TABLE 数据表名;
+SHOW CREATE TABLE 数据表名\G;//可以美化ui
+
+【更好看ui的查看数据表】
+DESCRIBE 表名;
+或简写
+DESC 表名;
+show columns from  表名；
+
+【修改数据表，表名】
+ALTER TABLE 旧表名 RENAME TO 新表名;
+
+【修改字段名或数据类型】
+ALTER TABLE 表名 CHANGE 旧字段名 新字段名 新数据类型;
+
+【添加字段】
+ALTER TABLE 表名 ADD 新字段名 数据类型;
+（
+[约束条件][FIRST|AFTER 已存在字段名]//可以不加约束条件
+）
+
+【修改主键】
+ALTER TABLE `test2` DROP PRIMARY KEY 删除//增加ADD PRIMARY KEY ( `id` )
+
+【修改字段类型】
+alter table 表名 modify 字段名 数据类型（约束）；
+
+【删除字段】
+ALTER TABLE 表名 DROP 要删除的字段名;
+
+【修改字段名顺序】
+ALTER TABLE 表名 MODIFY 字段名1 一个）|AFTER（替换位置）字段名2;
+//字段名1是定位，字段名2移动到字段名1上面。
+
+【删除数据表】
+DROP TABLE 表名;
+
+【1.主键约束】
+添加主键:alter table  table_name add primary key (字段)
+删除主键:alter table table_name drop primary key
+
+【2.非空约束】
+添加:alter  table table_name modify 列名 数据类型  not null 
+删除:alter table table_name modify 列名 数据类型 null
+
+【3.唯一约束】
+添加:alter table table_name add unique 约束名（字段）
+删除:alter table table_name drop index 约束名
+
+【4.自动增长】
+添加:alter table table_name  modify 列名 int  auto_increment
+删除:alter table table_name modify 列名 int  
+
+【5.外键约束】
+添加:alter table table_name add constraint 约束名 foreign key(外键列) 
+references 主键表（主键列）
+删除:
+
+【删除外键】
+alter table table_name drop foreign key 约束名
+
+【删除索引】
+alter  table table_name drop  index 索引名
+[^1]: 
+约束名和索引名一样
+
+【默认值】
+添加:ALTER TABLE <数据表名>CHANGE COLUMN <原字段名> <字段名> <数据类型> DEFAULT <默认值>;
+删除:ALTER TABLE <数据表名>CHANGE COLUMN <原字段名> <字段名> <数据类型> DEFAULT NULL;
+
+【指定字段插入】
+INSERT INTO `student` (`name`, `gender`) VALUES
+('Tom','男'),('Lucy','女'),('Jimmy','男'),('lijiaqi','86.5');
+
+【省略字段插入】
+INSERT INTO `student`  VALUES
+(NULL,'Elma','女'),(NULL,'Ruth','女');
+
+【查看表中所有数据】
+SELECT*FROM `STUDENT`;
+
+【删除部分数据】
+DELETE FROM 表名 WHERE '字符段'=‘数据’；
+
+【删除全部数据】
+DELETE FROM '表名'
+
+【清空数据表】
+TRUNCATE `表名`
+
+【删除数据库】
+DROP DATABASE 数据库名字
+
+
+【指定插入数据】
+INSERT INTO 表名 （name，age，grade）
+（'null','张三','18','男'）;
+
+【插入内容】
+INSERT INTO `student` (`name`, `gender`) VALUES
+('Tom','男'),('Lucy','女'),('Jimmy','男'),('lijiaqi','86.5');
+
+【浮点型】
+Float  7个之内是准确的,超出不准确（4字节）
+Float（10,2） 整数8位，小数2位
+
+Double  15个精度（8字节）
+
+Decimal（M，D）
+定点数更加精确 M代表总长度不能超过65,
+D代表小数长度不能超过30
+
+
+【日期时间类型】
+Date
+mm-mm-dd格式，默认0000-00-00
+
+Time
+能表示指定时间 （3字节）HH:II:ss格式
+时间范围大
+
+Datetime
+前两个合并 mm-mm-dd HH:II:ss格式
+
+Timestamp
+时间戳 mm-mm-dd HH:II:ss格式 格林威治时间开始
+默认是当前时间  更细时刷新当前时间戳 
+
+Year 
+占用一个字节 两位数和四位数的数据插入
+
+【字符串类型】
+Char
+中英字符数一样不能超过255
+
+Varchar
+变长字符，会根据数据计算数据长度分配空间，
+但是不会超过最大长度0-65535字符数
+
+text 
+文本类型 2个字节存储 大小2^16+2
+
+Enum（数据1，数据2）；
+存储固定值如 男 女 
+
+set（）
+复选，指定数据
+
+
+**************************高级操作*********************************************
+【主键冲突】
+字段lnsert into 表名 [列表] values 值列表 on duplicate key update 字段 = 新值;
+//更新值
+
+Replace into 表名 [字段列表] values 值列表 on duplicate key update 字段 = 新值;
+//替换主键
+
+【蠕虫复制】
+insert into 生成的数据字段 select * from 抓捕的数据字段;
+
+【更新数据】
+Update 表名 set 字段名 = 新值 [where 判断条件/limit 数量];
+//条件限制更新,如果不限制则是全表更新,或者限制更新次数
+
+【高级删除】
+DELETE FROM <表名>  [where 判断条件/limit 数量];
+
+
+【重置id】
+ALTER  TABLE  `表名` DROP `id`;
+//删除id
+ALTER TABLE 表名 add int(11) primary key not null auto_increment FIRST;
+//添加自增id达到重置id
+
+【删除所有数据保留结构】
+Truncate 表名;
+&&
+truncate table 表名
+(会删除所有数据)
+
+【完整查询指令】
+Select select 选项 字段列表 Fron 数据源 where 条件 group by 分组 having 条件 order by 排序 limit 限制
+
+//Select 系统对待查询到的结果
+//all；默认的，保存所有记录;
+//distinct 去除重复数据;
+
+【多表查询/别名】
+[as] 别名;
+例如:
+select user.name,user1.name from user,user1;
+
+
+【查询表单字段】
+SELECT id,name,acve FROM URSE;
+          (字段)                          （表名）
+
+【查询表单所有字段】
+SELECT*FROM `表名`;
+
+【按条件查询】
+SELECT id,name,acve FROM urse WHERE id<4;
+       (字段名)                         （表名）        （条件）
+
+【IN关键字查询】(查询指定的）
+SELECT * FROM urse WHERE id IN(1,5,3);
+ （可以是字段）
+
+SELECT * FROM urse WHERE id NOT IN(1,5,3);
+                          (NOT = 不查询)        
+
+【BETWEEN AND关键字查询】
+SELECT * FROM urse WHERE id BETWEEN 2 AND 5;
+                        (id 范围查询2 - 5 的字段）
+
+【空值查询】
+SELECT * FROM urse WHERE acve is null;   （NOT null 就是不为空值）
+                   （查询acve字段为空值的数据）
+
+【DISTINCT 关键字的查询】
+SELECT DISTINCT name FROM urse; （查询“类？”不重复，过滤查询）
+               (字段名）（表名）
+
+【LIKE 通配符查询】
+SELECT * FROM urse WHERE acve LIKE '9%';
+              （表）    （字段）   （查询的开头）（9_ 也可以一个字符对应一个_）
+
+【AND多条件查询】
+SELECT * FROM urse WHERE id<3 AND LIKE '95';
+
+【指定条件删除】
+delete from 表名 where 条件判断；
+//如果没写条件,系统会删除所有数据（（慎用））
+
+【修改匹配字段】
+update 表名 set 字段名 = 新值 where 判断条件； 
+//如果没写条件,系统会修改所有指定字段（（慎用））
+
+【获取动态数据】
+select * From (select 字段列表 from 表)as 别名;
+//在本表里获取其他的表,以别名合并显示到本表
+
+【条件筛选】
+where id <=10;
+
+【分组统计】
+group by 字段名;
+//为了数据统计,如男生多少人
+
+【统计函数】(聚合函数)
+count();//统计每组的数量,不统计null的字段
+avg();//求平均值
+sum();//求和
+max();//最大值
+min();//最小值
+
+例：
+select 表名,count(*//统计全部),max(),min(),gvg() from 数据库名 group by 表名;
+
+【字符段拼接】
+Group concat();
+//对应字段拼接起来
+
+【多分组】
+group by 字段名1,字段名2;
+//先按照1排序,取得结果后再和2进行排序
+
+【分组判断】
+Having  <= name;
+//聚合函数后运行判断语句
+
+【排序】
+Order by 字段 [asc|desc];
+//默认asc 升序 desc 降序
+//可以多字段排序 
+
+【限制获取】（用于分页）
+SELECT * FROM 表名
+limit 0,1  //从零开始获取两条数据
+//offset 从哪里开始
+//length 具体获得多少条
+//用来限制获取的数据
+
+【联合查询】
+(Select * from 表名 where 字段名<=判断条件 order by 别名 asc limit 10)
+Union [union 选项]
+(Select * from 表名 where 字段名<=判断条件 order by 别名 desc limit 10)
+
+all //获取全部数据,因为默认去重复
+//如果联合查询要筛选需要加括号和limit 才能生效
+
+**************************高级操作END******************************************
+
+**************************运算符******************************************
+【逻辑运算符】
+and 逻辑与
+or 逻辑或 
+not 逻辑非
+in(字段1,字段2)  存在就输出
+is null 是否为空
+is not null 是否不为空
+【模糊匹配】
+like '小%' ;
+_ 匹配对应的单个字符
+% 匹配多个字符
+例如
+SELECT * FROM `user1` WHERE name LIKE '小%';
+**************************运算符END***************************************
+
+**************************连接查询******************************************
+【交叉连接】
+select *from 表名 cross join 表名2;
+
+【内连接】
+select *from 表名 inner join 表名2 on 表1.id=表2.id ;
+
+【外链接】
+outer join;
+//按照某一张主表,根据条件去链接另一张表;
+[左外连接]
+select * from 主表 left join 从表 on 连接条件;
+
+[右外连接]
+select * from 从表 right join 主表 on 连接条件;
+
+【uslect字段】
+select * from 从表 right join 主表 using(id);
+//代替on 只能匹配相同字段的数据,只返回一个匹配字段
+
+【子查询】
+//标量子查询
+-查询结果:一行一列
+条件:搜索叫xx名字人所在的班级
+基本语法：select * from 数据源 where 条件判断 =/<> (sl\elect 字段名 from 数据源 where 条件判断);
+案例： select * from 要获取数据的表 where 判断字段 =(select 字段 from 数据表 where = 条件); 
+//查询薇琳是那班的
+select class from mi_class where name =(select name from mi_name where name = '薇琳');
+
+//列子查询
+-查询结果:一列多行
+条件:获取已经有人在的房间(返回集合体)
+基本语法:where 条件 in (列子查询)
+案例:select 查询字段 from 表名 where 条件字段 in(select 字段条件 from 表名);
+//查询1班有谁
+select name from mi_name where name in (select name from mi_class);
+
+
+//行子查询
+-查询结果:一行多列
+条件:获取年龄最大和身高最高的人(多条件查询)
+基本语法:主条件 where 条件 (行元素)
+案例:select * from  表名 whele (判断字段1,判断字段2) = (select max(判断字段1),max(判断字段2) from 表名)
+//查询身高最高的
+select * FROM mi_name where (height) =(select max(height) from mi_name);
+
+//表子查询
+-查询结果:多行多列
+条件: 获取每个班身高最高的
+基本语法:select 字段 from(表子查询) as 别名[where][group by] [having]
+案例:select *  from (select * from 班级字段 order by 高度字段) as 别名 group by id字段; 
+//查询1班最高的反着排序
+select * from (select * from mi_name where name in(select name from mi_class where class='1班')) as c order by height  desc;
+
+
+//Exists查询
+-查询结果:返回1&&0,1==ture 0==false
+条件: 求出,有学生在的班级
+基本语法:where exists(查询语句)
+//exists根据查询的结果进行判断
+案例:select * from 表名 whele  exists(select id判断字段 from 表名)
+
+in ：连接列子查询
+=any()：列子查询匹配到任何一个查询结果即可
+<>any():不等于其中的所有数
+Some :和any一样
+all：等于所有
+<>all：不等于所有
+null 不参与运算
+**************************连接查询END******************************************
+
+
+**************************备份与还原******************************************
+【SQL备份】
+`win系统下`
+mysqldump.exe -hlocalhost -P3306 -uroot -proot 数据库名字[表1 [标2....]] > 备份文件地址
+//备份数据库结构,但不适合频繁备份,整库\单表\多表
+
+【SQL还原】
+`win系统下`
+1.Mysql.exe -hlocalhost -P3306 -uroot -proot 数据库 <文件位置 --default-character-set=utf8//字符集
+`Mysql里`
+2.Source Sql文件位置;
+
+**************************备份与还原END****************************************
+
+**************************用户创建******************************************
+【创建用户】
+create user '用户名'@'%' identified by '密码';
+//@ 是指指定的链接主机地址
+
+【创建无密码用户】
+create user '用户名'
+//不限制主机 没有密码(不安全)
+
+【查看用户】
+select * from mysql.user;//查看全部用户
+SELECT * FROM mysql.user WHERE user = '指定用户';
+
+【删除用户】
+drop '用户名'@'主机地址';
+
+【修改密码】
+1、基本语法
+set password for '用户'@'%' = password('新密码');
+2、更新语句
+update mysql.user set password  = password('新密码') where user = " and host =";
+
+【权限管理】
+grant 权限列表 on 指定表/库(*.*代表全部) to '用户'@'%';
+案例：
+grant SELECT on  *.* to 'kaiLu'@'%';
+
+【取消权限】
+revoke 权限列表/all privileges on 指定表/库 from '用户'@'%';
+
+【刷新权限】
+//刷新将权限写入在表里
+flush privileges;
+
+【重置ROOT密码】
+1、停止mysql服务
+net stop mysql
+2、重启mysql服务但是跳过权限
+mysql.exe-skip-grant-tables
+3、修改root密码
+update mysql.user set password  = password('新密码') where user = 'root' and host ='localhost';
+4、关闭服务器，并且重启
+
+**************************用户创建END******************************************
+
+*****************************外键***********************************
+【创建外键】
+1、在字段后增加一条语句
+[constraint `外键名`] foreign key(外键字段) references 主表(主键)
+案例:foreign key (class_id) references my_class(class_id)
+
+2、创建表后增加外键
+Alter table 从表 [add constraint `外键名`] foreign key(外键字段) references 主表(主键);
+案例:alter table mi_class add constraint `mi_class_name` foreign key (name) references mi_name(name)
+
+【外键选择性约束】
+Alter table 从表 [add constraint `外键名`] foreign key(外键字段) references 主表(主键) on 约束条件;
+1、district 严格模式 默认 (不允许操作)
+2、cascade  级联模式 一起操作
+3、set null 置空模式  主表(删除)从表变空
+4、外键约束对象是主表操作(删除),从表只是不能插入主表不存在的数据
+
+[常用的约束]
+on update cascade,on delete set null,
+更新级联,删除置空
+
+【更新主表】
+update 数据表 set 字段 = 新数据 where 字段 = 被修改数据：
+
+【删除外键】
+alter table 从表 drop foreign key 外键名字;
+案例1：alter table mi_class drop foreign key `mi_class_name`;
+
+【删除主表引索】
+alter table mi_class drop index `mi_class_name`;
+
+1、外键与关联的字段类型必须一致例如int
+2、基本属性相同
+3、表后增加外键,对数据源有要求(从表数据与主表数据的关联关系)
+4、外键只有innodb存储引擎能使用
+
+【外键的运用】
+1、主表约束从表
+例如 主表字段有1-4班,从表不能插入1-4班以外的数据
+2、不可以删除数据
+3、外键约束对象是主表操作(删除),从表只是不能插入主表不存在的数据
+
+*****************************外键END***********************************
+
+*****************************视图***********************************
+【创建视图】
+create view 视图名 as
+select * from 表1 as a left join
+表2 as b
+on a.字段 = c.字段;
+//字段名不能有重复
+using(字段);
+//用于重复字段名
+
+【查看视图】
+select 字段表 from 视图名字[字句];
+
+【视图修改】
+alter view 视图名字 as 新 select 指令;
+
+【删除视图】
+drop view 视图名字;
+
+*****************************视图END***********************************
+
+*****************************事务**************************************
+【自动事务】
+insert into 字段名 values(4,'4班');
+
+【查看自动事务】
+show variables like 'autocommit%';
+
+【关闭自动事务】
+set autocommit = off;
+
+【提交事务】
+//关闭自动事务后,手动提交
+Commit :提交到数据库(同步)
+Rollback :回滚(清空之前的操作)
+
+【手动事务】
+start transaction;
+//开启事务,这条语句之后的都会写入日志
+
+【提交手动事务】
+Commit :提交到数据库(同步)
+Rollback :回滚(清空之前的操作)
+
+【回滚点】
+[添加回滚点]
+savepoint 回滚点名字;
+
+[回到回滚点]
+rollback to 回滚点名字;
+*****************************事务END***********************************
+
+*****************************MySQL变量***********************************
+【系统变量】
+1、查看全部系统变量
+show variables[like 'patten//变量名'];
+
+2、用户查使用 select 查询系统变量的数值
+select @@变量名;
+
+【修改系统变量】
+1、修改系统变量当初连接有效,改了当次有效
+set 变量名 = 新值
+
+2、全局修改
+set global 变量名 = 值;
+//只对新客户端生效
+set @@global.变量名 = 值;
+
+【会话变量】
+//跟用户绑定的变量
+set @变量名 := 值;
+:= //赋值
+
+【表数据赋值到变量】
+1、
+select @name :=字段1,@age := 字段2 from 表名 limit 1;
+2、
+select 字段1,,字段2 from 表名 order by 排序条件 desc//降序 limit 1 into @name,@age;
+
+【查看变量】
+select @变量名;
+
+
+【局部变量】
+1、局部变量是用declare声明的
+2、局部变量出现在begin和end1之间(函数/触发器/储存过程)
+3、声明语法:declare 变量名 数据类型 [属性];
+*****************************MySQL变量END***********************************
+
+
+*****************************流程结构**************************************
+【if分支】
+1、用于select查询当中,当做一种条件来进行判断
+if(条件,为只真结果,为假结果);
+案例：select *,if(height >170,'符合身高','不符合') as judge//别名 from mi_name;
+
+【if判断复杂语句块】
+if 条件表达式 then
+    满足条件要只想的语句
+end if;
+
+【if 复合判断】
+if 条件表达式 then
+    满足条件要只想的语句
+else
+    不满足条件要执行的语句
+end if;
+
+【whlie循环】
+whlie 条件 Do
+    要循环的循环体
+end whlie;
+
+【循环结构标识符】
+标志名字:whlie 条件 Do
+    要循环的循环体
+end whlie [标志名字];
+
+1、迭代,以下代码不执行,重新开始循环
+lterate
+2、离开,整个循环终止
+leave
+案例:
+标志名字:whlie 条件 Do
+    if 条件判断 Do
+        循环控制
+        leave 标识名字
+    end if;
+end whlie [标志名字];
+
+*****************************流程结构END***********************************
+
+*****************************函数***********************************
+【访问函数】
+select 函数名(参数列表);
+
+【系统函数】
+char_length()
+//判断字符串字符数
+length()
+//判断字符串的字节数(与字符集相关)
+Concat()
+//连接字符串
+instr()
+//判断字符在目标字符串中是否存在,是返回位置,否返回零
+lcase()
+//全部小写
+left()
+//从左侧开始截取指定位置字符串
+ltrim()
+//消除左边对应的空格
+mid()
+//从中间指定位置开始截取,如果不指定长度,直到最后
+
+【时间函数】
+//搭配 select使用
+Now()
+//返回当前时间,日期 时间
+curdate()
+//返回当前日期
+curtime()
+//返回当前时间
+Datediff() //是字符串,前大后小
+//判断两个日期之间的天数
+date add(日期,interval 时间数字 type day);
+//增加时间
+Uinx_timestamp();
+//获取时间戳
+from_unixtime();
+//时间戳转换成日期
+
+【其他函数】
+Md5();
+//对数据进行md5加密
+Version();
+//获取版本号
+databse()
+//显示当前所在数据库
+UUID();
+//生成一个唯一标识符(自增长)
+
+【自定义函数】
+修改临时结束符 delimiter 新符号//一般$$
+后结束语句用 新符号
+修改回语句结束符号delimiter ,;
+
+【创建自定义函数】
+delimiter $$ (改结束符)
+Create function 函数名 ([形参1 数据类型,形参2 数据类型.....]) returns 返回值类型[int] 
+Begin//开始
+    //函数体
+    return 返回值数据 
+end//结束 语句结束符
+delimiter ;(改回来)
+
+【查看函数】
+show funcyion status [like 'pattern'];
+
+【查看函数的创建语句】
+show create function 函数名字;
+
+【调用函数】
+select 函数名(实参);
+
+【删除函数】
+drop function 函数名;
+
+【变量作用域】
+1、局部声明
+declare
+2、会话作用域
+set @变量名
+3、全局作用域
+set global 变量名 = 值;
+set @@global.变量名 = 值;
+
+*****************************函数END***********************************
+
+*****************************存储过程***********************************
+【创建存储过程】
+Create procedure 过程名字([参数列表])
+Begin//开始
+    //过程体
+
+end//结束
+结束符
+
+【查看存储过程】
+show procedure status [like 'pattern'];
+
+【查看过程结构】
+show create procedure 过程名字;
+
+【调用过程】
+call 过程名([实参]);
+
+【删除过程】
+drop procedure 过程名字;
+
+【存储过程类型参数】
+IN
+//表示参数从外部传入到里面使用(过程内使用);
+可以说是直接数据也可以是保存数据的变量
+Out
+//表示参数是从过程里面把数据保存到变量中,交给外部使用、
+传入的必须是变量,如果传入的变量有值进入后被清空;(里面往外传数据)
+Inout
+//数据可以从外部传入到过程内部使用,内部处理后反回给外部
+
+
+【触发器】
+Create trigg 触发名字 触发时机 触发事件 on 绑定的表 for each row
+Begin
+    //内容
+end;
+//触发对象：on 表 each row 触发器绑定实质是表中所有的行,因此表中每一行发生改变时
+就会触发触发器
+1、
+Before:在表中数据改变前的状态
+2、
+after:在表中数据改变后的状态
+
+【触发事件】
+insert //插入操作
+update //更新操作
+dlete  //删除炒作
+
+
+*****************************存储过程END***********************************
+
+
+/**************************MySQL数据库END******************************/
+

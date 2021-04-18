@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <imgcn v-for="(item, index) in id" @son_name="fh_name" :arr=item :key="index"></imgcn>
+        <h1>你选择的是：{{img_name}}</h1>
+    </div>
+
+</body>
+<script type="text/javascript">
+    Vue.component('imgcn', {
+        props: ['arr'],
+        template: `
+        <li>
+            <h2>姓名：{{arr.name}}</h2>
+            <h4>年龄：{{arr.age}}</h4>
+            <p>电子邮箱：{{arr.Em}}</p>
+            <button @click="choice(arr.name)">点击选择</button></button>
+        </li>
+        `,
+        methods: {
+            choice: function(data) {
+                console.log(data);
+                this.$emit('son_name', data)
+            }
+        }
+    })
+    let app = new Vue({
+        el: '#app',
+        data: {
+            img_name: "",
+            id: [{
+                name: "万枢轩",
+                age: "21",
+                Em: "1508894594@qq.com",
+            }, {
+                name: "张三",
+                age: "13",
+                Em: "2781650877@qq.com",
+            }, {
+                name: "芳奈",
+                age: "16",
+                Em: "1********4@qq.com",
+            }]
+        },
+        methods: {
+            fh_name: function(data) {
+                this.img_name = data
+            }
+        },
+    })
+</script>
+
+</html>

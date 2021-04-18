@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav {
+    width: 600px;
+    height: 100px;
+    margin: 200px auto;
+    overflow: hidden;
+    border: 2px solid chocolate;
+}
+
+nav ul {
+    width: 200%;
+    animation: mov 5s linear infinite;
+}
+
+nav ul li {
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+
+nav ul li img {
+    width: 100px;
+    height: 100px;
+}
+
+
+/* 停止动画 */
+
+nav ul:hover {
+    animation-play-state: paused;
+}
+
+
+/* 自定义动画 */
+
+@keyframes mov {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-600px);
+    }
+}

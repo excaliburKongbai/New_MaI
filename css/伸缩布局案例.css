@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+a {
+    text-decoration: none !important;
+    color: rgb(0, 0, 0);
+    transition: all 0.5s linear;
+}
+
+a:hover {
+    background-color: rgb(78, 78, 78);
+    color: wheat;
+}
+
+
+/* 前置END */
+
+
+/* 页头 */
+
+#hear {
+    width: 100%;
+}
+
+#hear>img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+/* 内容 */
+
+#art {
+    width: 100%;
+    padding: 0 2%;
+}
+
+#art>.meit {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex: 1;
+    border-radius: 10px;
+    margin-top: 1%;
+}
+
+#art>.meit:nth-child(1) {
+    background-color: cadetblue;
+}
+
+#art>.meit:nth-child(2) {
+    background-color: yellowgreen;
+}
+
+#art>.meit:nth-child(3) {
+    background-color: wheat;
+}
+
+#art>.meit:nth-child(4) {
+    background-color: crimson;
+}
+
+#art>.meit>.meit-left {
+    display: flex;
+    flex: 1;
+}
+
+#art>.meit>.meit-right {
+    display: flex;
+    flex: 2;
+    flex-wrap: wrap;
+}
+
+#art>.meit>.meit-right>a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    color: #fff;
+    border-left: 1px solid rgb(189, 189, 189);
+    border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+#art>.meit>.meit-right>a:nth-last-child(-n+2) {
+    border-bottom: none;
+}
+
+
+/* 页尾 */
+
+#foe {
+    width: 100%;
+    padding: 10px;
+}
+
+#foe .foe-img {
+    display: flex;
+    flex: 1;
+}
+
+#foe .foe-img>img {
+    width: 50%;
+    flex-wrap: wrap;
+    padding: 0 2%;
+    border-radius: 20%;
+    cursor: pointer;
+}
+
+#foe>p {
+    width: 100%;
+    margin: 2% 0 0.5% 0;
+    text-align: center;
+    border-top: 1px solid rgb(92, 92, 92);
+    border-bottom: 1px solid rgb(92, 92, 92);
+    box-sizing: content-box;
+    padding: 10px 0;
+    display: flex;
+}
+
+#foe>p>span {
+    color: rgb(78, 78, 78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34%;
+    cursor: pointer;
+    transition: all 0.5s linear;
+}
+
+#foe>p>span:hover {
+    background-color: rgb(78, 78, 78);
+    color: wheat;
+}
+
+#foe>.nav {
+    box-sizing: content-box;
+    justify-content: center;
+    padding: 10px 0;
+    display: flex;
+}
+
+#foe>.nav>a {
+    color: blue;
+    width: 100px;
+    margin: 0 3%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+#foe>span {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: content-box;
+}
