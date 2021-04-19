@@ -3,7 +3,7 @@
     
     //定义路径
     $dir = 'D:\New_MaI\php';
-    $dir1 = 'D:\New_MaI\php\PHP进阶\curl仿HTTP请求.php';
+    $dir1 = 'D:\New_MaI\img';
    
 
     /**
