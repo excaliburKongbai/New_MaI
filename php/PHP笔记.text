@@ -1532,4 +1532,133 @@ delimiter ;
         6)fgetc();一次获取一个字符
         7)fgets();一次获取一个字符串(默认读一行)
         8)file();读取整文件,按行为下标返回数组(读行)
+        9)feof();查询指针是否到达内容最后,返回布尔值
+    【文件下载】
+        //服务器通过HTTP协议传输给网页存储(尝试解析)
+        //PHP下载:读取内容,以文件流传递,响应头中阻止解析,激活下载框
+        //指定转码
+        iconv('转换的编码','被转换编码', 值);
+
+        1)指定浏览器解析字符集
+        2)设置响应头
+            a、设置文件返回的类型:image/jpg||application/octem-stream
+            b、设定返回文件的计算方式(字节):Accept-ranges:bytes;
+            c、设置下载提示/附件名字:Content-disposition:attachment;filename='文件名字';
+            d、设定文件大小:Accept-length:文件大小;
+        3)读取文件
+        4)输出文件
+            a、文件较小
+                echo file_get_contents($file);
+            b、文件较大,带宽拉胯,PHP4分段式读取
+                $f=@fopen($file,'r')or die();
+                //1)推荐
+                while($row =fread($f,1024)){//一次读取1024
+                    echo $row; //循环把数据全部分段输出
+                }
+                //2)
+                while(!feof($f)){//一次读取1024
+                    echo fread($f,1024); //循环把数据全部分段输出
+                }
+
+/* 会话技术 */
+    /* cookie技术 */(简单数据)
+    //服务器保存在客户浏览器的文件(HTTP响应头)大小(20个4k长度)
+    //cookie技术:服务器通过HTTP响应存储到浏览器,浏览器携带返回到服务器
+        1) Setcookie函数用来设定COOKIE信息
+            a、Setcookie(名字,值,[结束时间],[作用范围],[有效域名/主机]);
+
+        2)cookie名等等设置:字符串：
+        3)cookie值的设置：第二参数
+        4)cookie值的类型要求：简单类型中的整数/字符串
+        
+        【COOKIE生命周期】
+        //指COOKIE在浏览器存在的时间
+            1)默认生命周期:浏览器关闭结束
+            2)设定一个常规日期的周期：通过第三个个参数设置生命周期(时间戳)
+                a、setcookie('a','阿帕奇',time()+7*24*60*60);
+                    //当前时间戳+7天的倒计时结束当前COOKIE(单位秒)
+            
+            3)设定为'0'的周期:和默认一样,关闭浏览器结束
+            4)删除COOKIE的做法(注销):可以设置空内容/无效时间戳
+                a、setcookie('a','阿帕奇',time()-1);
+
+        【COOKIE高级使用】
+            [Cookie作用范围]
+            默认限制:子查父,父不能查子(文件夹)
+            1)默认:上层看不见下层,下层可以看上层内容
+            2)设定全局可用:"/"告知浏览器COOKIE作用于网站根目录
+                a、setcookie(名字,值,生命周期,"/");
+
+        【COOKIE跨子域】
+            //在同一级别域名下:loliyaozi.xyz(一级域名)下有多个子域名可用设置共享COOKIE
+            1)设定COOKIE的有效域名:设置COOKIE第五个参数控制访问
+                a、setcookie('loli','yaozi',0,'/','newmal.xyz');
+                    //设定本都域名
+            2)不设置时的默认有效域名:默认当前域名(主机),不同域名(主机)之间不能共享COOKIE
+            3)跨子域的设置方法:在设定域名访问的时候设定上局域名即可
+                a、setcookie('newloli','newloli',0,'/',"newmal.xyz");
+                    //在其他地方叫xx.newmal.xyz都可以使用COOKIE
+                    //子域名必须是XX.一级域名;
+
+        【COOKIE数组】
+            //因为PHP的特殊性能存储伪数组
+            1)创建COOKIE伪*数组
+                setcookie('goods_id[0]',1);
+                //二维数组
+            2)输出伪数组
+                echo '输出：'.$_COOKIE['goods_id'][0];
+
+    /* session技术 */(安全)(复杂数据)
+        //数据存储在服务端,依赖cookie,实现跨脚本共享数据
+        //session_start开启第一次连接服务器,返回sessionID后,携带值通过COOKEI返回服务器
+        //可以用sessionID判断是否是第一次登陆
+        【开启session】
+            session_start()
+            //开启session,后生成$_SESSION;
+
+        【设置session数据】
+            //值可以是字符串/数组
+                $_SESSION['name']='值';
+
+        【读取session数据】
+            //要先开启session
+            //调用session
+            echo $_SESSION['name'] ;
+
+        【删除SESSION】
+        //相当于将值清除
+            1)删除一个SESSION数据
+                a、Unset($_SESSION['下标']);
+            2)删除全部SESSION数据
+                a、$_SESSION = array();
+                //清空所有下标
+
+        【session基础配置】(php.ini修改)
+            1)session.name:COOKIE返回头里sessionID里的名字 
+            2)session.aotu.start:自动打开session_start(默认关闭)
+            3)session.save_handler:数据的保存方式,默认是文件形式
+            4)session.save_path:文件默认存储位置
+                a、默认是系统的tmp临时文件存储(不安全)建议修改
+            [常用配置]
+                1)session.cookie_lifetime:sessionID在COOKIE里的生命周期
+                    a、默认浏览器结束关闭
+                2)session.cookie_path:session在网站目录访问等等范围
+                    a、默认网站根目录
+                3)session.coolie_domain:COOKIE允许访问的子域
+                    a、默认不能夸域
+
+        【配置方式】
+            1)修改PHP.INI全局配置
+            2)脚本中配置:PHP可以通过ini_set函数在允许中设置(只会对当前运行的项目有效)
+                Ini_set('');
+
+        【销毁SESSION】
+            session_destroy()
+            //会找到sessionID的文件并且删除
+            sleep(5)
+            //程序会暂停五秒后运行
+
+        【session垃圾回收】
+
+
 /**************************PHP核心编程END******************************/
