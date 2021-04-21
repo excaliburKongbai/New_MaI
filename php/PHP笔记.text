@@ -1659,6 +1659,107 @@ delimiter ;
             //程序会暂停五秒后运行
 
         【session垃圾回收】
+            //给session设定生命周期,最后修改时间与生命周期对比,到点自己滚
+            1)session.gc_maxlifetime = 1400
+                //规定到点session文件最大的生命周期是1440秒
+            2)session.gc_probability=1:垃圾回收概率(分子)
+            3)session.gc_divisor = 1000:垃圾回收概率(分母)
+            //概率1/1000
 
+        【无COOKIE使用SESSION】
+            1)利用session_id();和session_name()来设置sessionID返回头的数据
+                a、在session保存数据中获取
+                    $id=session_id(); //获取id
+                    $name=session_name(); //获取名字
+                b、通过form表单或者gat超链接传到下一个文本
+                    $ceho '<a href='xxxxxx?{$name}={$id}'>click</a>'
+                c、获取sessionID(开启前)
+                    $name=session_name();
+                    $id=$_GET['name'];
+                    //告知响应头需要的session
+                    session_id($id);
 
+            2)利用session提供的方法解决(php.ini配置)
+                1)开启其它方式传输,关闭只允许cookie传输
+                    a、session.use_trans_sid = 0    //开启改 1
+                    b、session.use_only_cookies = 1 //关闭改0
+                2)配置开启PHP后sessionID会自动绑定名字,(表单传值)
+                    //声明
+                    $_SESSION['xx']=xx;
+                    //传输,会自己携带id
+                     $ceho '<a href='xxxxxx'>click</a>'
+
+/* GD图像处理 */(黑色才是无色)
+    流程： //本质是开辟一个很大的内存空间制作图片
+        1、准备画布
+        2、开始做画
+        3、保存内容
+        4、销毁画布
+    【创建画布】(返回资源,声明运用)
+        1)ImageCreate(宽,高)//创建空白画布(背景白)
+        2)ImageCreateTrueColor(宽,高)//创建真彩画布(背景黑)
+        3)ImageCreatefrom[Jpeg/Gif/Png](文件路径)//打开图片文件
+    
+        【操作画布资源】(都需要资源变量)
+            1)分配颜色:imageColorAllocate()
+                //RGB三色分配,返回颜色句柄
+            //以下操作都需要分配颜色
+            2)填充区域:imageFill(资源,始x,始y,颜色)
+                //指定位置开始填充,填充相邻颜色的
+            3)画直线:imageLine(资源,始x,始y,终x,终y,颜色)
+            4)画矩形:imageRectangle(资源,在上x,左下y,右上x,右下y,颜色)
+            5)画圆弧:imageArc(资源,始x,始y,w宽,h高,s开始角度,e结束角度,颜色)
+            6)在画布上写字:
+                imageString(资源,大小[1-5],始x,始y,内容,颜色)//书写ASCII对应字符(英)
+                imageTtfText(资源,大小,始x,始y,旋转角度,颜色,字体,内容)//书写任意字符(中)
+    【输出画布资源】
+        1)输出为图片文件:以图片格式保存到本地文件夹 、
+            a、mage[jpeg/gif/Png](资源,路径文件名)  
+        2)输出为网页图片:将图片展示给HTML(用户)
+            a、 header('Content-type:image/png');//声明格式
+            b、mage[jpeg/gif/Png]()
+    
+    【销毁画布】
+        //释放画布内存
+        imagedestroy(资源)
+    
+    【获取图片信息】
+    //先将图片转换成资源类型
+        1)获取图片宽
+            a、imagesx(资源);
+        2)获取图片高
+            a、imagesiy(资源);
+        3)获取图片全部信息(用地址)
+            getimagesize(图片地址);
+            //返回数组
+    【验证码】
+        流程：
+            1)实现验证码图片展示
+                a、生成图片资源
+                b、写入文字
+                    imagettftext(资源,大小,角度,x,y,字符,内容)
+                c、输出图片给浏览器
+                b、销毁图片
+            2)实现验证码文字的随机变化
+            3)实现验证码文字颜色的随机变化
+            4)实现验证码背景或者噪点感染
+                a、imagesetpi(资源，大小，x，y，内容，颜色);
+                    //干扰画点
+                b、imagestring(资源，开始x，开始y，结束x，结束y，颜色)
+                    //画线
+            5)实现点击刷新验证码功能
+    【接收验证码】
+        1)点击更换验证码,让src重新请求php脚本
+        <img src="./GD图片3_验证码.php" onclick="this.src='./GD图片3_验证码.php?'+Math.random()">
+        //Math.random()是js的随机数，以上是随机数拼接
+
+    【略缩图】
+        //原理打开原图获取一个小一点尺寸的图片
+        1)实现固定高度的略缩图
+            a、得到一张原图资源
+            b、得到一张略缩图资源
+            c、图片采样复制;GD提供了一个函数
+            d、保存略缩图
+            e、销毁所有资源(原图和缩略图)
+        2)实现等比缩放的固定宽高的略缩图
 /**************************PHP核心编程END******************************/
