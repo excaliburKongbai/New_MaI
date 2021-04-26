@@ -1559,6 +1559,10 @@ delimiter ;
                 while(!feof($f)){//一次读取1024
                     echo fread($f,1024); //循环把数据全部分段输出
                 }
+    【获取当前路径文件的名字】
+        basename  
+            basename('D:\New_MaI\img\小孩子不能看.jpg');
+            //输出小孩子不能看.jpg
 
 /* 会话技术 */
     /* cookie技术 */(简单数据)
@@ -1812,3 +1816,147 @@ delimiter ;
     【封装水印图函数】
 
 /**************************PHP核心编程END******************************/
+
+
+/**************************PHP面向对象*********************************/
+/* 类 */
+    1)栈
+        //用于存储变量名,变量被赋值指向堆的地址
+    2)堆
+        //存储属性值,没有栈指向时会被PHP回收
+    【声明类】
+        class 类名{
+            <<内容>>
+        }
+
+    //实例化类(调用)对象保存在堆区
+        $变量名 = new 类名[()];
+    
+    //类成员(存储数据)
+        1)一级成员只能有 变量 方法(函数) 常量 构成
+        2)实例化后调用变量不能带'$'符号
+            public $name;
+            //公共成员 变量、
+
+            const PI = 3.14;
+            //定义方法里的类常量
+
+            $实例化变量名->(不带$)类变量名=xxx;
+            //向实例化的变量传递值/添加属性(当前实例化的对象)互不干扰
+
+            Unset($实例化变量名->(不带$)类变量名);
+            //删除变量
+    【访问修饰符】
+    (尽量增加类对成员的控制,多用Protected,少用public )
+        1)public 
+        //公共属性,类的里外都可以访问
+        2)protected
+        //受保护,类内部才能访问
+        3)private
+        //私人的,只能在当的类使用
+
+    【类方法(函数)】
+        [全局变量引入局部]
+            global 变量;
+        [调用当前类的变量](内部指针)
+            $this->(不带$)变量名
+            //在方法里指向当前类的
+
+    【构造函数】
+         __construct()
+        1)实例化的时候初始化属性(自动执行)
+        public function __construct($a,$b){
+            $this->count = $a;
+            $this->money = $b;
+        }
+        2)实例化并且传参数;
+        $s = new xxxx($a,$b);
+
+    【析构函数】(比较少用,因为PHP执行完毕会回收)
+        __destruct()
+        //和构造函数一样系统会自动调用,当对象销毁时自动调用
+        class Saler{
+            protected $name;
+            //析构方法 销毁时自动调用
+            public function __destruct(){
+                //销毁对象占用资源的代码
+            }
+        }
+        $s = new Saler();
+        unset($s);
+
+    【对象传值】
+        $s1 = new Saler();
+        $s2 = $1;
+        //$1的堆地址赋值给$s2,所以是共用一个堆(会互相影响)
+
+    【范围解析操作符】(类常量访问)
+        :://访问类的常量
+        Saler::PI;(实例化也可以)
+
+    【静态成员】(给类调用)
+        1)添加static可以给变量和方法变成静态成员(只能类访问)
+            //实例化调用静态函数也可以但是会报错(this也不行)
+        2)类名 ::(范围解析操作符)+静态成员 进行访问
+        3)静态成员是给类访问的,非静态成员是给对象访问的
+        4)对象可以无条访问静态方法,类只能访问非$this的普通方法
+        5)静态成员效率高(优先使用)
+
+        static 被修饰变量/方法
+        //一切基于static修饰的都是给类用的,没有对象的堆
+        
+        echo $s::PI;
+        echo $s::$name;
+        //实例化访问静态属性(类访问);
+    
+    【Self关键字】
+        定义:
+        1)Self是在类里面使用静态的方法,相当于给类使用的$this;(常量也行)
+        2)可以在内部实例化对象,替换对象名(new self();这样子) 
+            class Saler{
+                public static $money = 100;
+
+                public static function QsMoney(){
+                    echo Saler::$money;
+                    echo self::$money;
+                    //相当于对象的this;
+                }
+            }
+            Saler::QsMoney();
+            //如果改变类名用self引用的方法就不用改
+
+    【类的加载】
+        class_exists()
+        //判断内存中是否存在这个类
+        file_exists()
+        //文件或目录是否存在
+        1)手动加载类
+            include_once '类文件';
+
+        2)自动加载类
+             spl_autoload_register( '被调用的函数' );
+            //自动连接类
+            function load($CalssName){
+                //可以做判断 $CalssName.'php';
+                $c_file= '7.'.$CalssName.'类的加载.php';
+                require_once $c_file;
+            }
+            spl_autoload_register( 'load' );
+            //自动调用
+            $s=new Saler();
+
+            //用类实现自动加载
+                class Autoload{
+                    public static function loadC($CalssName){
+                        $c_file= 'D:/New_MaI/php/PHP面向对象/7.'.$CalssName.'类的加载.php';
+                        require_once $c_file;
+                    }
+                }
+                 //用数组传入 变量名和参数
+                spl_autoload_register( array('Autoload','loadC') );
+
+
+/**************************PHP面向对象END******************************/
+
+
+
