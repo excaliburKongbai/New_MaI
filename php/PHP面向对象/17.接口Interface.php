@@ -31,6 +31,9 @@
     //实例化
     $s = new Man();
     $s->display();
+    //调用接口的类常量
+    $s1 = Human::PI;
+    echo $s1;
 
     //实例化被继承过的接口
     $m = new Master();
