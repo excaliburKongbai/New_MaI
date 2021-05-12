@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="init()">开始</button>
+    <button onclick="stpo()">结束</button>
+    <h2 id="time"></h2>
+    <hr>
+    <button onclick="hello()">定时执行</button>
+    <button onclick="stop()">结束</button>
+    <h2 id="time2"></h2>
+
+
+</body>
+<script type="text/javascript">
+    //第一种时间循环执行
+    function init() {
+        // 获取当前时间
+        var time = new Date().toLocaleTimeString();
+        document.getElementById("time").innerHTML = time;
+        time_id = setTimeout(init, 1000);
+    }
+
+    function stpo() {
+        //结束
+        clearTimeout(time_id);
+    }
+    //第二种时间循环执行
+    function hello() {
+        int = setInterval(function() {
+            var time = new Date().toLocaleTimeString();
+            document.getElementById("time2").innerHTML = time;
+        }, 1000);
+    }
+
+    function stop() {
+        clearInterval(int);
+    }
+</script>
+
+
+</html>

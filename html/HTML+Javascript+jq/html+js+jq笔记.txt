@@ -1,0 +1,347 @@
+/*H5基础标签*/
+    【常用属性】
+    <!DOCTYPE html> = 声明H5的标签
+    <p>[内容]</p>标签的aling位置定位
+        1)left；左默认
+        2)right；右对齐
+        3)center；居中
+        4)justify；两端对齐
+
+    /*列表*/
+        [无序]
+            <ul>
+                <li></li>
+                 <li></li>
+            </ul>
+            常用属性
+                type 列表图标
+                    square 实心正方
+                    circle 空心圆
+                    disc   实心圆
+        [有序]
+            <ol>
+                <li></li>
+            </ol>
+            常用属性
+                type 列表图标
+                    1 数字
+                    a 小写字母
+                    A 大写字母
+                    i 小写罗马
+                    I 大写罗马
+
+    /*块级标签*/
+        div标签
+            层,块级元素,标签自动换行
+        span标签
+            块,行内元素,不会自动换行
+        img
+            行内元素,不会自动换行
+    
+    /*格式化标签*/
+        font
+            字体大小,尺寸,颜色
+        pre
+            自动换行,按格式排列
+        <b>(粗文本)
+        <i>(倾斜)
+        <u>(下划线)
+        <del>(中划线)
+        <sub>(下标)
+        <sup>(上标)
+
+    /*超链接标签*/
+        <a></a>
+            target='值';
+                _blank
+                //新页面打开
+                _self
+                //当前页面打开
+                _parent
+                //副窗口打开
+                _top
+                //顶级窗口打开
+
+    /*图片*/
+        img
+            行内元素,不会自动换行
+        常用属性
+            src     地址
+            title   鼠标悬停的文字
+            alt     图片无法加载显示的文字
+
+    /*表格*/
+        [常规]
+            table   表格
+            th      标题栏
+            tr      行
+                常用标签
+                    aling 水平对齐
+                    valign 垂直对齐
+            td      单元格
+        [单元格合并]
+            纵向合并    rowspan
+            横向合并    colspan
+
+    /*表单*/
+        form
+            常用属性
+                action 提交的地址
+                method 提交方式
+                target 提交打开窗口的方式
+                    _blank
+                    //新页面打开
+                    _self
+                    //当前页面打开
+                    _parent
+                    //副窗口打开
+                    _top
+                    //顶级窗口打开
+
+        input
+            常用属性
+                type 选择元素类型
+                    1.text      文本框
+                    2.password  密码框
+                    3.radio     单选框
+                    4.checkbox  复选框
+                    5.file      上传文件
+                    6.hidden    隐藏表单
+                    7.button    按钮
+                    8.submit    提交按钮
+                    9.reset     重置(写入的默认值不会)
+                    10.date     日期框
+                name        被提交值的名字
+                value       元素的值
+                readonly    只读
+                maxlengte   限制写入长度
+
+        textarea
+            //定义输入多行文本标签
+            常用属性
+                cols    可见宽度
+                rows    可见行数
+
+        label标签
+            for属性
+            //当for属性与元素的id一致，点击label标签会自动聚焦定义的id标签
+        
+        button标签
+            //H5标签 双标签方便嵌套标签,type没有设置默认上传表单
+                <button type='button'>普通按钮</button>
+            常用属性
+                1.button    按钮
+                2.submit    提交按钮
+                3.reset     重置(写入的默认值不会)
+                4.size      最多显示
+                5.disabled  禁用下拉框(禁用属性)
+
+        select标签
+            //下拉菜单
+            常用属性
+                select      下拉框标签
+                option      下拉框选项
+                multiple    复选框(多选)
+                option标签  提示信息
+                    selected    默认选中项
+
+    /*字符实体*/
+        <       &lt;
+        >       &gt;
+        空格    &nbsp;
+        版权    &copy;
+
+    /*CSS选择器*/
+        选择器1 > 选择器2 
+            //只选择选择器2
+        
+        选择器1 + 选择器2 
+            //兄弟相邻选择器  找离自己最近选中的选择器
+            
+        选择器1 ~ 选择器2 
+            //普通兄弟选择器  选选着自己之后的
+
+/*JavaScript基础语法*/
+    /*基本属性*/
+        onclick;点击触发
+    
+    /*数据类型*/
+        数值        (Number)
+        字符串      (String)
+        布尔值      (Boolean)
+        Undefined   (未定义)
+        NULL        (空)
+        对象        (Object)
+
+    /*数据转换*/
+        parseint();
+        //转换整形
+        parseFloat();
+        //转换整形，可以识别第一个小数点
+
+        tostring();
+        //转换成字符串
+        tofixed();
+        //转换成字符串,可以识别小数点
+
+        number();
+        //强制转换成数值
+        String();
+        //强制转换成字符串
+
+    /*数组*/
+        length
+            //获取数组长度或者设置数组长度
+
+        for.....in
+            //遍历打印数组
+                for(var index in arr2){
+                    console.log(index);
+                    //下标
+                     console.log(arr2[index]);
+                }
+        
+        foreach
+            //函数遍历数组
+                arr2.foreach(function(element,index){
+                     console.log(index);
+                    //下标
+                     console.log(element);
+                })
+
+        push        添加元素到最后面
+        unshift     添加元素在最前面
+        pop         删除最后一项
+        shift       删除最前面一项
+        reverse     数组翻转
+        join        数组转成字符串
+        indexof     数组元素引索
+        slice       截取数组,原数组不变
+        concat      数组合并
+
+    /*函数*/
+
+        /*内置对象*/
+            String  
+                charat(id)      返回指定位置处的字符串   
+                indexof(Chr)    返回指定字符串的位置,从左往右,找不到返回-1
+                substr(m,n)     返回从字符段m开始查询,n个字符,如果无n查到结束
+                substring()     返回从字符段m开始查询,n结束,如果无n查到结束
+                tolowercase()   将字符串全部转换成小写
+                touppercase()   将字符串的字符全部转换成大写
+                length()        属性,不是方法,返回字符的长度
+            
+            Math
+                math.random()   随机数
+                math.ceil()     四舍五入向上取整
+                math.floor()    四舍五入向下取整
+
+        /*对象序列化和反序列化*/
+            JSON.stringify()
+                //序列化对象,将对象转换成字符串
+
+            JSON.parse(jsonstr);
+                //反序列化,将严格Json字符串转换成对象。
+   
+    /*DOM*/
+        onload='被触发的函数';
+            window.onload='网页加载完执行';
+            //页面加载完自动触发
+        onblur=被触发的函数';
+            //元素失去焦点
+        onfocus=被触发的函数';
+            //获取元素焦点
+        onclick=被触发的函数';
+            //鼠标点击事件
+        onchange=被触发的函数';
+            //改变内容触发
+        onmouseover=被触发的函数';
+            //鼠标移动到元素上触发
+        onmouseout=被触发的函数';
+            //鼠标从元素上离开触发
+        onkeyup=被触发的函数';
+            //键盘抬起
+        onkeydown=被触发的函数';
+            //键盘按下 
+            
+            /*DOM0级事件获取元素对象*/
+                var x = document.getElementById("id名")
+                x.onclick = function (){
+                    log('绑定鼠标点击事件')
+                }
+
+            /*DOM2级事件*/
+                addEventListener()
+                //绑定执行,可以为同一个属性同一个事件绑定多次
+                    三个参数
+                        参数1:事件名
+                        参数2：处理事件的函数
+                        参数3:事件冒泡或捕获(布尔值)
+                    实例
+                        x.addEventListener('click',function(){
+                            函数内容
+                        })
+
+                removeEventListener()
+                //移除按钮
+                    三个参数
+                        参数1:事件名
+                        参数2：处理事件的函数
+                        参数3:事件冒泡或捕获(布尔值)
+                    实例
+                        x.removeEventListener('click',function(){
+                            函数内容
+                        })
+
+    /*BOM*/
+        /*窗口*/
+            alert("弹出内容")
+                //弹出警告窗口
+            prompt("输入框",'默认显示值');
+                //输入框
+            confirm("显示内容");
+                //确认框,返回布尔值
+            open("网站地址");
+                //打开新的网页'_self'在当前打开
+            close();
+                //关闭当前窗口
+
+        /*时间执行*/
+            toTimeString()
+                //将时间转换成字符串
+            
+            setimeout(function,times);
+                //延迟执行函数,如果需要循环使用需要递归(自己调用自己)
+                //没有var在函数里定义的是全局属性,有var是局部变量
+                参数1:执行的函数
+                参数2：延迟执行的时间(单位毫秒)
+                实例
+                    time_id = setTimeout(init, 1000);
+            
+            clearTimeout
+                //用于结束定时函数,需要获取定时函数
+                实例
+                    clearTimeout(time_id);
+
+            setInterval
+                //按照指定时间一直执行
+                //没有var在函数里定义的是全局属性,有var是局部变量
+                实例
+                     int = setInterval(执行函数,延迟时间)
+
+            clearInterval
+                //停止 setInterval 创建的时间函数
+                实例
+                    setInterval(int)
+        
+        /*URL历史记录*/
+            history对象
+
+
+            
+            
+            
+
+
+        
+

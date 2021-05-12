@@ -2051,9 +2051,10 @@ delimiter ;
         总结：
             1)重写override是一种在子类中定义父类同名成员的操作
             2)公有和保护的属性重写是直接覆盖的,私有属性不能被重写(不被继承)
-            3)公有和保护的方法会被重写(非覆盖),可以通过 parent::方法名强制调用父系方法    
+            3)公有和保护的方法会被重写(非覆盖)
             4)parent不能访问父类的属性(静态属性可以)
             5)被重写的方法权限不能高于父类方法,数量/类型必须要与父类一致
+            6)可以通过 parent::方法名强制调用父系方法    
         详情：PHP面向对象/14.PHP方法重写
 
     【继承特点】
@@ -2091,7 +2092,7 @@ delimiter ;
     【interface接口】
         总结:
             1)interface 类名{}
-                //声明几口
+                //声明接口
             2) class 类 implements 接口
                 //实现接口
             3)接口只能被类实现,不能被实例化
@@ -2101,7 +2102,7 @@ delimiter ;
             7)大项中 接口->抽象类->类
         实例:17.接口Interface
     
-    【taait代码复用】
+    【trait代码复用】
         总结:
             1)trait是用来实现代码复用的,不可以被实例化也不可以被继承
             2)trait里可以声明:变量(包含静态)方法(包含静态),但是不能声明常量
@@ -2109,12 +2110,470 @@ delimiter ;
             4)trait是用来将公共代码提供给其他类使用的,而类使用trait的前提是加载trait
                 //在目标类里 use 类名;来加载trait
             5)一个类可以使用多个trait
+                例如：use x1,x2;
+            6)属性不允许重复,方法覆盖重写
+            7)多重重写优先级 类原声明的方法>trait加载>继承的
+                //可以在trait里使用 parent::方法名 来强制采用继承方法
         实例:
             trait 名字{ 内容 }//声明
-            
+    【trait代码2】
+            1)同时调用两个拥有相同方法名的trait,可以通过修改另一个方法名来分别使用
+                实例:
+                    use 类1,类2{
+                        类1::方法名1 insteadof 类2;//单用这一行调用的是类1
+                        类2::方法明2 as 别名;
+                    }
+            2)修改trait里方法/变量的权限
+                实例：
+                    use 类名1{
+                        方法名 as public 别名
+                        //本质是声明了另外一个方法,不会销毁原来的方法
+                    }
+            案例:18.trait公共池
 
+    【属性重载入】(相当于银行前台)  
+        总结：
+            a、PHP的重载 是指对象在访问一下不允许访问或者是不存之的属性/方法
+                会自动调用
+            b、重载是保护程序的容错率(错误调用运行自己的魔术方法)
+            c、重载只是一种对外部访问采取的一种机制,不需要全部实现
+            d、重载分为变量重载和方法重载   
+                函数名：
+                    1)读属性错误的时候触发
+                        __get($key);
+                    2)写属性的时候触发
+                        __set($key,$value);
+                    3)外部调用isset()函数或empty函数的时候触发
+                        __isset($key);
+                    4)外部调用unset()删除函数的时候触发
+                        __unser($key);
+                    5)对象被当做普通变量输出或者链接时触发
+                        __toString();要return返回值
+            案例：19.变量重载
+    
+        [方法的重载入]
+            函数名：
+                1)普通方法不可调用的时候触发
+                    __call($function_name,$args);
+                2)静态方法不可调用的时候触发
+                     __callStatic($function_name,$args);
+    
+    【对象遍历foreach】(不合理)
+        总结：
+            1)外部遍历只能遍历公有
+            2)可以内部写个方法遍历所有变量
+        案例：
+            $m = new Man();
+            foreach ($m as $k => $v){
+                echo $k.':'.$v.'<br/>';
+            } 
+    
+    【命名空间】
+        总结:不同命名空间里可以存在相同变量名方法名的变量和方法(解决重名)
+            1)声明命名空间,声明命名空间之前不能有任何代码
+                //namespace 空间名
+            2)一个脚本里可以有多个命名空间,但是一般只设置一个
+            3)命名空间里可以定义同名的有函数,常量和类(结构),类机构不允许同名,被定义后成为空间元素
+            4)空间里可以有其他代码
+            5)命名空间就好比在磁盘里划分多个不同的文件夹用来保存同名文件
+    
+    【命名空间子空间】
+        总结：子空间,在已经有的空间上划分2级小空间
+            1)创建子空间
+                //namespace 一级空间\二级空间
+            2)可以直接创建二级空间
+            3)子空间理论上可以无限创建,一般开发最多4层
+        
+    【命名空间访问】
+        总结：
+            1)命名空间的访问方式分为三种
+            2)非限定名称访问,访问当前目录从下往上第一个命名空间,不能夸空间,
+            3)限定名称访问,空间名\元素或函数,代表访问当前空间
+                //如果当前有空间 会直接拼接 使用限定就相当于访问二级空间
+            4)完全限定访问,\空间名\元素或函数 ,相当于从根目录访问
 
+    【全局空间】
+        总结:
+            1)默认就是全局空间
+            2)全局空间是没有名字的
+            3)限定名称访问常量和函数时,找不到会尝试在全局空间查询(就是系统)系统定义的类不行要用完全限定访问
+            4)非限定名称访问,已经定义空间的函数,会优先访问自身的空间,没有就往全局空间查询
+
+    【命名空间引入】
+         总结:
+            1)引入空间元素,默认是从全局空间引入的
+                use 空间名\空间元素 = \空间名\空间元素
+            2)无条件引入类,函数和常量需要在前面加上function/const
+                use function Human\display;
+            3)如果引入的函数重名可以 as 改个别名
+                use function Human\display1 as displays;
+            4)复数引入,空间名后要加\
+                use  Human\{
+                    Man,                    //类
+                    function display1,show, //函数
+                    const PI,               //常量
+                }
+            5)可以引入空间,相当于当前空间的二级空间
+                use Human; //相当于 Woman\space1\Human
+                    echo Human\PI;
+                    new Human\Man();
+                    Human\show();
+
+    【POD】
+        总结:
+            1)PDO::__construct;实例化一个PDO的对象
+            2)PDO::exec;执行一个写入操作的SQL指令,返回受影响的行数
+            3)PDO::query();执行一个读操作的SQL指令,返回一个PDOStatement类型对象(后台进行数据分析操作)
+            4)PDO::errorCode();获取SQL错误代码
+            5)PDO::errorlnfo();获取SQL错误描述
+            6)PDO::lastInsertId();获取自增长ID
+            7)PDO::fetch[all]();获取查询数据的1行[全部]
+                //PDO::FETCH_ASSOC:返回一个引索为结果的数组(索引)
+                //PDO::FETCH_NUM:返回数字下标的数组(数字)
+                //PDO::FETCH_BOTH(默认):返回索引和数子下标的数组(返回2个)
+    【PDP事务功能】
+        总结:
+            1)PDO::befinTransaction():开启事务
+            2)PDO::exec();执行事务(写操作)
+            3)PDO::rollBack();滚回所有事务
+            4)PDO::commit();成功提交事务
+
+    【PDO异常】
+         总结:
+            1)要使用PDO的异常抛出需要把PHP默认的警告弹出替换掉
+                使用例:
+                    1、回调函数设置
+                    set_error_hadler(function()){
+                        throw new Exception('错误');
+                    }
+
+                    2、设置默认获取数据样式
+                    setFetchMode();
+            2)使用PDO异常需要用try包含执行的代码和用catch捕获代码
+                使用例:
+                    try{
+                        $res = $n1 / $n2;
+                    }catch(Exception $e){
+                        //抛出的函数
+                        echo '错误文件'.$e->getFile().'<br/>';
+                        echo '错误行'.$e->getLine().'<br/>';
+                        echo '错误描述'.$e->getMessage().'<br/>';
+                        die();
+                    }
+            3)getFile();错误文件
+            4)getLine();错误行
+            5)getMessage();错误描述
+            6）如果变量为空或者是0
+                使用例:
+                     try{
+                        if($n2 !=0){
+                            $res = $n1 / $n2;
+                        }else{
+                            throw new Exception('不能为零');
+                        }
+                    }catch(Exception $e){
+                        //抛出的函数
+                        echo '错误文件'.$e->getFile().'<br/>';
+                        echo '错误行'.$e->getLine().'<br/>';
+                        echo '错误描述'.$e->getMessage().'<br/>';
+                        die();
+                    }
+    
+    【PDO错误机制】(SQL错误)
+        总结：
+            1)PDO提供了三种错误机制,是通过PDO常量PDO::ERRMODE来选择的
+                a、PDO::ERRMODE_SILENT;静默模式,不会显示错误(PHP默认)
+                b、PDO::ERRMODE_WARNING;警告模式,出错了马上给出错误警告
+                c、PDO::ERRMODE_EXCEPTION;异常模式,出错了将错误交给异常PDOException对象
+                实例:
+                    $PDO(连接数据库变量)=setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_WARNING);
+            2)捕获
+                 try{
+                        //SQL执行语句
+                    }catch(PDOException $e){
+                        //抛出的函数
+                        echo '错误文件'.$e->getFile().'<br/>';
+                        echo '错误行'.$e->getLine().'<br/>';
+                        echo '错误描述'.$e->getMessage().'<br/>';
+                        die();
+                    }
+    【POD异常处理SQL】
+        总结:
+            1)可以在连接数据库的时候设置异常抛出
+                例:
+                    $drivers = array(
+                        //设置异常
+                        PDD::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION;
+                    )
+                    //设置数据库
+                    $pdo = new PDO('mysql:gost=localhost;port=3306;dbname=数据库名','账号'，'密码',$drivers)
+            2)如果PDO实例化错误也可以抛出异常
+                例:
+                    try{
+                        $pdo = new PDO('mysql:gost=localhost;port=3306;dbname=数据库名','账号'，'密码',$drivers)
+                    }catch(Exception $e){
+                        //抛出的函数
+                        echo '错误文件'.$e->getFile().'<br/>';
+                        echo '错误行'.$e->getLine().'<br/>';
+                        echo '错误描述'.$e->getMessage().'<br/>';
+                        die();
+                    }
+            3)遇到语法和逻辑没问题,但是数组不存在可以主动抛出异常
+                例:
+                    //封装报错
+                    function my_exception(PDOException $e){
+                        echo '错误文件'.$e->getFile().'<br/>';
+                        echo '错误行'.$e->getLine().'<br/>';
+                        echo '错误描述'.$e->getMessage().'<br/>';
+                        die();
+                    }
+                    //异常函数
+                    try{
+                        //删除不存在的id
+                       $res = $pdo->exec('delete from student where s_id = 100');
+                        if(!$res){
+                            throw new PDOException('删除错误,删除对象不存在')
+                        }
+                    }catch(Exception $e){
+                        //抛出的函数
+                       my_exception($e);
+                    }
+    
+    【MySQL预处理】(MySQL)
+        总结：用于大量语法相同,数组不同的情况,通过预处理省下无限次编译的性能消耗  
+            1)发送预处理：prepare 预处理名 from 'SQL语句';
+            2)执行语句:execute 预处理名;
+            3)可以用占位符(?)来设置未知数值
+                例：
+                    prepare 预处理名 from 'select * from 表名 where id = ？  ';
+            4)使用时需要设置变量,用using引入变量来调用预处理
+                例：    
+                    ser @id=1;
+                    execute 预处理名 using @id;
+        //以上操作在MySQL里执行
+
+    【PDO封装预处理】
+        总结：
+            1)PDO中预处理提供了一套方法机制,主要由以下几个方法组成
+                a、PDO::prepare();发送预处理指令,成功得到一个PDOstarement类对象,失败得到一个false(或异常)
+                    例：
+                        //声明预处理
+                            $pre_sql = 'select * from 数据库 where s_id = :id';
+                            //占位符可以用？或者:声明占位名
+                        //发送预处理
+                            $srmt = $PDO(实例化数据库对象)->prepare($pre_sql);
+
+                b、PDOSratement::bindParam();绑定需要的参数,只能是变量(引用传递)
+                    例: 
+                        $stmt->bindValue('id'1[或者变量]);
+
+                c、PDOSratement::bindValue();绑定需要的参数,可以绑定值(值传递)
+                d、PDOSratement::execute();执行预处理,返回布尔值
+                    例:
+                        //执行预处理
+                        $stmt->execute()
+            2)如果是查询还需要利用farch转换成数组
+                例:
+                    $stmt->fetch(PDO::FETCH_ASSOC);
+
+    【PDO预处理数据绑定】       
+        总结：
+            1)PDOSratement::execute();执行预处理的时候本身可以绑定数据
+                例:
+                    $stmt->execute(array(10[:id=>10]));
+                    //?占位符使用,如果是：占位符,需要使用指定的占位符下标
+            2)bindParam和bindValue的区别
+                a、bindParam对变量的绑定是动态的,变量发生变化也会跟着变化(适合遍历)
+                b、bindValue对变量是绑定死的,变量发生改变,也无法改变到当前绑定的值
+    
+    【PDO封装】
+        总结
+            1)明确PDO封装的内容
+                1、使用命名空间方便使用
+                2、PDO的实例化：得到PDO对象,PDO对象需要多次使用,可以考虑保存到属性中去
+                3、写操作；包含普通的SQL执行,和返回收影响的行数和自增长ID
+                4、查操作：包含单行查询和多行查询
+                5、隐藏操作：异常处理的封装
+                6、其他操作：根据实际需要的要求增加对应的功能
+            2)开始封装
 /**************************PHP面向对象END******************************/
 
+/**************************MVC思想************************************/
+/*MVC思想*/
+    1)MVC是一种代码分离思想
+    2)MVC是由控制器,模型,视图三部分组成
+        ·控制器:负责所有事务处理,也包括模型和视图
+        ·模型：只负责数据逻辑处理,包括操作数据库
+        ·视图:只负责数据渲染,主要是HTML+js+jabascript
+    3)通常状态下,面向对象中还会在模型和数据库之间加一层DAO(数据库连接,sql执行,异常抛出等底层)
 
+/*MVC书写格式*/
+    1)控制器的名字加上controller后缀,类也一样
+        例:后台控制器
+            namespace admin\controller;
+            class xxxcontroller;
+
+    2)模型的的名字加上model后缀,类也一样
+        例:后台模型
+            namespace admin\model;
+            class xxxmodel;
+        ·给模型里面加一个·表名·的属性,容易更改
+    
+    3)增加一个父类控制器用于存储初始化操作,成功/失败操作
+        例:(公共控制器)
+            namespace core;
+            class Controller;
+
+    4)增加一个模型控制器用于存储初始化操作,查询/多行查询操作
+        例:(公共控制器)
+            namespace core;
+            class Model;
+
+/*MVC单一入口*/
+    1)单一入口是基于MVC思想实现的,用户请求就是根据业务的不同请求不同的控制器
+    2)项目的单一入口,用户请求的一个PHP入口,其他事情都由入口文件分配
+    3)项目单一文件能很好的保护文件结构的安全
+    4)项目的单一文件会增加前期的开发难度,但相对于后期的维护与开发更加便捷
+
+/**************************MVC思想END******************************/
+
+/**************************Smarty模板技术******************************/
+总结:
+    1)用于前后端分离,用占位符替换html里的php标签
+    2)需要下载配置和引入
+
+/*模板技术原理*/
+    1)找到HTML里指定的符号替换成PHP里的数据并输出
+        例:
+            //声明替换的数据
+                $var = 'hello world';
+            //获取HTML文件
+                $str = file_get_contents('HTML文件');
+            //对str的文件进行替换
+                $str = Str_replace('占位符内容如[{$hello}]',$var,$str);
+            //返回替换过的HTML文件
+                echo $str;
+    2)也可以替换成PHP标签
+        例:
+            $var = '<?phph echo $var; ?>';
+    3)这就是替换的基本原理
+
+/*Smarty模板技术*/
+    1)优点
+        ·效率高:提高网站的访问效率
+        ·编译型:Smarty并非简单的替换,是重新编译的,效率更高
+        ·缓存:Smarty可以使用缓存,在编译的基础上生成访问效率跟高的静态网页
+        ·插件：允许开发人员自定义插件(通常不用);
+        ·灵活：内置函数可以方便开发人员高效的实现数据显示
+    2)缺点
+        ·数据实时更新效率低,如果访问的数据是实时的,那么将大幅度降低访问效率
+        ·不适合小项目,会让项目的开发增加难度,失去PHP快速开发的特点
+
+/*Smarty模板简单应用*/
+    1)下载的源文件只需要将libs放到PHP根目录即可(为方便区分改成Smaty)
+    2)
+        //加载Smarty类,实例化
+            include_once 'Smarty\Smarty.class.php';
+            $smarty = new Smarty();
+        //提供数据
+            $smarty->assign('需要替换的','被替换的内容');
+
+        //显示模板数据
+            $smarty->display('HTML模板地址');
+
+/*Smarty配置*/
+    1·$smarty->debugging = false;               //是否开启调试
+    2·$smarty->template_dir = 'templates/';     //模板目录
+    3·$smarty->compile_dir = 'templates_c';     //编译目录
+    4·$smarty->config_dir = 'configs/';         //配置项目录
+    5·$smarty->caching = false;                 //是否开启缓存('测试才开,不然刷新慢')
+    6·$smarty->cache_dir = 'cache/';            //缓存目录
+    7·$smarty->cache_lifetime = '3600' ;        //缓存生命周期
+    8·$smarty->left_delimiter = '<{';           //左边界符
+    9·$smarty->right_delimiter = '}>';          //右边界符
+    
+    总结：
+        1)Smarty提供了很多控制方式,我们可以根据自己的需求来设定控制
+        2)通常使用Smarty时,需要设置的就是模板路径和可能出现的分隔符冲突
+        3)在项目开发阶段,一般不会开启缓存模式,如果生产环境数据的变更不频繁
+
+/*模板变量*/
+    1)在Smart模板中,我们将模板中的变量分为三类
+        ·PHP分配变量,即利用asslgn方法分配的变量
+        ·Smarty保留变量,包括超全局变量预定义变量和Smarty的内置变量
+            ·GET数据；{$smarty.get.名字};
+            ·POST数据:{$smarty.post.名字};
+            ·session数据；{$smarty.session.名字}
+            ·cookie数据：{$smarty.cookie.名字}
+            ·REQUEST数据：{$smarty.require.名字}
+            ·server数据：{$smarty.Server.大写名字}
+            ·时间戳：{$smarty.now}
+            ·模板路径：{$smarty.current_dir}
+            ·模板名字：{$smarty.template}
+            ·配置文件：{$smarty.config.配置名}
+
+        ·自定义变量,用户在模板中去定义变量(通常不用)
+            {assign var='hello[名字]' value='值'}
+            {$hello}
+
+        ·配置变量用txt设置,然后在模板文件里引入
+            ·text
+                //全局
+                bodyBgColor = #00ff00
+
+                //局部
+                [customer]
+                pageTitle = 'Customer Info';
+
+            ·PHP
+                //全局引入
+                {config_loaf file='配置文件地址'}
+                    <h1>{#bodyBgColor#}</h1>
+
+                //局部引入
+                {config_loaf file='配置文件地址' section='ustomer'}
+                     <h1>{$smarty.config.配置名}</h1>
+
+    2)PHP分配变量,理论上PHP可以分配任意数据类型,但通常数据只有三种
+        ·标量数据:直接使用标记输出的数据
+        ·数组数据：在smarty模板中可以使用下标或者通过'.'+下标来实现
+        ·对象数据：在smarty模板中也是可以通过访问对象访问符来实现访问
+    
+/*内置函数*/
+    1)分支处理：Smarty中提供了一套if分支用于判断(和mysql那个一样),语法格式{if}{else}{/if}
+    2)采用smarty专用形式遍历数组
+        {foreach from=$arr key=$k item=$v} 
+            键:{$k},名字{$v}<br> 
+        {/foreach}
+    3)内置函数
+        ·index：当前数组的索引(循环内部)
+        ·iteration：当前循环的次数(循环内部)
+        ·first：首次循环(循环内部)
+        ·last:最后一次了循环(循环内部)
+        ·show：循环是否执行判定,true表示循环有数据,false表示没有数据(未执行)
+        ·total：foreach的执行总次数(循环内外部都可以使用)
+        ·foreachelse：判断循环是否存在数据,不存在输出
+
+    4)遍历引索数组,通常用于没有分配数据的循环
+        {section name=名字 loop=传递数组|指定循环的次数[step=步长][max=最大循环次数]}
+            {$传递数组[section名字].遍历下标}
+        {/section}
+            ·index：当前数组的索引(循环内部,受start和step影响)
+            ·index_prev：当前数组的前一个引索(循环内部,受start和step影响)
+            ·index_next:当前数组的最后一个引索(循环内部,受start和step影响)
+            ·iteration：当前循环的次数(循环内部,受start和step影响)
+            ·first：首次循环(循环内部,受start和step影响)
+            ·last:最后一次了循环(循环内部,受start和step影响)
+            ·rownum：iteration别名
+            ·loop:最后一次循环的下标(内外)
+            ·show：循环是否执行判定,true表示循环有数据,false表示没有数据(未执行)
+            ·total：section执行的总次数(内外)
+
+
+    5)文件包含:{include file='路径'}
+    6)语法保护:{literal}{/literal},包含在里面的代码不会被解析成Smarty
+
+/*外部函数使用*/
+    1)可以在HTML里用{}包含PHP的函数进行使用
+/**************************Smarty模板技术END***************************/
 
