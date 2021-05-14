@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <select id="hws">
+        <option name="null">--选择打击方式--</option>
+        <option name="MP电子压制">EMP电子压制</option>
+        <option name="洲际核导弹">洲际核导弹</option>
+        <option name="氢弹全面打击">氢弹全面打击</option>
+    </select>
+    <button type="button" onclick="addopt()">获取</button>
+</body>
+<script type="text/javascript">
+    function addopt() {
+        var opt = document.getElementById("hws");
+        //获取目标
+        var idx = opt.selectedIndex;
+        //获取当前索引值
+        var opts = opt.options;
+        //获取全部下拉框内容
+        var val = opt.options[idx].value;
+        //获取value内容
+        console.log(val);
+
+        opts[2].selected = true;
+        //设置默认选择
+    }
+</script>
+
+</html>

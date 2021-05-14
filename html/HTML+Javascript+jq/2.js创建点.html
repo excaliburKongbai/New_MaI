@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button onclick="addtxt()">新增字段1</button>
+        <button onclick="addtxt2()">新增字段2</button>
+        <button onclick="addimg()">新增图片</button>
+        <button onclick="addimg2()">新增图片2</button>
+        <button onclick="addwrod()">新增文本框</button>
+        <button onclick="addtions()">添加多选</button>
+        <select name="hws">
+            <option name="null">--选择打击方式--</option>
+            <option name="MP电子压制">EMP电子压制</option>
+            <option name="洲际核导弹">洲际核导弹</option>
+            <option name="氢弹全面打击">氢弹全面打击</option>
+        </select>
+    </div>
+    <hr>
+    <div id="container">
+    </div>
+
+</body>
+<script type="text/javascript">
+    //添加语句方法一
+    function addtxt() {
+        //新增标签
+        var p = document.createElement("p");
+        //给标签添加内容
+        var text = document.createTextNode("字段内容")
+            //将文本追加到标签里
+        p.appendChild(text);
+        //获取目标容器id
+        var div = document.getElementById("container");
+        //将p标签和内容放到div里
+        div.appendChild(p);
+    }
+    //添加语句方法二
+    function addtxt2() {
+        //新增标签
+        var p = document.createElement("p");
+        //获取容器id
+        var div = document.getElementById("container");
+        //设置标签内容,相当于赋值给p,执行会覆盖,重复出现需要+=
+        p.innerHTML = "忠——诚";
+        // 添加到目标容器
+        div.appendChild(p);
+    }
+    //添加图片方法一
+    function addimg() {
+        //创建img标签
+        var img = document.createElement("img");
+        //获取容器id
+        var div = document.getElementById("container");
+        //设置属性
+        img.src = "D:/New_MaI/img/11.png";
+        img.width = 300;
+        img.height = 300;
+        div.appendChild(img);
+    }
+    //添加图片方法二
+    function addimg2() {
+        //创建img标签
+        var img = document.createElement("img");
+        //获取容器id
+        var div = document.getElementById("container");
+        //设置内容
+        img.setAttribute("src", "D:/New_MaI/img/11.png");
+        div.appendChild(img);
+    }
+    //添加文本框方法一
+    function addwrod() {
+        //创建img标签
+        var inp = document.createElement("input");
+        //获取容器id
+        var div = document.getElementById("container");
+        inp.type = "text";
+        inp.value = "强制介入";
+        div.appendChild(inp);
+    }
+    //添加下拉选项方法一
+    function addtions() {
+        //创建img标签
+        var opt = document.createElement("option");
+        //获取容器
+        var sel = document.getElementsByName("hws")[0];
+        opt.name = "文化入侵";
+        opt.text = "文化入侵";
+        // sel.appendChild(opt);
+        //方法二
+        sel.options.add(opt);
+    }
+</script>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h5 id="pi1">No pull up<samp>决断高度</samp></h5>
+    <input type="text" name="user_id" value="  null">
+    <input type="checkbox" name="inter" value="陆战">陆战
+    <input type="checkbox" name="inter" value="空战">空战
+    <input type="checkbox" name="inter" value="海战">海战
+    <hr>
+    <!-- 点击执行 -->
+    <a href="javascript:void(0)" onclick="getID()">执行id获取</a>
+    <a href="javascript:void(0)" onclick="getName()">获取name标签对象</a></a>
+    <a href="javascript:void(0)" onclick="getTagname()">获取多项对象</a>
+    <a href="javascript:void(0)" onclick="getClass()">获取class</a>
+    <div class="bz">
+        <h1>拉起</h1>
+    </div>
+</body>
+<script type="text/javascript">
+    //获取元素节点
+    //id
+    function getID() {
+        var id = document.getElementById('pi1');
+        console.log(id);
+    }
+    //name多选
+    function getName() {
+        var id = document.getElementsByName("inter");
+        for (var i = 0; i < id.length; i++) {
+            if (id[i].checked == true) {
+                console.log(id[i].value);
+            }
+        }
+    }
+    //标签
+    function getTagname() {
+        var id = document.getElementsByTagName("input");
+        // for (var i = 0; i < id.length; i++) {
+        //     console.log(id[i]);
+        // }
+        console.log(id);
+    }
+    //类名
+    function getClass() {
+        var id = document.getElementsByClassName("bz");
+        console.log(id);
+
+    }
+</script>
+
+</html>

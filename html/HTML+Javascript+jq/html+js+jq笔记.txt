@@ -104,13 +104,18 @@
                     1.text      文本框
                     2.password  密码框
                     3.radio     单选框
+                        ·checked //默认中
                     4.checkbox  复选框
+                        [常用的对象]
+                        对象.checked
+                        // 判断是否被选中返回布尔值
                     5.file      上传文件
                     6.hidden    隐藏表单
                     7.button    按钮
                     8.submit    提交按钮
                     9.reset     重置(写入的默认值不会)
                     10.date     日期框
+                    11.placeholder  半透明提示文字
                 name        被提交值的名字
                 value       元素的值
                 readonly    只读
@@ -229,7 +234,7 @@
                 substring()     返回从字符段m开始查询,n结束,如果无n查到结束
                 tolowercase()   将字符串全部转换成小写
                 touppercase()   将字符串的字符全部转换成大写
-                length()        属性,不是方法,返回字符的长度
+                length()        字段长度,属性,不是方法,返回字符的长度
             
             Math
                 math.random()   随机数
@@ -293,6 +298,124 @@
                             函数内容
                         })
 
+            /*获取元素节点*/
+                getElementById()
+                    //根据id获取dom对象,如果重复以第一个为准
+                getElementsByTagName()
+                    //获取标签
+                getElementsByClassName()
+                    //以name获取元素
+                getElementsByName()
+                    //根据name属性值获取dom对象组,用于多选取值
+                    【常用属性】
+                        对象.checked
+                        // 判断多选是否被选中,返回布尔值
+
+                javascript:void(0)
+                    //伪协议,给a标签不执行跳转
+                    实例
+                        <a herf='javascript:void(0)'></a>
+
+            /*创建与插入节点*/
+                [创建]
+                    createElement()
+                        //创建一个新的节点,传入标签,返回元素对象
+                    creareTextNode()
+                        //创建一个文本节点,可以传入文本内容
+                    innerHTML()
+                        //也能达到创建文本节点的效果,直接添加
+                    setAttribute(方法名,值) 
+                        //方法添加指定的属性，并为其赋指定的值。
+                [插入]
+                    write()
+                        //将任意字符插入到文档中
+                    appendChild()
+                        //向元素中添加新的子节点,必须传入节点
+                    parentElement
+                        //获取父元素
+                    父元素.insertBefore(值,在那之前)
+                        //指向已有的节点之前插入新节,
+
+                [间接查找节点]
+                    childNodes
+                        //返回元素的第一个子节点的数组
+                    childNodes
+                        //返回子节点的所有元素数组
+                        
+                    firstChild【节点】
+                    firstElementChild【元素】
+                        //返回元素的第一个子节点
+
+                    lastChild【节点】
+                    lastElementChild【元素】
+                        //返回元素的最后一个子节点
+
+                    nextSibling
+                        //返回原始的下一个兄弟节点
+                    parentNode
+                        //返回元素的父节点
+                    previousSibling
+                        //返回元素的上一个兄弟节点
+                [删除节点]
+                    父元素.removeChild()
+                        //从元素删除子节点(需要父元素)
+                    实例
+                        var x = 得到要被删除的节点
+                        var z =得到被删除节点的父元素
+                        z.removeChild(x)
+
+            /*获取表单*/
+                ·document.表单名字
+                ·document.document.getElementById('id');
+                    //id获取
+                ·document.document.forms['表单名字'];
+                    //名字下标获取
+                ·document.document.forms['0'];
+                     //数字下标获取
+                
+            /*获取input*/
+                document.getElementById('id')
+                    //元素id获取
+                myform.元素名字
+                    //通过form名字查询
+                document.getElementsByName(name属性)[引索]
+                    //通过name获取
+                document.getElementsByTagName('input')[引索]
+                    //通过TagName获取
+
+            /*获取单选选中按钮*/
+                选中设定：checked = 'checked'或checked = ture 又或者 cjecked
+                未选中就是没有checked值
+
+            /*获取下拉框选项*/ 
+                【方法一】
+                selectedIndex
+                    //获取当前下拉框选择的索引值
+                
+                流程：
+                    1)获取下拉框对象
+                    2)获取对象索引
+                    3)获取选项中的value,如果没有value就获取文本
+
+                【方法二】
+                var ? = ?.options;
+                    //获取全部内容
+                var selevalue = 目标对象.value;
+                    //获取当前选中的值
+                全部下拉内容[2].selected = true;
+                    //设置默认选择
+
+            /*提交表单*/ 
+                1)按钮用button
+                    ·<button type="button" onclick="?">提交</button>
+                    ·js进行判断成功用：获取表单.submit() 提交
+                2)传递布尔值确定跳转
+                    ·<input type="submit" onclick='return ?'/>
+                    ·js进行判断,return返回布尔值确定跳转
+                3)和2差不多就是换了一个点击方式
+                    ·<input type="submit" onsubit='return ?'/>
+                    ·js进行判断,return返回布尔值确定跳转
+                
     /*BOM*/
         /*窗口*/
             alert("弹出内容")
@@ -336,9 +459,32 @@
         
         /*URL历史记录*/
             history对象
+                lesnth
+                    //当前访问过url的数量
+                back()
+                    //加载列表前一个URL(返回上一个页面)
+                forward()
+                    //加载历史列表的下一个URL
+                go(number|url)
+                    //number 参数使用的是要访问的URL在History的url列表小奶狗对位置
+                    //URL是要访问的地址，
 
-
-            
+            locattion对象
+                //设置当前文档rul
+                href
+                    //返回当前页面的url[属性]
+                reload()
+                    //重新加载当前文档
+                replace()
+                    //用新的文档替换当前的文档
+                
+/*JQuery语法*/
+    /*基础选择器*/
+        id选择器        $('#id属性值')
+        类选择器        $('.class属性值')
+        元素选择器      $('标签名/元素名')
+        通用选择器      $('*')
+        组合选择器      $('选择器1,选择器2')
             
             
 

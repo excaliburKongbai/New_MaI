@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单校验</title>
+    <style>
+        h4 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="user_date" name="user_date" action="#" method="POST">
+        <!-- 注册 -->
+        <h4>名字:<input id="name" name="name" type="text" placeholder=' 名字' value=""></h4>
+        <h4>密码:<input id="pass" name="pass" type="password" placeholder=' 密码' value=""></h4>
+        <!-- 年龄 -->
+        <h4 style="display:inline-block;">年龄:</h4>
+        <input type="radio" name="age" value="0" checked>未成年
+        <input type="radio" name="age" value="1">已满18周岁<br>
+        <!-- 爱好 -->
+        <h4 style="display:inline-block;">爱好：</h4>
+        <input type="checkbox" name="Interest" value="战争雷霆">战争雷霆
+        <input type="checkbox" name="Interest" value="DCS数字模拟">DCS数字模拟
+        <input type="checkbox" name="Interest" value="写代码">写代码
+        <br>
+        <!-- 来自 -->
+        <h4 style="display:inline-block;">爱好：</h4>
+        <select name="user_From" id="user_From">
+            <option value="unll">-请选择-</option>
+            <option value="地球">-地球-</option>
+            <option value="火星">-火星-</option>
+            <option value="安东星">-安东星-</option>
+        </select>
+        <br>
+        <!-- 提交 -->
+        <button type="button" onclick="Reset()">重置</button>
+        <button type="button" onclick="login()">登录</button>
+    </form>
+    <hr>
+    <h4 id="Attention" style="color: rgb(87, 87, 87);"></h4>
+    <h4 id="error" style="color: red;"></h4>
+
+</body>
+<script type="text/javascript">
+    // 封装获取id属性
+    function $(str) {
+        return document.getElementById(str)
+    }
+    //重置选项
+    function Reset() {
+        $('user_date').reset;
+    }
+    // 判断提交
+
+    function login() {
+        //获取user_id并且判断用户名状态
+        var user_name = $('name').value;
+        if (user_name == null || user_name.trim() == '') {
+            $('error').innerHTML = '用户不能为空';
+            return false;
+        }
+        if (user_name.length < 6 || user_name.length > 12) {
+            $('error').innerHTML = '用户6-12字符之间';
+            return false;
+        }
+        //判断密码
+        var user_pass = $('pass').value;
+        if (user_pass == null || user_pass.trim() == '') {
+            $('error').innerHTML = '密码不能为空';
+            return false;
+        }
+        if (user_pass.length < 6 || user_pass.length > 12) {
+            $('error').innerHTML = '密码6-12字符之间';
+            return false;
+        }
+        if (user_pass == user_name) {
+            $('error').innerHTML = '用户名和密码不能一致';
+            return false;
+        }
+        $('error').innerHTML = '';
+        //判断是否成年
+        var user_age = document.getElementsByName('age');
+        var cked = user_age[0].checked;
+        if (cked) {
+            $('Attention').innerHTML = '提示！用户未成年！'
+        }
+        //输出爱好
+        var int = document.getElementsByName("Interest");
+        for (var i = 0; i < int.length; i++) {
+            if (int[i].checked == true) {
+                console.log(int[i].value);
+            }
+        }
+        //输出下拉框
+        var sel = document.getElementById('user_From');
+        var idx = sel.selectedIndex;
+        //索引
+        var val = sel.options[idx].value;
+        console.log(val);
+    }
+</script>
+
+</html>
