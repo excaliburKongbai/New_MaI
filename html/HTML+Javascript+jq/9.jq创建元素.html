@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="name">
+        <h4 class="kj" style="color:lightcoral;">柯基</h4><br>
+        <h4 style="color: chartreuse;">偶像</h4><br>
+    </div>
+</body>
+<script src="./js/jquery-3.6.0.js" type="text/javascript"></script>
+<script type="text/javascript">
+    //常用，追加到下一级的
+    //在id为name的前面添加
+    var nr = '<span style="color:red;">我是span</span><br>';
+    $('#name').prepend(nr);
+    //在id为name的后面添加
+    var nr2 = '<span style="color:blueviolet;">我是span2</span><br>';
+    $('#name').append(nr2);
+    //设置已经存在的元素？(存在的就剪切过去)
+    $('#name').append($('.kj'));
+</script>
+
+</html>
