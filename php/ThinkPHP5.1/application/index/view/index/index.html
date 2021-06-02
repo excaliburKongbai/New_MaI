@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>只为梦想而生</h1>
+    <table border="1" width='800px' align="center">
+        <tr>
+            <th>id</th>
+            <th>my_user</th>
+            <th>my_pass</th>
+            <th>time</th>
+        </tr>
+        {volist name="data" id="value"}
+        <tr align="center">
+            <td>{$value.id}</td>
+            <td>{$value.my_name}</td>
+            <td>{$value.my_pass}</td>
+            <td>{$value.time}</td>
+        </tr>
+        {/volist}
+    </table>
+
+</body>
+
+</html>

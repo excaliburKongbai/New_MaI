@@ -1,0 +1,311 @@
+/****************************基础介绍*****************************/
+1、目录结构
+|-application  应用目录 是整个网站的核心
+|---|---index  前台目录
+|---|---|---controller  控制器
+|---|---|---model 数据模型
+|---|---|---view  页面
+|---|---admin  后台目录
+|-extend  扩展类库目录
+|-public  静态资源和入口文件
+|---|---sratic  存放静态资源
+|---|---index.php  入口文件
+|-runtime  网站运行临时文件
+|-tests  测试目录
+|-thinkphp  tp框架的核心文件
+|---|---lang  语言包
+|---|---library tp框架的核心文件
+|---|---tpl  模板页面
+|-vendor  第三方扩展目录
+
+2、url地址解析
+    http://thinkphp5/public/ index.php  /Index  /Index  /index
+    域名                      入口文件    前台    控制器   方法
+
+3、了解tp开发模式
+    0、开启调试模式，错误不会隐藏 config\app.php
+    // 应用调试模式
+    'app_debug'     => true,false改成true
+
+    
+    1、连接数据库 config\datebase.php
+    //设置连接数据库属性
+
+    2、控制器 application\index\controller\Index.php
+
+    3、页面 application\index\view\index\index.html
+
+    4、模型 application\index\model
+
+4、MVC模式介绍
+    view            视图
+        //从控制器获取数据显示给用户的
+    Controller      控制器
+        //控制模型调用的
+    model           模型
+        //运行获取数据数据返回给控制器
+
+/****************************基础介绍END*****************************/
+
+/****************************TP5.0概述*****************************/
+/*基础结构*/
+    1、控制器 application\index\controller\
+        1、新建的控制器首字母大写
+        2、控制器必须声明命名空间
+            //例：namespace app\idnex\controller;
+        3、控制器中类名和文件名一致
+
+
+    2、模块(后台) application\index
+        1、在admin目录下新建 model,view和controller
+
+        2、创建操作(前台)
+            //在Index文件里创建一个User的方法
+
+    3、模型 application\index\model
+        1、负责数据库相关的处理
+
+    4、视图
+        1、网站页面
+
+    5、命名空间
+        1、与目录有关
+
+/*跨控制器调用*/
+    1、跨控制器
+        1、用命名空间实例化其他控制器调用
+            $model = new app\index\controller\User
+            echo $model->index();
+
+        2、用use引入  use app\index\controller\User
+            $model = new User
+            echo $model->index();
+
+        3、系统方法
+            $model = controller('User');
+            echo $model->index();
+
+        4、调用后台模块
+            //如果命名空间重名需要as取别名
+            $model = controller('admin/User');
+            echo $model->index();
+
+    2、当前控制器调用
+        1、面向对象控制器
+            1、$this->test();
+
+            2、self::tesr();
+
+            3、Index::test();
+                //当前类
+
+    3、系统方法调用
+        2、系统方法调用当前
+            echo action('sest')
+            
+        3、系统函数调用后台模块的Index方法
+            echo action('admin/Index/index');
+
+/*分析TP执行流程*/
+
+/*TP环境配置*/
+    //配置环境都用数组
+    1、修改配置
+        1、惯例配置
+            a、路径(php\ThinkPHP5\thinkphp\convention.php)
+            B、一般来说不要去改
+
+        2、应用配置
+             a、路径(php\ThinkPHP5\config\app.php)(5.1)
+             b、路径(php\thinkphp5.0\application\config.php)(5.0)
+
+        3、扩展配置(tp5.1 移除)
+            a、其实就是对配置文件进行分目录管理
+
+            b、系统定义路径(php\ThinkPHP5\config\database.php)
+
+            c、自定义配置路径(php\thinkphp5.0\application\extra下)
+        4、场景配置(tp5.1 移除)
+            a、开发可能在不同环境下开发
+
+            b、在配置文件中修改app_status => '???'来更改其他环境设置
+
+            c、在application下写其他配置文件
+
+        5、模块配置
+            a、每个模块都有自己的配置
+
+            b、目录(php\thinkphp5.0\application\index)
+
+            c、dump(config('name'));读取前台配置
+
+        6、动态配置
+            config('配置名','配置属性')
+
+    2、读取配置
+        //通过系统函数读取配置
+            echo config('name.');
+            echo "<hr>";
+        //通过系统类读取配置 || .xxxx相当于xxx['xxx']数组下标
+            echo \think\facade\Config::get("name.");
+        //打印不存在的值为空
+
+        //读取database扩展配置
+        dump(config('database.'));
+    
+    3、系统类(php\thinkphp5.0\thinkphp\library\think)
+        a、Config 设置和获取配置文件
+
+    4、系统方法(php\thinkphp5.0\thinkphp\helper.php)
+        ·Controller         实例化控制
+        ·action             调用模块的操作方法
+        ·config             设置和获取配置
+        ·dump               打印和var_dump一样
+
+    5、配置文件之间的加载顺序(优先度)
+        动态配置>模块配>场景配置>扩展配置>应用配置>惯例配置
+
+    6、环境变量配置
+        a、新建一个.env文件
+
+        b、书写环境配置
+            //产考env文件
+        
+        c、打印环境文件
+            public function getEnv(){
+                系统类
+                dump(\think\Env::get('name'));
+                //1参数是名字 2参是不存在返回的值默认NULL
+                
+                dump(\think\Env::get('database.type'));
+                //读取数组 只能单个属性读写
+                //不能写中文
+            }
+        
+        e、如何使用
+            1、可以设置调试模式等
+                例:app_debug=false
+
+            2、在配置文件里设置
+                use \think\Env
+                xxxx =>Env::get('xxx)            
+
+/*路由*/
+    /*1、路由的作用*/
+        1、简化URL地址,方便记忆
+
+        2、防止爬虫,优化搜索引擎
+
+    /*2、入口文件*/
+
+        1、前后台分离
+            a、在网站public目录下新建admin.php入口文件
+
+        2、绑定模块
+            实现功能
+                a、index只能去前台
+                    例:define('BIND_MODULE','index');
+                
+                b、admin只能去后台
+                    例:define('BIND_MODULE','admin');
+
+        3、隐藏入口文件(apache修改)
+            a、开启write重写
+
+            b、allowOverride 改成all
+
+            c、入口文件,在网站public下新建.htaccess文件
+                设置隐藏前台(index.php和禁止进入后台)
+                    <IfModule mod_rewrite.c>
+                        Options +FollowSymlinks -Multiviews
+                        RewriteEngine on
+                        RewriteCond %{REQUEST_FILENAME} !-d
+                        RewriteCond %{REQUEST_FILENAME} !-f
+                        RewriteRule ^(.*)$ index.php?/$1 [QSA,PT,L]
+                    </IfModule>
+
+    /*3、路由学习*/
+
+
+
+/****************************TP5.0概述END*****************************/
+
+
+/****************************TP5.1概述*****************************/
+/*TP5.1环境变量*/
+    //官方提供了一个类库Env来获取环境变量 需要引入Env
+        例return Env::get('app_path')
+    ·应用根目录          root_path
+    ·应用目录            app_path
+    ·框架目录            think_path
+    ·配置目录            config_path
+    ·扩展目录            extend_path
+    ·composer目录        vendor_path
+    ·运行缓存目录        runtime_path
+    ·路由目录            route_path
+    ·当前模块目录        module_path
+
+/*控制器定义*/
+    1、控制器的大小写会被转换,用_替代大小
+        例如:HelloWorld转换成Hello_world
+
+    2、return输出数组可以用json输出
+        例如:return json($数组变量);
+
+    3、输出模板
+        例如：view('路径');
+
+    4、定义初始化方方法:initialize()
+
+        a、initialize()会在调用控制器方法前执行
+            例：protected(受保护也可以) function initialize(){
+                parent::initialize();
+                echo'xxx';
+                //初始化输出内容
+            }
+
+        b、initialize()方法不需要任何返回值,输出用php方式,return无效
+
+/*控制器操作*/
+    1、前置操作 $beforeActionlist
+        //有选着性的的进行初始化操作
+        a、需要继承 extends Controller
+
+        b、例如：
+            protected $beforeActionlist= [
+                'first',
+                //默认全部执行
+                'second'=>['except'=>'one'],
+                //one不能运行这个初始化方法 可以用xx,xx选着多个方法
+                'only'=>['only'=>'one'],
+                //只能用这个运行前置方法
+            ]
+
+            protected function first(){
+                echo xxxx;
+                执行体;
+            }
+
+    2、跳转和重定向
+        //Controller提供了两个跳转方法
+            1、success(msg,url)
+                //成功转挑到url
+            2、error(msg)
+                //失败返回上一层
+            例：
+            protected $flag = false;
+                //设置默认值
+            public function index(){
+                if($this->flag){
+                    $this->success(msg:'成功',url'../');
+                }else{
+                    $this->error(msg:'失败');
+                }
+            }
+        //跳转的模板
+            a、地址(php\ThinkPHP5.1\thinkphp\tpl\dispatch_jump.tpl)
+
+            b、可以在app.php里更改模板
+
+    3、空方法和空控制器
+/****************************TP5.1概述END*****************************/
