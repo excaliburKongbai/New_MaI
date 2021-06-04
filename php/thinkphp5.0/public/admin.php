@@ -19,3 +19,6 @@ define('BIND_MODULE','admin');
 
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';
+
+//关闭admin模块路由
+\think\app::route(false);
