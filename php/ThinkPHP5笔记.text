@@ -665,15 +665,29 @@
              dump($request->module());
              
     4、/*获取请求参数*/
-        //获取请求类型
+        1、获取请求类型
             dump($request->method());
-        //请求的资源类型
+        2、请求的资源类型
             dump($request->type());
-        //访问的地址
+        3、访问的地址
             dump($request->ip());
-        //是否是ajax请求
+        4、是否是ajax请求
             dump($request->isAjax());
+        5、获取特定字段
+            dump($request->only(['name','user']));
+        6、剔除字段
+            dump($request->except(['name','user']));
 
+    5、/*获取输入变量*/
+          //判断是否存在
+            dump($request->has('id','get'));
+            dump(input('?get.id'));
+        //读取变量参数
+            dump($request->get('id'));
+            dump(input('get.id'));
+        //读取全部变量
+            dump($request->get());
+            dump(input('get.'));
 
 
 /****************************TP5.0概述END*****************************/
