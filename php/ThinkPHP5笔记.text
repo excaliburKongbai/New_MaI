@@ -679,15 +679,87 @@
             dump($request->except(['name','user']));
 
     5、/*获取输入变量*/
-          //判断是否存在
+        1、判断是否存在
             dump($request->has('id','get'));
             dump(input('?get.id'));
-        //读取变量参数
+        2、读取变量参数
             dump($request->get('id'));
             dump(input('get.id'));
-        //读取全部变量
+        3、读取全部变量
             dump($request->get());
             dump(input('get.'));
+
+    6、/*过滤数据*/
+        1、过滤传入的值,转换实体(防止SQL注入)
+            $request->filter('htmlspecialchars');
+            dump( $request->post());
+
+        2、过滤传入的值,单双引号(防止错误)
+            $request->filter('strip_tags');
+            dump( $request->post());
+
+        3、转换<和单双引号
+            $request->filter(['htmlspecialchars','strip_tags']);
+            dump( $request->post());
+        
+        4、指定值进行过滤
+            dump($request->post('text','','htmlspecialchars'));
+
+        5、对输入内容进行MD5加密
+            dump($request->post('text','','htmlspecialchars,md5'));
+        
+    7、/*获取和排除*/
+        1、获取输出指定内容
+            dump($request->only('Title',['GET']));
+            dump($request->only(['Title','name'],['GET']));   
+        
+        2、排除掉指定内容
+            dump($request->except('Title',['GET']));
+            dump($request->except(['Title','name'],['GET']));
+
+    8、/*变量的修饰符*/
+        //结构 Request->instance()->变量类型('变量名/修饰符')
+            例如:
+                input('get.id/d');
+                input('post.name/s');
+                input('post.ids/a');
+                Request->instance()->get('id/d')    
+
+        ====================================
+        |  修饰符      作用               
+        |    s          强制转换成字符串类型      
+        |    d          强制转换成整形       
+        |    b          强制转换成布尔型      
+        |    a          强制转换成数组型      
+        |    f          强制转换成浮点       
+        ====================================
+
+    9、/*更改变量*/
+         dump($request->get('id'=>20));
+
+    10、/*判断请求类型*/
+        //结构:$request->请求类型();或request::isGet();
+
+            获取当前请求类型	    method
+            判断是否GET请求	        isGet
+            判断是否POST请求	    isPost
+            判断是否PUT请求	        isPut
+            判断是否DELETE请求	    isDelete
+            判断是否AJAX请求	    isAjax
+            判断是否PJAX请求	    isPjax
+            判断是否为JSON请求	    isJson（V5.1.38+）
+            判断是否手机访问	    isMobile
+            判断是否HEAD请求	    isHead
+            判断是否PATCH请求	    isPatch
+            判断是否OPTIONS请求	    isOptions
+            判断是否为CLI执行	    isCli
+            判断是否为CGI模式	    isCgi
+    
+    11、/*模拟请求*/
+        1、模拟put请求必须要表单,得是post
+        
+
+
 
 
 /****************************TP5.0概述END*****************************/

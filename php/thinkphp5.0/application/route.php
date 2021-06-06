@@ -70,8 +70,8 @@ use \think\Route;
 
 
 //测试路由
-    Route::rule('jiazai','index/index/jiazai');
-    Route::rule('shuchu','index/index/shuchu');
+    // Route::rule('jiazai','index/index/jiazai');
+    // Route::rule('shuchu','index/index/shuchu');
 
 
 //User路由
