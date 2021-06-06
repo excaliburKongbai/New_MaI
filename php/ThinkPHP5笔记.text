@@ -71,6 +71,25 @@
     5、命名空间
         1、与目录有关
 
+/*系统类和系统方法*/
+    /*系统类*/(需要继承)地址(thibkphp\library\think)
+        Config
+        Controller      系统控制器
+        Env             读取环境变量
+        Route           路由
+        url             地址生成
+        view            视图渲染
+        request         请求类
+
+    /*系统方法*/地址(thibkphp\helper.php)
+        dump();         格式化输出
+        controller();   调用控制器
+        action();       调试方法
+        config();       读取和设置配置文件
+        url();          生成url地址
+        view();         加载页面
+        request();      实例化请求类
+
 /*跨控制器调用*/
     1、跨控制器
         1、用命名空间实例化其他控制器调用
@@ -203,6 +222,7 @@
 
         2、绑定模块
             实现功能
+                //在定义目录后,引入框架钱
                 a、index只能去前台
                     例:define('BIND_MODULE','index');
                 
@@ -510,10 +530,149 @@
                 $wait => 跳转等待时间 单位秒
                 $url  => 跳转页面地址 默认返回上一个页面
 
+            1、在原模板里修改
+                地址(thinkphp\tpl\dispatch_jump.tpl)里进行修改
+            
+            2、新建模板
+                地址(thinkphp\tpl\)下新建
+                在coofig里修改指向新创建的模板
+                    // 默认跳转页面对应的模板文件
+                    'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
+                    'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
+            
+    7、/*重定向*/
+        作用:重定向(Redirect)就是通过各种方法将各种网络请求重新定个方向转到其它位置
 
+        1、使用
+            redirect('跳转地址','其他参数',code,'隐藏参数');
 
+            引入系统变量Controller
+            $this-> redirect('index/index',['id'=>'zhangsan'],$code = 302 [默认302],'隐藏参数');
 
+            code
+                301 永久转移
+                302 临时转移
 
+        使用例:
+                public function cdx(){
+                    $this->redirect('index/index',['id'=>'zhangsan']);
+                }
+
+    8、/*空控制权和空操作*/
+        1、空操作
+            作用:用于防止用户乱输入导致网页报错
+                public function _empty(){
+                    $this->redirect('index/index');
+                    //检测到不存在的方法重定向回首页
+                }
+        2、空控制权
+            1、在index的controller下新建一个Error.php用与重定向
+
+            2、实例
+                class Error extends Controller{
+                    //空控制器
+                    public function index(){
+                        $this->redirect('index/index');
+                        //重新定向回首页
+                    }
+
+                    //空操作
+                    public function _empty(){
+                        $this->redirect('index/index');
+                    }
+                }
+            3.注意
+                1、网站上线的时候每一个控制器都必须添加空操作
+
+                2、不论前台后台都需要一个空控制权
+
+                3、用来防止恶意输入
+
+    9、/*使用命令行创建*/
+        1、切换到网站根目录下
+
+        2、输入php think 查看命令行
+
+        3、使用
+            1、创建资源控制器
+                php think make:controller app\index\controller\Goods
+            
+            2、创建数据模型
+                php think make:model app\index\model\Goods
+
+            3、清空临时文件
+                php think clear
+
+    10、/*资源控制权*/
+        1、使用命令行创建资源控制器
+            php think make:controller app\index\controller\Goods
+        
+        2、资源控制器一般配合资源路由使用
+
+/*请求和响应*/
+    1、/*如何获取请求*/
+        1、系统函数
+            $request = request();
+
+        2、系统Request类
+            use think\Request;
+            //因为Request类属性类的单例,不能new
+            $request=Request::instance();
+        
+        3、系统Controller
+            use think\Request;
+            use think\Controller;
+
+            public function qinqiu(Request $request){
+                dump($request);
+            }
+
+    2、/*获取用户的请求信息*/
+        //前置例:
+                public function qinqiu(Request $request){
+                    //内容体
+                }
+
+        1、获取用户当前域名
+            dump($request->domain());
+
+        2、获取url除了域名以外(携带参数)
+            dump($request->url());
+
+        3、获取入口文件
+            dump($request->baseFile());
+
+        4、获取PathInfo路径
+            dump($request->PathInfo());
+
+        5、获取PathInfo路径不带后缀
+            dump($request->Path());
+
+        6、获取url后缀
+            dump($request->ext());
+
+        7、伪静态
+            就是将静态路径伪装成静态页面,让搜索引擎更好的收录网站和不然其他人知道网站的真实情况
+
+    3、/*获取请求模块\控制权\方法*/
+        1、控制器
+            dump($request->controller());
+           
+        2、方法
+            dump($request->action());
+
+        3、模块    
+             dump($request->module());
+             
+    4、/*获取请求参数*/
+        //获取请求类型
+            dump($request->method());
+        //请求的资源类型
+            dump($request->type());
+        //访问的地址
+            dump($request->ip());
+        //是否是ajax请求
+            dump($request->isAjax());
 
 
 
