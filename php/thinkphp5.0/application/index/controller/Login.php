@@ -5,6 +5,8 @@ use think\Controller;
 
 use think\Request;
 
+use think\Db;
+
 class Login extends Controller{
     public function index(){
         //跳转页面
@@ -60,6 +62,67 @@ class Login extends Controller{
         public function Type(Request $request){
             dump($request->isGet());
         }
+        
+        //绑定参数
+        public function bangdin($id='null',$name='null'){
+            dump($id);
+            dump($name);
+        }
+
+        //MySQL查询数据
+        public function data(){
+            //实例化数据库类(配置方法连接)
+                // $Db = new Db;
+
+            //tp查询数据
+                // $data = $Db::table('my_message')->select();
+                // dump($data);
+
+            //sql查询数据
+                // $data = $Db::query('select * from `user`');
+                // dump($data);
+
+            //方法连接数据库
+                // $Db = Db::connect([
+                //   // 数据库类型
+                //      'type'        => 'mysql',
+                //      // 数据库连接DSN配置
+                //      'dsn'         => '',
+                //      // 服务器地址
+                //      'hostname'    => '127.0.0.1',
+                //      // 数据库名
+                //      'database'    => 'my_date',
+                //      // 数据库用户名
+                //      'username'    => 'root',
+                //      // 数据库密码
+                //      'password'    => 'root',
+                //      // 数据库连接端口
+                //      'hostport'    => '',
+                //      // 数据库连接参数
+                //      'params'      => [],
+                //      // 数据库编码默认采用utf8
+                //      'charset'     => 'utf8',
+                //      // 数据库表前缀
+                //      'prefix'      => 'think_',
+                // ]);
+                // $data = $Db->table('my_message')->select();
+                // dump($data);
+
+                //字符串连接
+                // 数据库类型://用户名:密码@数据库地址:数据库端口/数据库名#字符集
+                    $Db = Db::connect("mysql://root:root@127.0.0.1:3306/my_date#utf8");
+                    $data = $Db->table('my_message')->select();
+                    dump($data);
+
+        }
+        //模型连接数据库
+        public function data2(){
+            $user = new \app\index\model\User();
+            //查询所有数据
+            $Db = $user::all();
+            dump($Db);
+        }
+
 }
 
 

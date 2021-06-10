@@ -77,6 +77,9 @@ use \think\Route;
 //User路由
     // Route::rule('初始化','index/User/index');
 
+//用户模块资源路由
+        Route::resource('user','index/user1');
+
 
 
 

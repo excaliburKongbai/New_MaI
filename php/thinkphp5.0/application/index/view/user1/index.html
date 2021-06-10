@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="__STATIC__/bs/css/bootstrap.min.css">
+    <script src="__STATIC__/bs/js/bootstrap.min.js"></script>
+    <script src="__STATIC__/jquery.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">
+                <button class="btn btn-success">用户展示页面</button></button>
+                <a href="/user/create" class="btn btn-danger">添加用户</a>
+            </div>
+            <div class="panel-body">
+                <table class="table tabler-bordered table-hover">
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>PASS</th>
+                    <th>Time</th>
+                    <th>修改</th>
+                    <th>删除</th>
+                    <th>Ajax_删除</th>
+                    {volist name="data" id="value"}
+                    <tr>
+                        <td>{$value.id}</td>
+                        <td>{$value.my_name}</td>
+                        <td>{$value.my_pass}</td>
+                        <td>{$value.time}</td>
+                        <td><a href="/user/{$value.id}/edit">修改</a></td>
+                        <td>
+                            <form action="/user/{$value.id}" method="POST">
+                                <input type="hidden" name="_method" value="delete">
+                                <button onclick="return confirm( '是否确定删除?') ">删除</button>
+                            </form>
+                        </td>
+                        <td>
+                            <button onclick="del(this,{$value.id})">Ajax_删除</button>
+                        </td>
+                    </tr>
+                    {/volist}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function del(obj, id) {
+        $.post('{:url("Ajax_del")}', {
+            id: id
+        }, function(data) {
+            if (data.statu == 200) {
+                //删除视图上的(被执行的.父系.父系.删除)
+                $(obj).parent().parent().remove();
+                alert(data.info);
+            }
+            if (data.statu == 400) {
+                alert(data.info);
+            }
+        })
+    }
+</script>
+
+</html>

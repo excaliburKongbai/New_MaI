@@ -757,7 +757,547 @@
     
     11、/*模拟请求*/
         1、模拟put请求必须要表单,得是post
+            ·需要设置隐藏传递模拟请求类型
         
+        2、模拟Ajax和PJAX请求
+            ·模拟ajax请求
+                url结尾加上？_ajax=10
+            ·模拟pjax请求
+                url结尾加上？_ajax=10
+
+    12、/*伪静态*/
+        1、作用
+            1)URL伪静态通常是为了满足更好的SEO效果
+            2)为了网站的安全
+
+        2、修改伪静态的后缀名
+            :地址(php\thinkphp5.0\application\config.php)
+            'url_html_suffix'      => 'html',
+
+    13、/*参数绑定*/
+        1、使用
+            public function bangdin($id='null',$name='null'){
+                dump($id);
+                dump($name);
+            }
+        2、注意
+            1)方法绑定参数一定要大于URL里声明的
+            2)绑定的名字和URL里的必须一致
+            3)绑定的参数可以设置默认值
+            
+/*数据库*/
+
+    1、/*数据库连接*/
+        1、/*配置文件*/
+                a、配置文件目录(php\thinkphp5.0\application\database.php)
+
+                b、如何配置
+                     return [
+                        // 数据库类型
+                        'type'            => 'mysql',
+                        // 服务器地址
+                        'hostname'        => '127.0.0.1',
+                        // 数据库名
+                        'database'        => 'my_data',
+                        // 用户名
+                        'username'        => 'root',
+                        // 密码
+                        'password'        => 'root',
+                        // 端口
+                        'hostport'        => '3306',   
+                     ];
+
+        2、/*方法配置*/
+            1、数组方式配置
+                //前置引入系统Db类
+                $Db = Db::connect([
+                      // 数据库类型
+                         'type'        => 'mysql',
+                         // 数据库连接DSN配置
+                         'dsn'         => '',
+                         // 服务器地址
+                         'hostname'    => '127.0.0.1',
+                         // 数据库名
+                         'database'    => 'my_date',
+                         // 数据库用户名
+                         'username'    => 'root',
+                         // 数据库密码
+                         'password'    => 'root',
+                         // 数据库连接端口
+                         'hostport'    => '',
+                         // 数据库连接参数
+                         'params'      => [],
+                         // 数据库编码默认采用utf8
+                         'charset'     => 'utf8',
+                         // 数据库表前缀
+                         'prefix'      => 'think_',
+                    ]);
+                    //$Db->table是指引用里面方法
+                    $data = $Db->table('my_message')->select();
+                    dump($data);
+
+            2、字符串方式配置
+                格式:数据库类型://用户名:密码@数据库地址:数据库端口/数据库名#字符集
+                例:
+                     $Db = Db::connect("mysql://root:root@127.0.0.1:3306/my_date#utf8");
+            
+        3、/*模型类定义*/
+
+            1、用命令行创建数据模型
+                ·cmd移动到tp根目录
+                ·PHP think 查看所有命令
+                ·执行命令行创建模型:php think make:mode app\index\model\User
+
+            2、手动创建数据模型
+                ·地址(php\thinkphp5.0\application\index\model);
+
+            3、配置连接信息
+                //前置引入系统Model类 并且继承
+                    class User extends Model
+                    {
+                        protectd $connection=[
+                                // 数据库类型
+                               'type'        => 'mysql',
+                               // 数据库连接DSN配置
+                               'dsn'         => '',
+                               // 服务器地址
+                               'hostname'    => '127.0.0.1',
+                               // 数据库名
+                               'database'    => 'my_date',
+                               // 数据库用户名
+                               'username'    => 'root',
+                               // 数据库密码
+                               'password'    => 'root',
+                               // 数据库连接端口
+                               'hostport'    => '',
+                               // 数据库连接参数
+                               'params'      => [],
+                               // 数据库编码默认采用utf8
+                               'charset'     => 'utf8',
+                               // 数据库表前缀
+                               'prefix'      => '',
+                        ]
+                    }
+                //字符串方法
+                protected $connection="mysql://root:root@127.0.0.1:3306/my_date#utf8";
+      
+            4、使用自定义模型
+                public function data2(){
+                    $user = new \app\index\model\User();
+                    //查询所有数据
+                    $Db = $user::all();
+                    dump($Db);
+                }
+
+    2、/*数据库基本使用*/
+        1、使用think类
+            //前置:use 引入Db并且实例化
+                    use think\Db;
+                    $Db = new Db;
+
+            【查询数据】    $Db::table('my_message')->select();
+
+        2、使用sql语句实现查询
+            //前置:与上面一致
+
+            【查询数据】    $data = $Db::query('select * from `user`');
+            
+    3、/*数据库的增删改查*/
+
+            /*增加数据*/
+                public function insert(){
+                    //执行插入
+                        // $data = Db::execute("insert into `user` value(null,'Excalibur','1314520',CURRENT_TIMESTAMP)");
+                    //占位符插入
+                        // $data = Db::execute("insert into `user` value(null,?,?,CURRENT_TIMESTAMP)",['大古','123']);
+                    //下标占位
+                        $data = Db::execute("insert into `user` value(null,:name,:password,CURRENT_TIMESTAMP)",['name'=>'8848','password'=>'123']);
+                    //成功返回影响行数
+                        echo $data;
+                }
+
+            /*删除数据*/
+                public function delete(){
+                    //执行删除
+                        // $data = Db::execute("delete from `user` where id = 6");
+                    //占位符删除
+                        // $data = Db::execute("delete from `user` where id <?",[6]);
+                    //下标占位
+                        // $data = Db::execute("delete from `user` where id >:id",['id'=>3]);
+                    //返回影响的行数
+                        // echo $data;
+                }
+
+            /*修改数据*/
+                public function update(){
+                    //执行修改
+                        // $data = Db::execute("update `user` set my_pass='987654' where id = 1");
+                    //占位符删除
+                        // $data = Db::execute("update `user` set my_pass='987654' where id = ?",[1]);
+                    //下标占位
+                        $data = Db::execute("update `user` set my_pass='987654' where id = :id",['id'=>1]);
+                    //返回影响的行数
+                        echo $data;
+                }
+
+            /*查询数据*/
+                public function select(){
+                    //系统类(主要使用)
+                        $data1 = Db::query('select * from `user`');
+                        // dump($data1);
+
+                    //传入数据(占位符)
+                        $data2 = Db::query('select * from `user` where id>=? and id<=?',[0,5]);
+                        dump($data2);
+
+                    //获取最后执行的sql语句
+                        echo Db::getLastsql();
+
+
+                }
+
+            /*获取最后执行的sql语句*/
+                echo Db::getLastsql();
+
+    4、/*创建资源模块(用户模块)*/
+        1、在tp根目录用命令或手动创建一个资源路由
+            例：
+                php think make:controller app\index\controller/User1
+        
+        2、写资源路由
+            [详情看index下的user1控制器路由声明user]
+            
+    5、/*tp数据库处理*/
+
+        1、/*单表查询操作*/
+            1、table方法查询
+                ·查询所有数据
+                    $data = Db::table("user")->select();
+                
+                ·查询一条数据
+                    $data = Db::table("user")->find()
+
+            2、name方法查询
+                ·用name作为查询会自动添加配置文件的表前缀
+                ·用name查询所有数据
+                    $data = Db::name("user")->select();
+                ·用neme查询单条数据
+                    $data = Db::name("user")->find();
+
+            3、助手函数查询db()
+                //查找所有数据·
+                    $data = db("user")->select();
+                //查询单条
+                    $data = db("user")->find();
+            
+            4、where条件匹配查询
+                //等比查询
+                    $data = Db::table("user")->where('id','1')->select();
+                
+                //比较查询
+                    $data = Db::table("user")->where('id','<=','3')->select();
+                
+                //比较限制查询
+                    $data = Db::table("user")->where('id','<=',5)->where('id','>=','2')->select();
+                
+                //模糊查询
+                    $data = Db::table("user")->where('my_name','like','%e%')->select();
+                
+                //字符串查询
+                    $data = Db::table("user")->where("id >= 3 and id <= 5 ")->select();
+                
+                //数组查询
+                    $data = Db::table("user")->where(["id"=>['<=',3],'my_name'=>['like','%e%']])->select();
+                
+                //数组单字段多重查询
+                    $data = Db::table("user")->where(["id"=>['>=',3]])->where(["id"=>['<=',5]])->select();
+                
+            5、whereOr或者匹配
+                //或者匹配
+                    $data = Db::table("user")->where("id",'<=','5')->whereOr('id','>=','5')->select();
+                //或者模糊匹配
+                    $data = Db::table("user")->where("my_name",'like','%e%')->whereOr("my_name",'like','%M%')->select();
+            
+            6、limit 截取数据
+                //截取指定条数
+                    $data = Db::table("user")->limit(5)->select();
+                
+                //截取5条数数据从第5条后面开始(6开始)
+                    $data = Db::table("user")->limit(5,5)->select();
+
+            7、Order 排序
+                //升排序
+                    $data = Db::table("user")->order('id')->select();
+                
+                //降排序
+                    // $data = Db::table("user")->order('id','desc')->select();
+
+            8、field查询指定字段
+                //查找指定字段
+                    $data = Db::table("user")->field("my_name,my_pass")->select(); 
+                    $data = Db::table("user")->field(["my_name","my_pass"])->select(); 
+                
+                //声明别名
+                    $data = Db::table("user")->field("my_name name,my_pass pass")->select(); 
+                    $data = Db::table("user")->field(["my_name"=>'name',"my_pass"=>'pass'])->select(); 
+                
+                //sql系统函数(计算数据库有多少条数据)
+                    $data = Db::table("user")->field("count(*) as tot")->select();
+                    $data = Db::table("user")->field(["count(*)"=>"tot"])->select();
+
+                //排除字段
+                    $data = Db::table("user")->field("my_name,my_pass",true)->select(); 
+                    $data = Db::table("user")->field(["my_name","my_pass"],true)->select(); 
+
+            9、page 页码计算方法(实现分页)
+                //1参：是页数自动计算数据段
+                //2参：是显示数据的行数
+                    $data = Db::table("user")->page('1,5')->select();
+
+            10、group分组聚合
+                //统计相同的数量
+                    $data = Db::table("user")->field("my_pass,count(*) as tot")->group("my_pass")->select();
+                        //选择表 选择显示数据 选择聚合字段 输出
+            
+            11、having对分组聚合的数据进行过滤(只能结合group分组使用)
+                $data = Db::table("user")->field("my_pass,count(*) as tot")->group("my_pass")->having('tot >= 1')->select();
+
+        2/*多表查询*/
+
+            例:$data = Db::query("select goods.*,type.name as type_name from type,goods where type.id = goods.cid");
+            
+            1、系统方法join
+                //内连实现数据库连接(默认)
+                    $data = Db::table("goods")->field("goods.*,type.name as type_name")->join("type","type.id=goods.cid")->select();
+                
+                //右连接
+                    $data = Db::table("goods")->field("goods.*,type.name as type_name ")->join("type","type.id = goods.cid","right")->select();
+                
+                //左连接
+                    $data = Db::table("goods")->field("goods.*,type.name as type_name ")->join("type","type.id = goods.cid","left")->select();
+            
+            2、别名
+                // $data = Db::table("goods")->alias('g')->field("g.*,t.name as type_name")->join("type t","t.id=g.cid")->select();
+            
+            3、union集合
+                    $data = Db::field("my_name")->table("user")->union("select name from `goods`")->select();
+            
+            4、bind绑定参数
+                //尽量不要用原生sql,容易给sql注入,尽量使用系统函数
+                    // $id = input("id");
+                    // $data = Db::table("goods")->where("id",":id")->bind(["id"=>[$id,\PDO::PARAM_INT]])->delete();
+            
+            5、统计数据
+                //最大值
+                    $data = Db::table("goods")->max('price');
+                //最小值
+                    $data = Db::table("goods")->min('price');
+                //平均值
+                    $data = Db::table("goods")->avg('price');
+                //和
+                    $data = Db::table("goods")->sum('price');
+                //统计有多少条数据
+                    $data = Db::table("goods")->sum('id');
+
+            6、增加数据
+                //数组中的字段名一定要与数据库的字段名一致(默认返回影响行数)
+                    1、单条数组插入
+                            $data =[
+                                'my_name'=>'张三',
+                                'my_pass'=>'123',
+                                'age'=>18,
+                            ];
+                        //执行插入
+                            /$code = Db::table('user')->insert($data);
+
+                        //db助手插入(都一样)
+                            $code =  db('user')->insert($data);
+
+                    2、多条数组插入
+                            $data =[
+                                [
+                                    'my_name'=>'李三',
+                                    'my_pass'=>'123',
+                                    'age'=>19,
+                                ],
+                                [
+                                    'my_name'=>'王五',
+                                    'my_pass'=>'124',
+                                    'age'=>24,
+                                ]
+                            ];
+                        //插入多条数据
+                            $code = Db::table('user')->insertAll($data);
+
+                    3、获取最后插入的id
+                            $data =[
+                                'my_name'=>'贼六',
+                                'my_pass'=>'123',
+                                'age'=>18,
+                            ];
+                            $code = Db::table('user')->insertGetId($data);
+                                //返回最后插入的id
+
+            7、更新数据update
+                例：$code = Db::table("user")->where('id < 10')->update(['age'=>1]);
+            
+                例：修改一个值setField
+                    $code = Db::table("user")->where('id', 11)->setField(['my_pass'=>'abc']);
+
+                1、实现自增加setInc
+                    //1参字段名 || 2参 增或减的数量
+                    $code = DB::table("user")->where('id',1)->setInc("age",2);
+
+                2、实现自减setDec
+                    $code = DB::table("user")->where('id',13)->setDec("age",1);
+
+                3、助手函数(都一样)
+                    $code = db('user')->where('id',1)->setInc("age",2);
+
+                4、删除数据
+                    //删除一条
+                        $code = Db::table("user")->where("id","14")->delete();
+                    //删除多条
+                        $code = Db::table('user')->where("id in(10,11,12,13)")->delete();
+                        $code = Db::table('user')->delete([15,16,17,18]);
+
+                    //删除区间数据
+                        $code = Db::table('user')->where("id >= 19 and id <= 21")->delete();
+
+        3/*事务*/
+            //事务
+                //前置引擎要基于lnnoDB
+                public function shiwu()
+                {
+                    1|自动事务
+                        Db::transaction(function(){
+                            //删除一条数据
+                                Db::table("user")->delete(23);
+                            //删除一条错误的数据触发回滚
+                                Db::table("user")->delete();
+                        });
+
+                    2、手动事务 
+                            a、开启事务
+                                  Db::startTrans();
+                             b、执行事务
+                                  try{
+                                      //删除正确
+                                      $a = Db::table("user")->delete(24);
+                                      //判断是否删除成功
+                                      if(!$a){
+                                          //抛出异常 
+                                          throw new \Exception('删除第一条数据出错');
+                                      
+                                      //删除错误
+                                      $b = Db::table("user")->delete();
+                                      //判断是否删除成功
+                                      if(!$b){
+                                          //抛出异常
+                                          throw new \Exception('删除第二条数据出错');
+                                      
+                                      //执行提交操作
+                                      Db::commit();
+                                      echo "删除成功";
+                                  }catch(\Exception $e){
+                                      //回滚事务
+                                      Db::rollback();
+                                      //打印错误信息
+                                      dump($e->getMessage());
+                                  }
+
+                    3、简单手动控制
+                        a、开启事务
+                            Db::startTrans();
+
+                            //删除数据1
+                                $a = Db::table('user')->delete(24);
+                            //删除数据2
+                                $b = Db::table('user')->delete(55);
+
+                        b、判断是否执行成功
+                            if($a && $b){
+                                //提交数据
+                                Db::commit();
+                            }else{
+                                //回滚
+                                Db::rollback();
+                            }
+
+                }
+
+        4/*视图查询*/    
+             1、视图查询
+                public function views(){
+                    Db::view("goods","id,name,price")
+		        		->view("type",'name tname',"type.id=goods.cid")
+		        		->select();
+                    echo Db::getastSql();
+                    dump($data);
+                }
+
+/*模型*/
+    1、新建数据模型
+        a、手动创建
+            去model文件夹下创建
+            引入model类
+
+        b、命令创建
+            ·cnm去根目录
+            ·php think make:model app\index\model\admin
+
+        c、注意(一个表一个模型)
+            1、数据模型的名字,建议与数据库的数据库表名一致
+
+            2、如果数据模型名字和数据库表名字不一致 可以设置表名
+                protected $table="user";
+            
+            3、如果数据库表名是a_b的模型名应该设置为aB;
+
+            4、首字母一定要大写
+
+    2、连接数据库
+        ·1【默认】
+            连接与模板名相同的数据库
+
+        ·2【手动设置】
+            protected $connection=[]
+
+        ·3)注意(一个表一个模型)
+            1、数据模型的名字,建议与数据库的数据库表名一致
+
+            2、如果数据模型名字和数据库表名字不一致 可以设置表名
+                protected $table="user";
+
+    3、控制实例化模型
+          1·实例化调用
+                //前置：$user = new \app\index\model\Admin;
+                dump($user::get(1)->toArray());
+            
+            2·静态方法调用
+                //前置:use \app\index\model\Admin as user
+                dump(user::get(1)->toArray());
+            
+            3·loader方法调用
+                //前置:use think\Loader;
+                $users = Loader::model("type");
+                $res = $users::get(1);
+                dump($res->toArray());
+
+            4·助手函数
+                $uesr = model("user");
+                $res = $user::get(1);
+                dump($res->toArray());
+
+    4、查询数据
+        
+        1、/*查询单条数据get*/
+            
+               
+
+        2、/*查询多条数据*/
+
+
 
 
 
