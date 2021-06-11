@@ -72,23 +72,23 @@ class admin extends Model
 
     //自动修改(很少用)
         //设置自动更新
-            protected $auto = ['time','User_status'];
+            // protected $auto = ['time','User_status'];
             
         //书写自动完成
-            protected function setTimeAttr(){
-                return time();
-            }
-            protected function setUserStatusAttr(){
-                return 1;
-            }
+            // protected function setTimeAttr(){
+            //     return time();
+            // }
+            // protected function setUserStatusAttr(){
+            //     return 1;
+            // }
     
    
     //自动写入时间戳
-        protected $autoWriteTimestamp = true;
+        // protected $autoWriteTimestamp = true;
     
     //如果数据库字段与预设不一样可以设置
-        protected $createTime = 'create_times';
-        protected $updateTime = 'update_times';
+        // protected $createTime = 'create_times';
+        // protected $updateTime = 'update_times';
 
     //软删除
         //引入类

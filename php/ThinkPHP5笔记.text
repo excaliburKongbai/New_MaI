@@ -1619,6 +1619,21 @@
             4、如果字段名与预设不一致可以重写
                 例: protected $deleteTime = 'delete_times';
 
+            5、绕过软删除直接删掉
+                1、加true
+                    $res = User::destroy(19,true);
+
+            6、打印被软删的数据
+                //读取全部数据(包括软删)
+                    // $res = User::withTrashed()->find(20);
+                    // $res = User::withTrashed()->select();
+
+                //读取全部被软删除的数据
+                    // $res = User::onlyTrashed()->select();
+                    // $res = User::onlyTrashed()->fing();
+
+
+
 
 /****************************TP5.0概述END*****************************/
 

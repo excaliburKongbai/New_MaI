@@ -294,12 +294,31 @@ class admin
     
     //软删除
         public function ruan(){
-            //删除数据
-                // $res = User::destroy(['id'=>19]);
+            //软删除数据
+                // $res = User::destroy(['id'=>20]);
 
             //查询数据
                 // $res = User::get(['id'=>20]);
-            dump($res);
+                    // $res = User::select();
+
+            //绕过软删直接删除
+                //1、加true
+                    // $res = User::destroy(19,true);
+
+            //读取被软删除的数据
+                // $res = User::withTrashed()->find(20);
+                // $res = User::withTrashed()->select();
+
+            //读取全部被软删除的数据
+                // $res = User::onlyTrashed()->select();
+                // $res = User::onlyTrashed()->fing();
+
+            //打印多条数据
+            //   foreach ($res as $key => $value) {
+            //     dump($value->toArray());
+            //   }  
+            //打印一条数据
+            // dump($res);
         }
     
 
