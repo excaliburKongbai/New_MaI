@@ -1289,17 +1289,335 @@
                 $res = $user::get(1);
                 dump($res->toArray());
 
-    4、查询数据
+    4、查询修改数据
         
         1、/*查询单条数据get*/
-            
-               
+            //get方法
+                // $res = User::get(1);//找主键
+                // $res = User::get(["age"=>"20"]);//找指定的数据
 
+            //闭包方法
+                // $res = User::get(function($query){
+                //     $query->where("age",20);
+                // });
+
+            //fing方法
+                // $res = User::where("age",25)->find();
+            
+            //打印单条数据
+                // dump($res->toArray());
+               
         2、/*查询多条数据*/
 
+            /*查询全部数据all*/
+                $res = User::all();
+            
+                1、查询主键(id)
+                $res = User::all("1,3");
 
+                2、数组查询
+                $res = User::all(['2','3']);
 
+                3、数组指定条件
+                $res = User::all(["age"=>25]);
 
+                4、闭包
+                $res = User::all(function($query){
+                    $query->where("password",123)
+                        ->whereOr("name",'Ex_maid')
+                        ->order('id',"desc");
+                        //对数据进行排序
+                });
+                        
+                //打印多条数据
+                    foreach ($res as $key => $value) {
+                        dump($value->toArray());
+                    }
+
+            /*查询所有数据select*/ 和all方法基本类似
+                $res = User::select();
+
+                //截取数据
+                $res = User::limit(2)->select();
+
+                //打印多条数据
+                foreach ($res as $key => $value) {
+                    dump($value->toArray());
+                }
+
+        3、/*查询并且获取对应字段的值*/
+
+            1、获取单个字段(只能一个)
+                $res = user::where("id",5)->value('name');
+                //匹配的数据-----value('要输出的字段');
+
+            2、获取一列值(可以多带一个列,第二列的参数会变成数组下标)
+                $res = user::column("name","id");
+
+            3、通过Query查询
+                User::where('id','>',10)->select();
+                User::where('name','thinkphp')->find();
+                
+            //打印数据
+                dump($res);
+
+        4、/*增加数据*/
+
+            1、增加单条数据
+                1、实例化增加数据
+                    //先实例化模型
+                        $user = new User;
+                    //设置值
+                         $user->name = "李四";
+                         $user->Password = "fwkt";
+                         $user->age = "18";
+                    //提交数据
+                         dump($user->save());
+
+                //通过data方法增加
+                    $user->data([
+                        'name'=>'小明',
+                        'Password'=>'1234560',
+                        'age'=>14,
+                     ]);
+                    提交数据
+                        dump($user->save());
+
+                //实例化方法
+                    $user = new User([
+                        'name'=>'林北2',
+                        'Password'=>'1234560',
+                        'age'=>28,
+                        'sex'=>'1',
+                    ]);
+                    //提交数据 
+                    dump($user->allowField(true)->save());
+                        //allowField(true):屏蔽数据库中不存在的字段
+                        //allowField(['name','age']):可以限制写入的字段
+
+                //获取自增的id
+                    echo $user->id;
+
+            2、增加多条数据
+                 $user = new User;
+        
+                $list=[
+                    ['name'=>'李老师','Password'=>'245','age'=>'54'],
+                    ['name'=>'切嗣','Password'=>'1245','age'=>'44']
+                ];
+                $user->saveAll($list);
+
+        5、/*修改数据*/
+            1、删除
+                1、获取数据再删除  
+                    $user =User::get(['id'=>11]);
+                    dump($user->delete());
+    
+                2、唯一主键删除destroy(可以删除多条数据,例:"1,2,3")
+                    $user= User::destroy(12);
+                    dump($user);
+    
+                3、删除指定条件
+                    $user=User::destroy(['name'=>'切嗣']);
+                
+                4、删除多个条件
+                    $user=User::destroy(['Password'=>'fwkt','age'=>'18']);
+    
+                5、闭包删除
+                    $user = User::destroy(function($query){
+                        $query->where('name','like','%林北%');
+                    });
+                    
+                //打印影响行数
+                    echo $user;
+
+            2、修改
+                1、字段修改
+                    $user =User::get(18);
+                    $user->age=18;
+                    $user->save();
+
+                2、数组修改
+                    $user = new User;
+                    $res = $user->save([
+                        'Password'=>'1314520',
+                        'age'=>26,
+                    ],['id'=>17]);
+
+                4、修改数据(表单传值)
+                    a·模拟表单传值
+                        $_POST['name']='伞兵';
+                        $_POST['Password']='sbyhlby';
+                        $_POST['age']='26';
+                        $_POST['sex']='nan';
+                        $_POST['id']=5;
+
+                    b·实例化
+                        $user =new User;
+                    c·过滤输入的字段,并且修改
+                        $user->allowField(['name','Password','age'])
+                        ->save($_POST,['id' => $_POST['id']]);
+
+                5、批量更新数据
+                    a·声明数据
+                        $data= [
+                            ['id'=>'13','name'=>'二哈',"Password"=>'1314520','age'=>'8'],
+                            ['id'=>'15','name'=>'咖啡猫',"Password"=>'1314520','age'=>'12'],
+                        ];
+                    b·实例化
+                        $user = new User;
+                    c·更改数据
+                        $user->saveAll($data);
+
+                6、静态
+                7、闭包
+                    [自己文档找]
+
+        6、/*聚合*/
+            作用:统计数据条数
+            1、查询全部数据
+                $tot=User::count();
+                dump($tot);
+
+            2、统计条件判断
+                $tot = User::where('id > 3')->count();
+                dump($tot);
+
+            3、统计最大值(最小/平均/求和 都一样)
+                $max = User::max('age');
+                dump($max);
+
+        7、/*获取器*/
+
+            1、数据模型
+                【注意】Sex的获取器(get数据库字段名Attr)
+
+                1、方法
+                    public function getsexAttr($val){
+                    switch ($val) {
+                        case '0':
+                            return '未定义';
+                            break;
+            
+                        case '1':
+                            return '男';
+                            break;
+            
+                        case '2':
+                            return '女';
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
+                    }
+                    }
+
+                2、方法
+                    public function getUserStatusAttr($val){
+
+                        $stats = [0=>'未激活',1=>'正常',2=>'限制用户'];
+
+                        return $stats[$val];
+                    }  
+
+            2、控制器  
+                //获取数据
+                    $user = User::get(['id',15]);
+                //经过模型获取器判断输出
+                    dump($user->toArray());
+                //不经过模型数据
+                    dump($user->getData());
+
+        8、/*修改器*/
+            //数据手动赋值的时候自动进行转换处理
+            1、模型
+                //名字要与数据库的一致
+                public function setPasswordAttr($val){
+                    //加密
+                    return md5($val);
+                }
+
+            2、控制器
+                //注意:只能被save触发，update无法触发
+                public function setPassword(){
+                    //修改密码经过模型加密
+                    $user = new User;
+                    $res =$user->save(['Password'=>'1234'],['id'=>1]);
+                    dump($res);
+                }
+
+            3、批量修改
+
+        9、/*自动完成*/
+            //没有手动赋值的情况下进行手动处理
+            //无论更新还是修改都会执行
+
+            1、模型
+                1、自动修改(很少用)
+                    //设置自动更新
+                        protected $auto = ['time','User_status'];
+
+                    //书写自动完成
+                        protected function setTimeAttr(){
+                            return time();
+                        }
+                        protected function setUserStatusAttr(){
+                            return 1;
+                        }
+                2、插入执行
+                    protected $insert=['create_time'];
+
+                3、更新执行
+                    protected $update=['update_time'];
+
+            2、控制器
+                1、添加
+                    public function setAdd(){
+                        $user = new User;
+                        $res  = $user->save(['name'=>'宗','Password'=>'123','age'=>23,'sex'=>1]);
+                        dump($res);
+                    }
+
+                2、修改
+                    public function setSave(){
+                        $user = new User;
+                        $res  = $user->save(['name'=>'宗','Password'=>'123','age'=>23,'sex'=>1],['id'=>8]);
+                        dump($res);
+                    }
+
+        10、/*时间戳*/
+
+            1、可以在用户配置里设置自动插入时间戳('更新',’添加‘)
+                地址:php\thinkphp5.0\application\database.php
+                // 自动写入时间戳字段
+                'auto_timestamp'  => false,
+
+            2、可以在模型里设置自动插入
+                1、自动写入时间戳
+                    protected $autoWriteTimestamp = true;
+
+                2、如果数据库字段与预设不一样可以设置
+                    protected $createTime = '写入时间字段';
+                    protected $updateTime = '更新时间字段'
+                
+                3、取消更新时间戳
+                    protected $createTime = false;
+
+        11、/*软删除*/
+            //数据被加上限制无法访问达到伪删除
+
+            1、在模型里引入softDelete类
+                例:use traits\model\SoftDelete;
+            
+            2、model类里引入softDelete类
+                例:use SoftDelete;
+
+            3、需要在数据库里设置一个字段
+                例：delete_time
+
+            4、如果字段名与预设不一致可以重写
+                例: protected $deleteTime = 'delete_times';
 
 
 /****************************TP5.0概述END*****************************/
