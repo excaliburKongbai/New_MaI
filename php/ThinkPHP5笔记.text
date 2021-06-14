@@ -2021,6 +2021,44 @@
                     </ul>
 
     6、验证器
+        1、引入系统验证器
+            use think\Validate
+
+        2、实例化验证器类
+            $validate = new validate([
+                //--判断信息--
+                //不能为空--限制6-12位
+                "username"=>"require|length:6,12"
+                //不能为空--数据是否一致
+                "password"=>"require|confirm:orpassword"
+            ],
+            [
+                //--错误信息--
+                "username.require"=>"用户数据不存在",
+                "username.length"=>"用户名长度不足"
+                "password.confirm"=>"两次密码不一致"
+            ]
+            
+            )
+
+        3、接收数据并且进行验证
+            //接收数据
+                $data = input('poot.');
+
+            //判断数据
+                if($validate->check($data)){
+                    //写入数据
+                    if(Db::table('admin')->insert($arr)){
+                        $this->success('添加成功');
+                    }else{
+                        $this->error('添加错误');
+                    }
+                }else{
+                    //错误信息
+                    $validate->getError();
+                }
+
+
 
 
 
