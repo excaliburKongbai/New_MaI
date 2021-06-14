@@ -1632,6 +1632,397 @@
                     // $res = User::onlyTrashed()->select();
                     // $res = User::onlyTrashed()->fing();
 
+/*视图*/
+    //传参('参数1',[参数2],[参数3],[参数4]);
+
+        1)参数:渲染文件名
+
+        2)参数:传入赋值参数
+
+        3)参数:模板替换
+
+        4)参数:
+
+    1、加载页面
+
+        (1、controller类的fetch输出(需要继承Controller)
+            return $this->fetch('',['name'=>'thinkphp']);
+        
+        (2、助手函数调用
+            return view();
+        
+        (3、实例化view加载视图(不推荐)
+            $view = new View;
+            return $view->fetch();
+
+    2、视图赋值
+        1、assign给视图传参(可以是变量)
+            //单个
+                $this->assign('name','xcw');
+            //批量
+                $this->assign([
+                    'age' => 18,
+                    'sex' => '男'
+                ]);
+            //模板数据
+                return $this->fetch();
+
+        2、view和fetch赋值
+        
+            //view和fetch传参
+                return view('',['name'=>'罗霄','age'=>18,'sex'=>'女']);
+            
+                return $this->fetch('',['name'=>'罗霄2','age'=>18,'sex'=>'女2']);
+
+        3、对象赋值
+            //赋值    
+                $this->view->name = "最上";
+                $this->view->age = '40';
+                $this->view->sex = '女';
+
+            //渲染输出
+                return view();
+
+    3、模板替换
+        //作用:设定关键字替换指定的内容如 文件件地址
+
+        1、默认文件设置(全局替换)
+            a、地址(application\config.php)
+                  'view_replace_str'       => [
+                    //前台文件
+                        '__HOMES__'   =>   '/static/home/public',
+                    //后台文件
+                        '__ADMINS__'  =>   '/static/admin/public'
+                ],
+
+        2、//view和fetch(局部替换)
+                return view('',[],[
+                    '__HOMES__'=>'局部前台',
+                    '__ADMINS__'=>'局部后台']);
+
+    4、模板渲染
+        //默认加载 当前控制器 当前方法 的视图
+            例:return view();
+
+        //可以加载其他控制器的 其他方法
+            例:return view('user/index');
+
+    5、模板 
+        1、输出数组\字符串
+        
+            前置:分配数据assing
+                //字符串
+                    $this->assign('str','单条数据');
+
+                //数组
+                    $data = ([
+                        'name'=>'张三',
+                        'age'=>'18',
+                        'sex'=>'nan'
+                    ]);
+                    $this->assign('data',$data);
+
+            1、打印字符串
+                <h2>{$str}</h2>
+            
+            2、打印数组
+                <h2>{$data.name}</h2>
+                <h2>{$data.age}</h2>
+                <h2>{$data.sex}</h2>
+          
+        2、修改模板替换符号和函数替换符
+            地址(application\config.php)   
+
+            1、输出
+                // 模板引擎普通标签开始标记
+                    'tpl_begin'    => '{',
+                // 模板引擎普通标签结束标记
+                'tpl_end'      => '}', 
+            
+            2、函数
+                // 标签库标签开始标记
+                'taglib_begin' => '{',
+                // 标签库标签结束标记
+                'taglib_end'   => '}',
+
+        3、变量输出
+
+            1)使用PHP函数输出
+                <!-- 输出md5加密密码 -->
+                    <h2>{$pass|md5}</h2>
+                <!-- 输出转换格式的时间 -->
+                    <h3>{$time|date = "Y-m-d H:i:s",###}</h3>
+            
+            2)函数的嵌套
+                <!-- 加密|大写|截取0-5 -->
+                 <h3>{$pass|md5|strtoupper|substr=0,5}</h3>
+
+            3)单独使用函数
+                <h3>{:md5($pass)}</h3>
+                <h3>{:date('y-m-d H:i:s')}</h3>
+
+            4)默认值defaul
+                //作用:无指定数据时可以填入默认值静默错误
+                <h3>默认值:{$names|default = '默认'}</h3>
+
+            5)三元运算符
+                //判断变量是否存在或者不等于0
+                <h3>{$status == 1?'yes':'no'}</h3>、
+                
+            6)计算
+                <h3>{$a+$b}</h3>
+
+            7)原样输出
+                //被包裹的字段不会被解析
+                {literal} 内容 {/literal}
+
+            8)输出系统变量(不用assign赋值)
+                <h3>{$_get['id']}</h3>
+                或
+                <h3>{$Think.get.id}</h3>
+                //获取host地址
+                <h3>{$_SERVER['http_host']}</h3>
+
+            9)输出常量
+                //获取当前目录地址的常量
+                <h3>{$Think.app_path}</h3>
+
+            10)配置输出
+                <h3>{$Think.config.default_module}}</h3>
+
+            11)语音包输出
+                <h3>{$Think.lang.page_error}</h3>
+
+        4、模板注释
+            //作用:不经过框架处理减缓服务器压力
+            1、单行注释
+                {/*注释内容*/}或者{//注释内容}
+
+            2、多行注释
+                {/*
+                    多行注释内容
+                */}
+
+        5、模板包含
+            //作用:在模板里引入其他模板例如页头页尾
+            {include file = "在view文件下的地址"}
+
+        6、模板布局
+            //注意每个文件只能引入一个布局
+            1、在view创建一个文件用于存放公共文件
+                例:layout.html
+
+            2、在layout.html页面里非公共区域替换成{__CONTENT__}
+                //解释:公共区域保留,非公共区域替换
+                例:{__CONTENT__}
+
+            3、在控制器视图里添加{layout name="公共文件地址" /}
+                 //解释:载入公共区域
+                {layout name="layout" /}
+
+        7、模板继承
+            //解释:继承css样式
+            1、建立公共模板
+                1)在view根目录建立公共模板
+
+                2)在要写入公共模板的地方写入标签
+                    例:{block name = '模块名字'} {/block}
+
+                3)在要继承的公共模板的页面载入模板
+                    例:{extend name= "公共模板名字" /}
+
+                4)在继承模板插入html代码
+                    例: {block name="main"}
+                            <<——html代码——>>
+                        {/block}
+
+                5)公共文件注入
+                    1、在view创建public公共文件存储静态模块
+
+                    2、引入公共静态文件
+                        {include file = "public目录下的模块地址"}
+
+        8、内置标签
+
+            1、内置循环
+                1)volist循环
+                    1、全部遍历
+                        //使用例:
+                            {volist name="传入值" id='value'}
+                                <h3>{$value.?}</h3>
+                            {?volist}
+                    
+                    2、限制遍历
+                        //从第5个开始,遍历5条数据
+                        offset="2" length="5"
+
+                    3、奇偶条数设置(key除以指定数的结果分配分支)
+                        //算法公式:mod除以key=得数
+                        {volist name="传入值" id='val' mod='除数'}
+                            {eq name='mod' value='得数0'}
+                                <h3>{$value.?}</h3>
+                            {/eq}
+                            {eq name='mod' value='得数1'}
+                                <h3>{$value.?}</h3>
+                            {/eq}
+                        {?volist}
+
+                    4、数据为空输出警告empty
+                        1、普通警告
+                            {volist name="data" id='value' empty="数据为空" } 
+                                <<数据体>>
+                            {/volist}
+                        2、传入警告
+                            {volist name="data" id='value' empty="$empty" } 
+                            //数据从控制器通过assign传入
+
+                    5、key
+                        //解释:从1开始的id值
+                        例:{volist name="data" id='value' key='k' } 
+                                {$k}//输出
+                            {\volist}
+
+                2)foreach循环
+                    ·name:      需要遍历的数组
+                    ·item       接收遍历的数据
+                    ·key        顺序遍历id                    
+
+                    {foreach name="data" item='val'}
+                        <li>{$key}) 名字:{$val.name} 年龄:{$val.age}} </li>
+                    {/foreach}
+
+                3)for循环
+
+                    ·start          开始值
+                    ·end            结束值
+                    ·comparison     比较条件
+                    ·step           步数
+                    ·name           循环变量名(默认$i)
+
+                    //正序
+                    {for start='0' end='10' comparison='elt' step='2' name='abc'}
+                        <li>{$abc}</li>
+                    {/for}
+
+                    //倒序
+                    {for start='10' end='0' comparison='gt' step='-1' name='abc'}
+                        <li>{$abc}</li>
+                    {/for}
+
+            2、比较标签
+                例:
+                    {eq name='被比较值' value='比较值'}
+                        <<满足输出>>
+                    {eq}
+
+                eq或者 equal	    等于
+                neq 或者notequal    不等于
+                gt	                大于
+                egt	                大于等于
+                lt	                小于
+                elt	                小于等于
+                heq	                恒等于
+                nheq	            不恒等于
+
+            3、条件判断
+
+                1、if标签
+                    condition:  比较标签(比较值要用$)
+
+                    例:
+                        {if condition="$a==$b"}
+                            <p>数值相对</p>
+                        {else /}
+                            <p>数值不相对</p>
+                        {/if}
+
+                2、switch标签
+                    name:   比较的值
+
+                    例:
+                        {switch naem="k"}
+                            {case value='?'}<<内容1>>{/case}
+                            {case value='?'}<<内容2>>{/case}
+                            {case value='?'}<<内容3>>{/case}
+                            {default /}<<都非>>
+                        {/switch}
+
+                3、in判断指定数值是否在一个范围内
+                    naem:       被比对值
+                    value:      比对数组
+
+                    例:
+                        {in naem='k' value='1,2,3,4,5,6,7'}
+                            <p>合法数值</p>
+                        {else /}
+                            <p>非法数值</p>
+                        {/in}
+
+                4、BETWEEN 和 NOTBETWEEN标签(no就是非)
+                    1、BETWEEN
+                        name:       被比较数值       
+                        value:      比较数值区间(参数1,参数2)
+
+                    例:
+                        {between name='k' value='1,2'}
+                            <li>范围内</li>
+                        {else/}
+                            <li>非法数值</li>
+                        {/between}
+
+            4、原生PHP
+                    {php}
+                        <<php代码体>>
+                    {/php}
+
+            5、标签嵌套
+                {volist name='data' id='val'}
+                    {php}
+                        $sw=$a % $b;
+                    {/php}
+
+                    {switch}
+                        {case value='0'}<<内容1>>{/case}
+                        {case value='1'}<<内容2>>{/case}
+                        {case value='2'}<<内容3>>{/case}
+                    {/switch}
+
+                {\volist}
+
+            6、多维数组的遍历 
+                1、获取数据并且封装成二维数组
+                    public function goods()
+                    {
+                        $type = Db::table('menu')->select();
+
+                        //把doods表符合判断的数据遍历到$value['goods']
+                        foreach ($type as $key => &$value) {
+                            $value['goods'] = Db::table('goods')->where("cid = $value[id]")->select();
+                        }
+                        
+                        //渲染视图
+                        return $this->fetch('', ['type' => $type]);
+                    }
+                
+                2、在视图遍历数据
+                    <ul>
+                        {volist name='type' id='val'}
+
+                            //分类
+                            <h1>分类:{$val.name}</h1>
+
+                            {volist name='val.goods' id='val'}
+                                
+                                //分类里的数据
+                                <h4>名字:{$val.name} 库存:{$val.quantity} 价格:{$val.Theprice} </h4>
+                            {/volist} 
+
+                        {/volist}
+                    </ul>
+
+    6、验证器
+
+
 
 
 
