@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table width='800px' align="center" border="1">
+        <th>ID</th>
+        <th>名字</th>
+        <th>年龄</th>
+        <th>密码</th>
+        <th>注册时间</th>
+
+        {volist name='data' id='val'}
+            <tr>
+                <td>{$val.id}</td>
+                <td>{$val.my_name}</td>
+                <td>{$val.age}</td>
+                <td>{$val.my_pass}</td>
+                <td>{$val.time}</td>
+            </tr>
+        {/volist} 
+    </table>
+    {$data->render()}
+
+</body>
+
+</html>
